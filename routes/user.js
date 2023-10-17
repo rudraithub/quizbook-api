@@ -28,7 +28,8 @@ router.post('/users/signup', async (req, res) => {
 
     try {
         const { firstName, lastName, email, gender, DOB,professionId, mobileNumber } = req.body
-
+        
+        res.setHeader("Content-Type", "application/json")
      
         const prof = await axios.get('http://localhost:3000/users/profession')
         // console.log(prof.data)
@@ -59,7 +60,7 @@ router.post('/users/signup', async (req, res) => {
             });
         }
 
-        const isEmail = User.findOne({email})
+        const isEmail = await User.findOne({email})
         if(isEmail){
             res.status(400).json({
                 status: "fails",
@@ -67,7 +68,7 @@ router.post('/users/signup', async (req, res) => {
             })
         }
 
-        const isMob = User.findOne({mobileNumber})
+        const isMob = await User.findOne({mobileNumber})
         if(isMob){
             res.status(400).json({
                 status: "fails",
@@ -91,7 +92,7 @@ router.post('/users/signup', async (req, res) => {
         await newUser.save()
         
 
-        res.status(201).json({
+        return res.status(201).json({
             status: "success",
             newUser
         })
