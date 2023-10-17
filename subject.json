@@ -1,0 +1,10 @@
+{
+    "std": "6",
+    "subject" : [{
+        "subjectName": "maths",
+        "img": "a"
+    },{
+        "subjectName": "gujarati",
+        "img": "b"
+    }]
+}
