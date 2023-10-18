@@ -114,12 +114,20 @@ const standard = [
             })
         } catch (error) {
             res.status(400).json({
-                status:400,
+                status: 400,
                 message: error.message
             })
         }
     })
 
 
+// router.get('/std', async(req, res) => {
+//     try {
+//         const subData = await Subject.create(standard)
+//         res.json(subData)
+//     } catch (error) {
+//         res.status(400).json(error.message)
+//     }
+// })
 
-module.exports =router
+module.exports = router
