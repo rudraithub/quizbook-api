@@ -15,8 +15,16 @@ const standardSchema = mongoose.Schema({
         img: {
             type: String,
             default:"error"
+        },
+        id: {
+            type: Number,
+            required: true
         }
-    }]
+    }],
+    id:{
+        type:Number,
+        required: true
+    }
 })
 
 
