@@ -28,7 +28,8 @@ router.post('/users/signup', async (req, res) => {
 
     try {
         const { firstName, lastName, email, gender, DOB,professionId, mobileNumber } = req.body
-
+        
+        res.setHeader("Content-Type", "application/json")
      
         const prof = await axios.get('http://localhost:3000/users/profession')
         // console.log(prof.data)
@@ -54,24 +55,24 @@ router.post('/users/signup', async (req, res) => {
 
         if (!profession) {
             return res.status(400).json({
-                status: "fail",
-                error: "Invalid profession ID"
+                status: 400,
+                message: "Invalid profession ID"
             });
         }
 
-        const isEmail = User.findOne({email})
+        const isEmail = await User.findOne({email})
         if(isEmail){
-            res.status(400).json({
-                status: "fails",
-                error: "email is already registered!!!"
+            return res.status(400).json({
+                status: 400,
+                message: "email is already registered!!!"
             })
         }
 
-        const isMob = User.findOne({mobileNumber})
+        const isMob = await User.findOne({mobileNumber})
         if(isMob){
-            res.status(400).json({
-                status: "fails",
-                error: "mobile nubmer is already registered!!!"
+            return res.status(400).json({
+                status: 400,
+                message: "mobile nubmer is already registered!!!"
             })
         }
 
@@ -89,44 +90,60 @@ router.post('/users/signup', async (req, res) => {
         })
 
         await newUser.save()
+
+        const response = {
+            status: 200,
+            data: newUser,
+            message: 'successfully signup'
+        }
         
 
-        res.status(201).json({
-            status: "success",
-            newUser
-        })
+        res.status(201).json(response)
         // console.log(newUser)
         // console.log(res.status(201).send(newUser))
     } catch (e) {
-        res.status(400).json({
-            status: "fail",
-            error: e.message
-        })
+
+        const errorRes = {
+            status:400,
+            message: e.message
+        }
+
+        res.status(400).json(errorRes)
         // console.log(e.message)
     }
 })
 
 router.post('/users/login', async (req, res) => {
     try {
-        const { mobileNumber } = req.body;
+        const { mobileNumber, OTP } = req.body;
         const user = await User.findOne({ mobileNumber });
         // console.log(user)
 
         if (!user) {
             throw new Error('User not found');
         }
+     
+        if(!OTP || OTP === null || OTP.toString().length !== 4){
+            throw new Error('please provide 4 digit otp')
+        }
 
-        res.json({
-            status: "success",
-            user
-        });
+        const response = {
+            status: 200,
+            data: user,
+            message: 'login sucessfully'
+        }
+
+        res.json(response)
     } catch (error) {
-        res.status(400).json({
-            status: "fail",
-            error: error.message
-        });
+
+        const errorRes = {
+            status: 400,
+            message: error.message
+        }
+
+        res.status(400).json(errorRes);
     }
-});
+})
 
 router.get('/users/profession', (req, res) => {
     res.json(professions)
