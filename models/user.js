@@ -56,6 +56,10 @@ const userSchema = new mongoose.Schema({
             message: 'Please provide a valid mobile number',
         },
     },
+    OTP:{
+        type: Number,
+        // required: true
+    },
     profession: [{
         _id:{
             type: Number,
@@ -67,9 +71,42 @@ const userSchema = new mongoose.Schema({
         required: true,
         trim: true
         // enum: ['teacher', 'student', 'admin']
-    }}]
+    }}],
+    user_id: {
+        type: Number,
+        unique: true
+    }
 })
 
+userSchema.pre('save', async function (next) {
+    // Check if the user already has a userId
+    if (!this.user_id) {
+        // Generate a unique userId (e.g., a random alphanumeric string)
+        let generatedUserId;
+        let isUnique = false;
+        
+        while (!isUnique) {
+            generatedUserId = generateUserId(); // Implement your userId generation logic
+            // Check if the generated userId is unique in the database
+            const existingUser = await this.constructor.findOne({ userId: generatedUserId });
+            
+            if (!existingUser) {
+                isUnique = true;
+            }
+        }
+        
+        this.user_id = generatedUserId;
+    }
+    
+    next();
+});
+
+
+function generateUserId() {
+    const minUserId = 1000;
+    const maxUserId = 9999;
+    return Math.floor(Math.random() * (maxUserId - minUserId + 1)) + minUserId;
+}
 
 
 const User = mongoose.model('user', userSchema)

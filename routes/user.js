@@ -27,9 +27,8 @@ router.post('/users/signup', async (req, res) => {
 
 
     try {
-        const { firstName, lastName, email, gender, DOB,professionId, mobileNumber } = req.body
-        
-        res.setHeader("Content-Type", "application/json")
+        const { firstName, lastName, email, gender, DOB,professionId, mobileNumber, user_id } = req.body
+
      
         const prof = await axios.get('http://localhost:3000/users/profession')
         // console.log(prof.data)
@@ -86,7 +85,8 @@ router.post('/users/signup', async (req, res) => {
             profession: {
                 _id: profession.id,
                 name: profession.name
-            }
+            },
+            user_id
         })
 
         await newUser.save()
@@ -150,4 +150,3 @@ router.get('/users/profession', (req, res) => {
 })
 
 module.exports = router
-
