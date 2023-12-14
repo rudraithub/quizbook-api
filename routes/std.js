@@ -7,91 +7,9 @@ const router = express.Router()
 const chapterData = require('./chapter')
 const { default: mongoose } = require('mongoose')
 const question = require('./question')
+const standard = require('./standard')
 
-const standard = [
-    {
-        "std": "6",
-        "subject": [{
-            "id": 1,
-            "subjectName": "maths",
-            "img": "https://www.freepik.com/free-vector/cartoon-math-concept-background_4473415.htm#query=math%20book&position=13&from_view=keyword&track=ais"
-        }, {
-            "id": 2,
-            "subjectName": "gujarati",
-            "img": "https://www.freepik.com/free-vector/cartoon-math-concept-background_4473415.htm#query=math%20book&position=13&from_view=keyword&track=ais"
-        }, {
-            "id": 3,
-            "subjectName": "english",
-            "img": "https://www.freepik.com/free-vector/cartoon-math-concept-background_4473415.htm#query=math%20book&position=13&from_view=keyword&track=ais"
-        }],
-        "id": 1
-    },
-    {
-        "std": "7",
-        "subject": [{
-            "id": 4,
-            "subjectName": "maths",
-            "img": "https://www.freepik.com/free-vector/cartoon-math-concept-background_4473415.htm#query=math%20book&position=13&from_view=keyword&track=ais"
-        }, {
-            "id": 5,
-            "subjectName": "gujarati",
-            "img": "https://www.freepik.com/free-vector/cartoon-math-concept-background_4473415.htm#query=math%20book&position=13&from_view=keyword&track=ais"
-        }, {
-            "id": 6,
-            "subjectName": "english",
-            "img": "https://www.freepik.com/free-vector/cartoon-math-concept-background_4473415.htm#query=math%20book&position=13&from_view=keyword&track=ais"
-        }],
-        "id": 2
-    }, {
-        "std": "8",
-        "subject": [{
-            "id": 7,
-            "subjectName": "maths",
-            "img": "https://www.freepik.com/free-vector/cartoon-math-concept-background_4473415.htm#query=math%20book&position=13&from_view=keyword&track=ais"
-        }, {
-            "id": 8,
-            "subjectName": "gujarati",
-            "img": "https://www.freepik.com/free-vector/cartoon-math-concept-background_4473415.htm#query=math%20book&position=13&from_view=keyword&track=ais"
-        }, {
-            "id": 9,
-            "subjectName": "english",
-            "img": "https://www.freepik.com/free-vector/cartoon-math-concept-background_4473415.htm#query=math%20book&position=13&from_view=keyword&track=ais"
-        }],
-        "id": 3
-    }, {
-        "std": "9",
-        "subject": [{
-            "id": 10,
-            "subjectName": "maths",
-            "img": "https://www.freepik.com/free-vector/cartoon-math-concept-background_4473415.htm#query=math%20book&position=13&from_view=keyword&track=ais"
-        }, {
-            "id": 11,
-            "subjectName": "gujarati",
-            "img": "https://www.freepik.com/free-vector/cartoon-math-concept-background_4473415.htm#query=math%20book&position=13&from_view=keyword&track=ais"
-        }, {
-            "id": 12,
-            "subjectName": "english",
-            "img": "https://www.freepik.com/free-vector/cartoon-math-concept-background_4473415.htm#query=math%20book&position=13&from_view=keyword&track=ais"
-        }],
-        "id": 4
-    }, {
-        "std": "10",
-        "subject": [{
-            "id": 13,
-            "subjectName": "maths",
-            "img": "https://www.freepik.com/free-vector/cartoon-math-concept-background_4473415.htm#query=math%20book&position=13&from_view=keyword&track=ais"
-        }, {
-            "id": 14,
-            "subjectName": "gujarati",
-            "img": "https://www.freepik.com/free-vector/cartoon-math-concept-background_4473415.htm#query=math%20book&position=13&from_view=keyword&track=ais"
-        }, {
-            "id": 15,
-            "subjectName": "english",
-            "img": "https://www.freepik.com/free-vector/cartoon-math-concept-background_4473415.htm#query=math%20book&position=13&from_view=keyword&track=ais"
-        }],
-        "id": 5
-    }
-]
+
 
 router.get('/std', async (req, res) => {
     try {
@@ -112,7 +30,8 @@ router.get('/std', async (req, res) => {
         }
         return res.status(201).json({
             status: 200,
-            data: createData
+            data: createData,
+            message: 'success!!'
         })
     } catch (error) {
         res.status(400).json(error.message)
@@ -133,11 +52,11 @@ router.get('/chapter', async (req, res) => {
     res.json(chapterData)
 })
 
-router.get('/std/:stdId/subject/:subId/chapter', async (req, res) => {
-    const stdId = req.params.stdId
-    const subId = req.params.subId
+router.get('/std/:stdid/subject/:subid/chapter', async (req, res) => {
+    const stdId = req.params.stdid
+    const subId = req.params.subid
 
-    const std = standard.find((p) => p.id === parseInt(stdId))
+    const std = standard.find((p) => p.stdid === parseInt(stdId))
 
     if (!std) {
         return res.status(400).json({
@@ -146,7 +65,7 @@ router.get('/std/:stdId/subject/:subId/chapter', async (req, res) => {
         })
     }
 
-    const sub = std.subject.find((p) => p.id === parseInt(subId))
+    const sub = std.subject.find((p) => p.subid === parseInt(subId))
 
     if (!sub) {
         return res.status(400).json({
@@ -203,7 +122,8 @@ router.get('/std/:stdId/subject/:subId/chapter', async (req, res) => {
 
         res.json({
             status: 200,
-            data: chapters
+            data: chapters,
+            message: 'success!!'
         })
 
     } catch (error) {
@@ -221,8 +141,8 @@ router.get('/questions', async (req, res) => {
 })
 
 
-router.get('/chapter/:chapterId/questions', async (req, res) => {
-    const chapterId = req.params.chapterId
+router.get('/chapter/:chapterid/questions', async (req, res) => {
+    const chapterId = req.params.chapterid
 
     // const chapter = chapterData.find((p) => p.id === chapterId)
     const chapter = chapterData[chapterId]
@@ -255,7 +175,8 @@ router.get('/chapter/:chapterId/questions', async (req, res) => {
 
     res.json({
         status: 200,
-        data: qData
+        data: qData,
+        message: 'success!!'
     })
 
 })
