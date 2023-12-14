@@ -4,7 +4,7 @@ const chapterData = {
             {
                 chapterno: 1,
                 content: "introduction of maths",
-                id: 1,
+                chapterid: 1,
                 teacher: "Raj Makwana",
                 que: 2,
                 minute: '10 min'
@@ -12,7 +12,7 @@ const chapterData = {
             {
                 chapterno: 2,
                 content: "fundamental of maths",
-                id: 2,
+                chapterid: 2,
                 teacher: "Raj Makwana",
                 que: 2,
                 minute: '10 min'
@@ -22,7 +22,7 @@ const chapterData = {
             {
                 chapterno: 1,
                 content: "introduction",
-                id: 1,
+                chapterid: 1,
                 teacher: "Raj Makwana",
                 que: 2,
                 minute: '10 min'
@@ -30,7 +30,7 @@ const chapterData = {
             {
                 chapterno: 2,
                 content: "fundamental of gujarti gramm",
-                id: 2,
+                chapterid: 2,
                 teacher: "Raj Makwana",
                 que: 2,
                 minute: '10 min'
@@ -40,7 +40,7 @@ const chapterData = {
             {
                 chapterno: 1,
                 content: "introduction",
-                id: 1,
+                chapterid: 1,
                 teacher: "Raj Makwana",
                 que: 2,
                 minute: '10 min'
@@ -48,7 +48,7 @@ const chapterData = {
             {
                 chapterno: 2,
                 content: "fundamental of english gramm",
-                id: 2,
+                chapterid: 2,
                 teacher: "Raj Makwana",
                 que: 2,
                 minute: '10 min'
@@ -60,7 +60,7 @@ const chapterData = {
             {
                 chapterno: 1,
                 content: "basic maths",
-                id: 1,
+                chapterid: 1,
                 teacher: "Raj Makwana",
                 que: 2,
                 minute: '10 min'
@@ -68,7 +68,7 @@ const chapterData = {
             {
                 chapterno: 2,
                 content: "fundamental of maths",
-                id: 2,
+                chapterid: 2,
                 teacher: "Raj Makwana",
                 que: 2,
                 minute: '10 min'
@@ -78,7 +78,7 @@ const chapterData = {
             {
                 chapterno: 1,
                 content: "introduction",
-                id: 1,
+                chapterid: 1,
                 teacher: "Raj Makwana",
                 que: 2,
                 minute: '10 min'
@@ -86,7 +86,7 @@ const chapterData = {
             {
                 chapterno: 2,
                 content: "fundamental of gujarti gramm",
-                id: 2,
+                chapterid: 2,
                 teacher: "Raj Makwana",
                 que: 2,
                 minute: '10 min'
@@ -96,7 +96,7 @@ const chapterData = {
             {
                 chapterno: 1,
                 content: "introduction",
-                id: 1,
+                chapterid: 1,
                 teacher: "Raj Makwana",
                 que: 2,
                 minute: '10 min'
@@ -104,7 +104,7 @@ const chapterData = {
             {
                 chapterno: 2,
                 content: "fundamental of english gramm",
-                id: 2,
+                chapterid: 2,
                 teacher: "Raj Makwana",
                 que: 2,
                 minute: '10 min'

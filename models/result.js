@@ -2,22 +2,40 @@ const mongoose = require('mongoose')
 const validator = require('validator')
 
 const resultsSchema = new mongoose.Schema({
-    chapter_id: {
+    stdid: {
         type: Number,
         required: true,
+        trim: true
     },
-    sub_id: {
+    subid: {
         type: Number,
-        required: true
+        required: true,
+        trim: true
     },
-    total_que: {
+    chapterid: {
         type: Number,
-        required: true
+        required: true,
+        trim: true
     },
-    right_que: {
-        type: Number,
-        required: true
-    }
+    questions: [
+        {
+            queid: {
+                type: Number,
+                required: true,
+                trim: true
+            },
+            user_answer: {
+                type: String,
+                required: true,
+                trim: true
+            },
+            user_result: {
+                type: Boolean,
+                required: true,
+                trim: true
+            }
+        }
+    ]
 })
 
 const Results = mongoose.model('results', resultsSchema)
