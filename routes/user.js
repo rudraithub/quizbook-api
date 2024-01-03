@@ -2,6 +2,8 @@ const express = require('express')
 const User = require('../models/user')
 const bcrypt = require('bcryptjs')
 const axios = require('axios')
+const multer = require('multer')
+const cors = require('cors')
 
 const router = express.Router()
 
@@ -11,6 +13,7 @@ const router = express.Router()
 //     '3': 'admin'
 // }
 
+router.use(cors())
 const professions = [{
     id: 1,
     name: 'student'
@@ -22,6 +25,8 @@ const professions = [{
     name: 'admin'
 }
 ]
+
+// router.use(cors())
 
 router.post('/users/signup', async (req, res) => {
 
@@ -96,7 +101,10 @@ router.post('/users/signup', async (req, res) => {
             data: newUser,
             message: 'successfully signup'
         }
-        
+        // res.header('Access-Control-Allow-Origin', '*')
+        // res.set({
+        //     'Content-Type': 'application/json'
+        // })
 
         res.status(201).json(response)
         // console.log(newUser)
@@ -107,6 +115,9 @@ router.post('/users/signup', async (req, res) => {
             status:400,
             message: e.message
         }
+        // res.set({
+        //     'Content-Type': 'application/json'
+        // })
 
         res.status(400).json(errorRes)
         // console.log(e.message)
@@ -132,6 +143,10 @@ router.post('/users/login', async (req, res) => {
             data: user,
             message: 'login sucessfully'
         }
+        // res.header('Access-Control-Allow-Origin', '*')
+        // res.set({
+        //     'Content-Type': 'application/json'
+        // })
 
         res.json(response)
     } catch (error) {
@@ -140,13 +155,93 @@ router.post('/users/login', async (req, res) => {
             status: 400,
             message: error.message
         }
-
+        // res.set({
+        //     'Content-Type': 'application/json'
+        // })
         res.status(400).json(errorRes);
     }
 })
 
 router.get('/users/profession', (req, res) => {
+    res.setHeader('Content-Type', 'application/json')
     res.json(professions)
+})
+
+
+
+//upload user profile
+
+const storage = multer.diskStorage({
+    destination: 'avatar',
+    filename(req, file, cb) {
+        // cb(null, file.fieldname + Date.now() + '_' + path.extname(file.originalname))
+        cb(null, file.originalname)
+    }
+})
+
+const upload = multer({
+    storage,
+    limits: {
+        fileSize: 1000000
+    },
+    fileFilter(req, file, cb) {
+        if (!file.originalname.match(/\.(jpg|png|jpeg)/)) {
+            return cb(new Error('please upload an image'))
+        }
+        cb(undefined, true)
+    }
+})
+
+router.use('/', express.static('avatar'))
+
+router.post('/users/avatars', upload.single('avatar'), async (req, res) => {
+    if (!req.file) {
+        throw new Error('Please upload an image')
+    }
+
+    const user_id = req.body.user_id
+
+    console.log('User ID:', user_id)
+
+    const user = await User.findOne({ user_id: user_id })
+    if (!user) {
+        return res.status(404).json({
+            status: 404,
+            message: 'User not found',
+        });
+    }
+    user.userProfile = `http://localhost:3000/${req.file.originalname}`
+
+    await user.save()
+    res.send()
+}, (error, req, res, next) => {
+    res.status(400).send({ error: error.message })
+})
+
+//delete user profile
+router.delete('/users/avatars', async (req, res) => {
+    try {
+        const user_id = req.body.user_id;
+        const user = await User.findOne({ user_id: user_id });
+
+        if (!user) {
+            return res.status(404).json({
+                status: 404,
+                message: 'User not found',
+            });
+        }
+
+        user.userProfile = undefined;
+        await user.save();
+        res.status(200).json({
+            status: 200,
+            message: 'User profile deleted successfully',
+            data: user,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(400).json({ status: 400, message: error.message });
+    }
 })
 
 module.exports = router
