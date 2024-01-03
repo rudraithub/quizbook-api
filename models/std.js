@@ -16,12 +16,12 @@ const standardSchema = mongoose.Schema({
             type: String,
             default:"error"
         },
-        id: {
+        subid: {
             type: Number,
             required: true
         }
     }],
-    id:{
+    stdid:{
         type:Number,
         required: true
     }
