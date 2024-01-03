@@ -6,6 +6,9 @@ const multer = require('multer')
 const cors = require('cors')
 
 const router = express.Router()
+const cors = require('cors');
+
+router.use(cors())
 
 // const id = {
 //     '1': 'student',
@@ -29,7 +32,6 @@ const professions = [{
 // router.use(cors())
 
 router.post('/users/signup', async (req, res) => {
-
 
     try {
         const { firstName, lastName, email, gender, DOB,professionId, mobileNumber, user_id } = req.body
@@ -101,12 +103,19 @@ router.post('/users/signup', async (req, res) => {
             data: newUser,
             message: 'successfully signup'
         }
+<<<<<<< HEAD
         // res.header('Access-Control-Allow-Origin', '*')
         // res.set({
         //     'Content-Type': 'application/json'
         // })
+=======
+>>>>>>> a89d530fc387ff93f05b4b93ac17222b590aa361
 
-        res.status(201).json(response)
+        res.set({
+            'Content-Type': 'application/json'
+        })
+        
+        res.json(response)
         // console.log(newUser)
         // console.log(res.status(201).send(newUser))
     } catch (e) {
@@ -137,6 +146,10 @@ router.post('/users/login', async (req, res) => {
         if(!OTP || OTP === null || OTP.toString().length !== 4){
             throw new Error('please provide 4 digit otp')
         }
+         
+        res.set({
+            'Content-Type': 'application/json'
+        })
 
         const response = {
             status: 200,
@@ -163,7 +176,13 @@ router.post('/users/login', async (req, res) => {
 })
 
 router.get('/users/profession', (req, res) => {
+<<<<<<< HEAD
     res.setHeader('Content-Type', 'application/json')
+=======
+    res.set({
+        'Content-Type': 'application/json'
+    })
+>>>>>>> a89d530fc387ff93f05b4b93ac17222b590aa361
     res.json(professions)
 })
 

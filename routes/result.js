@@ -3,11 +3,16 @@ const Results = require('../models/result')
 const standard = require('./standard')
 const question = require('./question')
 const chapterData = require('./chapter')
+<<<<<<< HEAD
 const cors = require('cors')
+=======
+const cors = require('cors');
+>>>>>>> a89d530fc387ff93f05b4b93ac17222b590aa361
 
 const router = express.Router()
 
 router.use(cors())
+<<<<<<< HEAD
 router.post('/results', async (req, res) => {
     // res.set({
     //     'Content-Type': 'application/json'
@@ -15,6 +20,13 @@ router.post('/results', async (req, res) => {
     try {
         const { stdid, subid, chapterid, questions } = req.body
 
+=======
+
+router.post('/results', async (req, res) => {
+    try {
+        const { stdid, subid, chapterid, questions } = req.body
+
+>>>>>>> a89d530fc387ff93f05b4b93ac17222b590aa361
         const stdId = standard.find((p) => p.stdid === stdid)
         if (!stdId) {
             return res.status(400).json({
@@ -84,7 +96,13 @@ router.post('/results', async (req, res) => {
         }
 
         // console.log(result)
+<<<<<<< HEAD
 
+=======
+        res.set({
+            'Content-Type': 'application/json'
+        })
+>>>>>>> a89d530fc387ff93f05b4b93ac17222b590aa361
         res.json({
             status: 200,
             data: {
@@ -103,9 +121,12 @@ router.post('/results', async (req, res) => {
 })
 
 router.get('/results', async (req, res) => {
+<<<<<<< HEAD
     // res.set({
     //     'Content-Type': 'application/json'
     // })
+=======
+>>>>>>> a89d530fc387ff93f05b4b93ac17222b590aa361
     try {
         const result = await Results.find()
         // console.log(result)
@@ -120,7 +141,13 @@ router.get('/results', async (req, res) => {
 
         // console.log(totalRightQuestions)
         // console.log(totalWrongQuestions)
+<<<<<<< HEAD
 
+=======
+        res.set({
+            'Content-Type': 'application/json'
+        })
+>>>>>>> a89d530fc387ff93f05b4b93ac17222b590aa361
         res.json({
             status: 200,
             data: {

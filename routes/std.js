@@ -8,6 +8,12 @@ const chapterData = require('./chapter')
 const { default: mongoose } = require('mongoose')
 const question = require('./question')
 const standard = require('./standard')
+<<<<<<< HEAD
+=======
+const cors = require('cors');
+
+router.use(cors())
+>>>>>>> a89d530fc387ff93f05b4b93ac17222b590aa361
 
 
 router.use(cors())
@@ -52,17 +58,29 @@ router.get('/std', async (req, res) => {
 // })
 
 router.get('/chapter', async (req, res) => {
-    res.json(chapterData)
+    const Chapter = Object.values(chapterData).flatMap(data => Object.values(data))
+    // console.log(Chapter)
+    const chap = Chapter.flat()
+    // console.log(chap)'
+
+    res.json({
+        status: 200,
+        data: chap,
+        message: 'success!'
+    })
 })
 
 router.get('/std/:stdid/subject/:subid/chapter', async (req, res) => {
     const stdId = req.params.stdid
     const subId = req.params.subid
 
+<<<<<<< HEAD
     // res.set({
     //     'Content-Type': 'application/json'
     // })
 
+=======
+>>>>>>> a89d530fc387ff93f05b4b93ac17222b590aa361
     const std = standard.find((p) => p.stdid === parseInt(stdId))
 
     if (!std) {
@@ -126,7 +144,9 @@ router.get('/std/:stdid/subject/:subid/chapter', async (req, res) => {
         //     });
         // }
         // await collection.insertMany(data)
-
+        res.set({
+            'Content-Type': 'application/json'
+        })
         res.json({
             status: 200,
             data: chapters,
@@ -147,7 +167,15 @@ router.get('/std/:stdid/subject/:subid/chapter', async (req, res) => {
 
 
 router.get('/questions', async (req, res) => {
-    res.json(question)
+    const arayQuestion = Object.values(question)
+    console.log(arayQuestion)
+    res.set({
+        'Content-Type': 'application/json'
+    })
+    res.json({
+        status: 200,
+        data: arayQuestion
+    })
 })
 
 
@@ -156,10 +184,15 @@ router.get('/chapter/:chapterid/questions', async (req, res) => {
 
     // const chapter = chapterData.find((p) => p.id === chapterId)
     const chapter = chapterData[chapterId]
+<<<<<<< HEAD
     // res.set({
     //     'Content-Type': 'application/json'
     // })
     if(!chapter){
+=======
+
+    if (!chapter) {
+>>>>>>> a89d530fc387ff93f05b4b93ac17222b590aa361
         return res.status(400).json({
             status: 400,
             message: 'chapter not found'
@@ -184,7 +217,9 @@ router.get('/chapter/:chapterid/questions', async (req, res) => {
     }
 
     // console.log(qData)
-
+    res.set({
+        'Content-Type': 'application/json'
+    })
     res.json({
         status: 200,
         data: qData,
