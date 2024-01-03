@@ -3,8 +3,11 @@ const Results = require('../models/result')
 const standard = require('./standard')
 const question = require('./question')
 const chapterData = require('./chapter')
+const cors = require('cors');
 
 const router = express.Router()
+
+router.use(cors())
 
 router.post('/results', async (req, res) => {
     try {
@@ -79,7 +82,9 @@ router.post('/results', async (req, res) => {
         }
 
         // console.log(result)
-
+        res.set({
+            'Content-Type': 'application/json'
+        })
         res.json({
             status: 200,
             data: {
@@ -112,7 +117,9 @@ router.get('/results', async (req, res) => {
 
         // console.log(totalRightQuestions)
         // console.log(totalWrongQuestions)
-
+        res.set({
+            'Content-Type': 'application/json'
+        })
         res.json({
             status: 200,
             data: {
