@@ -58,7 +58,7 @@ const question = {
         d: 'Cultural Exchange'
        },
        rightAns: 'c'
-    },
+      },
     {
        queid: 3,
        question_no : 3,

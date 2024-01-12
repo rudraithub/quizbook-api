@@ -6,11 +6,11 @@ const chapterData = require('./chapter')
 
 const cors = require('cors');
 
+const cors = require('cors');
 
 const router = express.Router()
 
 router.use(cors())
-
 
 
 router.post('/results', async (req, res) => {
@@ -61,7 +61,7 @@ router.post('/results', async (req, res) => {
             return {
                 queid: queData.queid,
                 user_answer,
-                user_result : isCorrect
+                user_result: isCorrect
             };
         });
 
@@ -91,24 +91,30 @@ router.post('/results', async (req, res) => {
                 totalWrongQuestions
             },
             message: 'success!!'
+
         });
+
     } catch (e) {
         res.status(400).json({
             status: 400,
             message: e.message
         });
     }
+
 });
 
+
+
 router.get('/results', async (req, res) => {
-   
     try {
         const result = await Results.find()
         // console.log(result)
         const allQuestions = result.flatMap(question => question.questions)
         // console.log(allQuestions)
 
+
         const totalRightQuestions = allQuestions.filter((question) => {
+
             return question.user_result === true
         }).length
 
@@ -117,6 +123,9 @@ router.get('/results', async (req, res) => {
         // console.log(totalRightQuestions)
         // console.log(totalWrongQuestions)
 
+        res.set({
+            'Content-Type': 'application/json'
+        })
         res.json({
             status: 200,
             data: {
@@ -125,7 +134,9 @@ router.get('/results', async (req, res) => {
             },
             message: 'success!!'
         })
-    } catch {
+    }
+
+    catch {
         res.status(400).json({
             status: 400,
             message: "please complete quiz"

@@ -128,13 +128,11 @@ router.post('/users/login', async (req, res) => {
             throw new Error('User not found');
         }
      
+
         // if(!OTP || OTP === null || OTP.toString().length !== 4){
         //     throw new Error('please provide 4 digit otp')
         // }
-         
-        res.set({
-            'Content-Type': 'application/json'
-        })
+  
 
         const response = {
             status: 200,
