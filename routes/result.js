@@ -3,16 +3,17 @@ const Results = require('../models/result')
 const standard = require('./standard')
 const question = require('./question')
 const chapterData = require('./chapter')
-// <<<<<<< HEAD
-// const cors = require('cors')
-// =======
+
+
 const cors = require('cors');
-// >>>>>>> a89d530fc387ff93f05b4b93ac17222b590aa361
+
+
 
 const router = express.Router()
 
 router.use(cors())
-// <<<<<<< HEAD
+
+
 
 
 router.post('/results', async (req, res) => {
@@ -63,7 +64,7 @@ router.post('/results', async (req, res) => {
             return {
                 queid: queData.queid,
                 user_answer,
-                user_result : isCorrect
+                user_result: isCorrect
             };
         });
 
@@ -85,7 +86,6 @@ router.post('/results', async (req, res) => {
             });
         }
 
-        // res.setHeader('Content-Type', 'application/json'); // Corrected line
 
         res.json({
             status: 200,
@@ -96,23 +96,30 @@ router.post('/results', async (req, res) => {
             },
             message: 'success!!'
         });
+
     } catch (e) {
         res.status(400).json({
             status: 400,
             message: e.message
         });
     }
+
+
 });
 
+
+
 router.get('/results', async (req, res) => {
-    // <<<<<<< HEAD
+
     try {
         const result = await Results.find()
         // console.log(result)
         const allQuestions = result.flatMap(question => question.questions)
         // console.log(allQuestions)
 
+
         const totalRightQuestions = allQuestions.filter((question) => {
+
             return question.user_result === true
         }).length
 
@@ -129,7 +136,9 @@ router.get('/results', async (req, res) => {
             },
             message: 'success!!'
         })
-    } catch {
+    }
+
+    catch {
         res.status(400).json({
             status: 400,
             message: "please complete quiz"

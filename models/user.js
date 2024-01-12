@@ -75,6 +75,8 @@ const userSchema = new mongoose.Schema({
         type: Number,
         unique: true
     }
+},{
+    timestamps: false
 })
 
 userSchema.pre('save', async function (next) {
@@ -96,6 +98,7 @@ userSchema.pre('save', async function (next) {
         
         this.user_id = generatedUserId;
     }
+
     
     next();
 });

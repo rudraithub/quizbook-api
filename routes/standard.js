@@ -100,4 +100,4 @@ const standard = [
      }
  ]
 
- module.exports = standard
+module.exports = standard
