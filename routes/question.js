@@ -2,74 +2,74 @@ const question = {
    1:[ {
        queid: 1,
        question_no : 1,
-       question: 'what is summation?',
+       question: 'Which natural resource is considered a renewable source of energy?',
        Option: {
-        a: 'a+b',
-        b: 'a-b',
-        c: 'a*b',
-        d: 'a/b'
+        a: "Coal",
+        b: "Oil",
+        c: "Wind ",
+        d: "Natural Gas"
        },
-       rightAns: 'a'
+       rightAns: 'c'
     },
     {
         queid: 2,
         question_no : 2,
-        question: 'what is subtrsaction?',
+        question: 'Which ocean is located to the east of Africa?',
         Option: {
-         a: 'a+b',
-         b: 'a-b',
-         c: 'a*b',
-         d: 'a/b'
+         a: 'Atlantic Ocean',
+         b: 'Indian Ocean',
+         c: 'Pacific Ocean',
+         d: 'Southern Ocean'
         },
         rightAns: 'b'
      },
      {
         queid: 3,
         question_no : 3,
-        question: 'what is multiplication?',
+        question: 'Which river is considered the longest in the world?',
         Option: {
-         a: 'a+b',
-         b: 'a-b',
-         c: 'a*b',
-         d: 'a/b'
+         a: 'Nile River',
+         b: 'Amazon River',
+         c: 'Yangtze River',
+         d: 'Mississippi River'
         },
-        rightAns: 'c'
+        rightAns: 'a'
      }],
      2:[ {
       queid: 1,
       question_no : 1,
-      question: 'what is summation?',
+      question: ' Which planet is known as the "Red Planet" in our solar system?',
       Option: {
-       a: 'a+b',
-       b: 'a-b',
-       c: 'a*b',
-       d: 'a/b'
+       a: 'Venus',
+       b: 'Mars',
+       c: 'Jupiter',
+       d: 'Saturn'
       },
-      rightAns: 'a'
+      rightAns: 'b'
    },
    {
        queid: 2,
        question_no : 2,
-       question: 'what is subtrsaction?',
+       question: 'What is the primary function of the United Nations (UN)?',
        Option: {
-        a: 'a+b',
-        b: 'a-b',
-        c: 'a*b',
-        d: 'a/b'
+        a: 'Military Alliance',
+        b: 'Economic Cooperation',
+        c: 'International Peace and Security',
+        d: 'Cultural Exchange'
        },
-       rightAns: 'b'
-    },
+       rightAns: 'c'
+      },
     {
        queid: 3,
        question_no : 3,
-       question: 'what is multiplication?',
+       question: 'What is the capital city of Japan?',
        Option: {
-        a: 'a+b',
-        b: 'a-b',
-        c: 'a*b',
-        d: 'a/b'
+        a: 'Beijing',
+        b: ' Tokyo',
+        c: 'Seoul',
+        d: 'Bangkok'
        },
-       rightAns: 'c'
+       rightAns: 'b'
     }]
     }
 
