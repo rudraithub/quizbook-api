@@ -128,9 +128,9 @@ router.post('/users/login', async (req, res) => {
             throw new Error('User not found');
         }
      
-        if(!OTP || OTP === null || OTP.toString().length !== 4){
-            throw new Error('please provide 4 digit otp')
-        }
+        // if(!OTP || OTP === null || OTP.toString().length !== 4){
+        //     throw new Error('please provide 4 digit otp')
+        // }
          
         res.set({
             'Content-Type': 'application/json'
@@ -154,11 +154,146 @@ router.post('/users/login', async (req, res) => {
     }
 })
 
+router.get('/:userID/profile', async (req, res) => {
+    try {
+        const userID = req.params.userID
+
+        const user = await User.findById(userID)
+
+        if(!user){
+            return res.status(404).json({
+                status:404,
+                message: 'user not found!'
+            })
+        }
+
+        res.status(200).json({
+            status: 200,
+            data: user,
+            message: 'success!!'
+        })
+    } catch (error) {
+        res.status(400).json({
+            status: 400,
+            message: error.message
+        })
+    }
+})
+
+//user profile update
+
+router.patch('/:userID/profile/update', async (req, res) => {
+    try {
+        const {firstName, lastName} = req.body
+
+        const user = await User.findByIdAndUpdate(req.params.userID, {
+            firstName,
+            lastName
+        },{
+            new: true,
+            runValidators: true
+        })
+
+        if(!user){
+            return res.status(404).json({
+                status: 404,
+                message: 'user not found!'
+            })
+        }
+        res.status(200).json({
+            status: 200,
+            data: user,
+            message: 'profile update successfully!'
+        })
+    } catch (error) {
+        res.status(400).json({
+            status: 400,
+            message: error.message
+        })
+    }
+})
+
 router.get('/users/profession', (req, res) => {
     res.set({
         'Content-Type': 'application/json'
     })
     res.json(professions)
 })
+
+//upload user profile
+
+const storage = multer.diskStorage({
+    destination: 'avatar',
+    filename(req, file, cb) {
+        // cb(null, file.fieldname + Date.now() + '_' + path.extname(file.originalname))
+        cb(null, file.originalname)
+    }
+})
+
+const upload = multer({
+    storage,
+    limits: {
+        fileSize: 1000000
+    },
+    fileFilter(req, file, cb) {
+        if (!file.originalname.match(/\.(jpg|png|jpeg)/)) {
+            return cb(new Error('please upload an image'))
+        }
+        cb(undefined, true)
+    }
+})
+
+router.use('/', express.static('avatar'))
+
+router.post('/users/avatars', upload.single('avatar'), async (req, res) => {
+    if (!req.file) {
+        throw new Error('Please upload an image')
+    }
+
+    const user_id = req.body.user_id
+
+    console.log('User ID:', user_id)
+
+    const user = await User.findOne({ user_id: user_id })
+    if (!user) {
+        return res.status(404).json({
+            status: 404,
+            message: 'User not found',
+        });
+    }
+    user.userProfile = `http://localhost:3000/${req.file.originalname}`
+
+    await user.save()
+    res.send()
+}, (error, req, res, next) => {
+    res.status(400).send({ error: error.message })
+})
+
+//delete user profile
+router.delete('/users/avatars', async (req, res) => {
+    try {
+        const user_id = req.body.user_id;
+        const user = await User.findOne({ user_id: user_id });
+
+        if (!user) {
+            return res.status(404).json({
+                status: 404,
+                message: 'User not found',
+            });
+        }
+
+        user.userProfile = undefined;
+        await user.save();
+        res.status(200).json({
+            status: 200,
+            message: 'User profile deleted successfully',
+            data: user,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(400).json({ status: 400, message: error.message });
+    }
+})
+
 
 module.exports = router

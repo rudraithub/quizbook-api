@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
-
+const moment = require('moment')
 
 const userSchema = new mongoose.Schema({
     firstName: {
@@ -29,14 +29,12 @@ const userSchema = new mongoose.Schema({
         trim: true
     },
     DOB: {
-        type: Date,
+        type: String,
         required: true,
         validate: {
             validator: (value) => {
-                if (!validator.isDate(value, { format: 'DD/MM/YYYY' })) {
-                    return false;
-                }
-                return true;
+                const formattedDate = moment(value, 'DD/MM/YYYY', true); // Parse date in DD/MM/YYYY format
+                return formattedDate.isValid()
             },
             message: 'Please provide a valid date in DD/MM/YYYY format for DOB',
         },
@@ -56,10 +54,10 @@ const userSchema = new mongoose.Schema({
             message: 'Please provide a valid mobile number',
         },
     },
-    OTP:{
-        type: Number,
-        // required: true
-    },
+    // OTP:{
+    //     type: Number,
+    //     // required: true
+    // },
     profession: [{
         _id:{
             type: Number,
@@ -76,6 +74,8 @@ const userSchema = new mongoose.Schema({
         type: Number,
         unique: true
     }
+},{
+    timestamps: false
 })
 
 userSchema.pre('save', async function (next) {
@@ -97,6 +97,7 @@ userSchema.pre('save', async function (next) {
         
         this.user_id = generatedUserId;
     }
+
     
     next();
 });
