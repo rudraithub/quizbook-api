@@ -8,16 +8,16 @@ const chapterData = require('./chapter')
 const { default: mongoose } = require('mongoose')
 const question = require('./question')
 const standard = require('./standard')
-<<<<<<< HEAD
-=======
-const cors = require('cors');
+// <<<<<<< HEAD
+// =======
+// const cors = require('cors');
+
+// router.use(cors())
+// >>>>>>> a89d530fc387ff93f05b4b93ac17222b590aa361
+
 
 router.use(cors())
->>>>>>> a89d530fc387ff93f05b4b93ac17222b590aa361
-
-
-router.use(cors())
-router.get('/std', async (req, res) => {
+router.get('/std/sub', async (req, res) => {
     try {
         const isStd = await Subject.find()
         // res.set({
@@ -35,7 +35,7 @@ router.get('/std', async (req, res) => {
         for (const stdData of standard) {
             const subData = new Subject(stdData)
             await subData.save()
-            await createData.push[subData]
+            createData.push[subData]
         }
         return res.status(201).json({
             status: 200,
@@ -74,13 +74,13 @@ router.get('/std/:stdid/subject/:subid/chapter', async (req, res) => {
     const stdId = req.params.stdid
     const subId = req.params.subid
 
-<<<<<<< HEAD
+// <<<<<<< HEAD
     // res.set({
     //     'Content-Type': 'application/json'
     // })
 
-=======
->>>>>>> a89d530fc387ff93f05b4b93ac17222b590aa361
+// =======
+// >>>>>>> a89d530fc387ff93f05b4b93ac17222b590aa361
     const std = standard.find((p) => p.stdid === parseInt(stdId))
 
     if (!std) {
@@ -184,15 +184,15 @@ router.get('/chapter/:chapterid/questions', async (req, res) => {
 
     // const chapter = chapterData.find((p) => p.id === chapterId)
     const chapter = chapterData[chapterId]
-<<<<<<< HEAD
+// <<<<<<< HEAD
     // res.set({
     //     'Content-Type': 'application/json'
     // })
-    if(!chapter){
-=======
+    // if(!chapter){
+// =======
 
     if (!chapter) {
->>>>>>> a89d530fc387ff93f05b4b93ac17222b590aa361
+// >>>>>>> a89d530fc387ff93f05b4b93ac17222b590aa361
         return res.status(400).json({
             status: 400,
             message: 'chapter not found'
@@ -217,9 +217,9 @@ router.get('/chapter/:chapterid/questions', async (req, res) => {
     }
 
     // console.log(qData)
-    res.set({
-        'Content-Type': 'application/json'
-    })
+    // res.set({
+    //     'Content-Type': 'application/json'
+    // })
     res.json({
         status: 200,
         data: qData,

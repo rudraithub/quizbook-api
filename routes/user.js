@@ -6,9 +6,9 @@ const multer = require('multer')
 const cors = require('cors')
 
 const router = express.Router()
-const cors = require('cors');
+// const cors = require('cors');
 
-router.use(cors())
+// router.use(cors())
 
 // const id = {
 //     '1': 'student',
@@ -103,17 +103,17 @@ router.post('/users/signup', async (req, res) => {
             data: newUser,
             message: 'successfully signup'
         }
-<<<<<<< HEAD
-        // res.header('Access-Control-Allow-Origin', '*')
+// <<<<<<< HEAD
+        res.header('Access-Control-Allow-Origin', '*')
         // res.set({
         //     'Content-Type': 'application/json'
         // })
-=======
->>>>>>> a89d530fc387ff93f05b4b93ac17222b590aa361
+// =======
+// >>>>>>> a89d530fc387ff93f05b4b93ac17222b590aa361
 
-        res.set({
-            'Content-Type': 'application/json'
-        })
+        // res.set({
+        //     'Content-Type': 'application/json'
+        // })
         
         res.json(response)
         // console.log(newUser)
@@ -143,9 +143,10 @@ router.post('/users/login', async (req, res) => {
             throw new Error('User not found');
         }
      
-        if(!OTP || OTP === null || OTP.toString().length !== 4){
-            throw new Error('please provide 4 digit otp')
-        }
+        //remove otp validation
+        // if(!OTP || OTP === null || OTP.toString().length !== 4){
+        //     throw new Error('please provide 4 digit otp')
+        // }
          
         res.set({
             'Content-Type': 'application/json'
@@ -175,14 +176,75 @@ router.post('/users/login', async (req, res) => {
     }
 })
 
+//use profile get
+
+router.get('/:userID/profile', async (req, res) => {
+    try {
+        const userID = req.params.userID
+
+        const user = await User.findById(userID)
+
+        if(!user){
+            return res.status(404).json({
+                status:404,
+                message: 'user not found!'
+            })
+        }
+
+        res.status(200).json({
+            status: 200,
+            data: user,
+            message: 'success!!'
+        })
+    } catch (error) {
+        res.status(400).json({
+            status: 400,
+            message: error.message
+        })
+    }
+})
+
+//user profile update
+
+router.patch('/:userID/profile/update', async (req, res) => {
+    try {
+        const {firstName, lastName} = req.body
+
+        const user = await User.findByIdAndUpdate(req.params.userID, {
+            firstName,
+            lastName
+        },{
+            new: true,
+            runValidators: true
+        })
+
+        if(!user){
+            return res.status(404).json({
+                status: 404,
+                message: 'user not found!'
+            })
+        }
+        res.status(200).json({
+            status: 200,
+            data: user,
+            message: 'profile update successfully!'
+        })
+    } catch (error) {
+        res.status(400).json({
+            status: 400,
+            message: error.message
+        })
+    }
+})
+
 router.get('/users/profession', (req, res) => {
-<<<<<<< HEAD
-    res.setHeader('Content-Type', 'application/json')
-=======
-    res.set({
-        'Content-Type': 'application/json'
-    })
->>>>>>> a89d530fc387ff93f05b4b93ac17222b590aa361
+// <<<<<<< HEAD
+//     res.setHeader('Content-Type', 'application/json')
+// =======
+//     res.set({
+//         'Content-Type': 'application/json'
+//     })
+// >>>>>>> a89d530fc387ff93f05b4b93ac17222b590aa361
     res.json(professions)
 })
 

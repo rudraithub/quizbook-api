@@ -1,23 +1,23 @@
 const standard = [
     {
+        "std": "5",
+        "subject": [{
+            "subid": 1,
+            "subjectName": "maths",
+            "img": "https://www.freepik.com/free-vector/cartoon-math-concept-background_4473415.htm#query=math%20book&position=13&from_view=keyword&track=ais"
+        }, {
+            "subid": 2,
+            "subjectName": "gujarati",
+            "img": "https://www.freepik.com/free-vector/cartoon-math-concept-background_4473415.htm#query=math%20book&position=13&from_view=keyword&track=ais"
+        }, {
+            "subid": 3,
+            "subjectName": "english",
+            "img": "https://www.freepik.com/free-vector/cartoon-math-concept-background_4473415.htm#query=math%20book&position=13&from_view=keyword&track=ais"
+        }],
+        "stdid": 1
+    },
+    {
          "std": "6",
-         "subject": [{
-             "subid": 1,
-             "subjectName": "maths",
-             "img": "https://www.freepik.com/free-vector/cartoon-math-concept-background_4473415.htm#query=math%20book&position=13&from_view=keyword&track=ais"
-         }, {
-             "subid": 2,
-             "subjectName": "gujarati",
-             "img": "https://www.freepik.com/free-vector/cartoon-math-concept-background_4473415.htm#query=math%20book&position=13&from_view=keyword&track=ais"
-         }, {
-             "subid": 3,
-             "subjectName": "english",
-             "img": "https://www.freepik.com/free-vector/cartoon-math-concept-background_4473415.htm#query=math%20book&position=13&from_view=keyword&track=ais"
-         }],
-         "stdid": 1
-     },
-     {
-         "std": "7",
          "subject": [{
              "subid": 4,
              "subjectName": "maths",
@@ -32,8 +32,9 @@ const standard = [
              "img": "https://www.freepik.com/free-vector/cartoon-math-concept-background_4473415.htm#query=math%20book&position=13&from_view=keyword&track=ais"
          }],
          "stdid": 2
-     }, {
-         "std": "8",
+     },
+     {
+         "std": "7",
          "subject": [{
              "subid": 7,
              "subjectName": "maths",
@@ -49,7 +50,7 @@ const standard = [
          }],
          "stdid": 3
      }, {
-         "std": "9",
+         "std": "8",
          "subject": [{
              "subid": 10,
              "subjectName": "maths",
@@ -65,7 +66,7 @@ const standard = [
          }],
          "stdid": 4
      }, {
-         "std": "10",
+         "std": "9",
          "subject": [{
              "subid": 13,
              "subjectName": "maths",
@@ -80,6 +81,22 @@ const standard = [
              "img": "https://www.freepik.com/free-vector/cartoon-math-concept-background_4473415.htm#query=math%20book&position=13&from_view=keyword&track=ais"
          }],
          "stdid": 5
+     }, {
+         "std": "10",
+         "subject": [{
+             "subid": 16,
+             "subjectName": "maths",
+             "img": "https://www.freepik.com/free-vector/cartoon-math-concept-background_4473415.htm#query=math%20book&position=13&from_view=keyword&track=ais"
+         }, {
+             "subid": 17,
+             "subjectName": "gujarati",
+             "img": "https://www.freepik.com/free-vector/cartoon-math-concept-background_4473415.htm#query=math%20book&position=13&from_view=keyword&track=ais"
+         }, {
+             "subid": 18,
+             "subjectName": "english",
+             "img": "https://www.freepik.com/free-vector/cartoon-math-concept-background_4473415.htm#query=math%20book&position=13&from_view=keyword&track=ais"
+         }],
+         "stdid": 6
      }
  ]
 
