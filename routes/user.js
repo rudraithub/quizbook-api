@@ -1,12 +1,19 @@
+/* eslint-disable camelcase */
+
 const express = require('express')
 const User = require('../models/user')
-const bcrypt = require('bcryptjs')
 const axios = require('axios')
 const multer = require('multer')
+<<<<<<< HEAD
 const cors = require('cors')
 
 const router = express.Router()
 // const cors = require('cors');
+=======
+
+const router = express.Router()
+const cors = require('cors')
+>>>>>>> f781b853d514db9934b773e72e3080810df39311
 
 // router.use(cors())
 
@@ -18,44 +25,46 @@ const router = express.Router()
 
 router.use(cors())
 const professions = [{
-    id: 1,
-    name: 'student'
+  id: 1,
+  name: 'student'
 }, {
-    id: 2,
-    name: 'teacher'
+  id: 2,
+  name: 'teacher'
 }, {
-    id: 3,
-    name: 'admin'
+  id: 3,
+  name: 'admin'
 }
 ]
 
 // router.use(cors())
 
 router.post('/users/signup', async (req, res) => {
+  try {
+    const { firstName, lastName, email, gender, DOB, professionId, mobileNumber, user_id } = req.body
 
-    try {
-        const { firstName, lastName, email, gender, DOB,professionId, mobileNumber, user_id } = req.body
+    const prof = await axios.get('http://localhost:3000/users/profession')
+    // console.log(prof.data)
 
-     
-        const prof = await axios.get('http://localhost:3000/users/profession')
-        // console.log(prof.data)
+    const availabledata = prof.data
 
-        const availabledata = prof.data
+    // console.log('Profession ID from request:', professionId);
+    // console.log('Available Professions:', availabledata);
+    // availabledata.forEach(proff => {
+    //     console.log('ID:', proff.id, 'Type:', typeof proff.id);
+    // });
 
-        // console.log('Profession ID from request:', professionId);
-        // console.log('Available Professions:', availabledata);
-        // availabledata.forEach(proff => {
-        //     console.log('ID:', proff.id, 'Type:', typeof proff.id);
-        // });
+    // const availabledata = prof.data;
 
-        // const availabledata = prof.data;
+    // Move this line before the console.log statements
+    const profession = availabledata.find(proff => proff.id === professionId)
+    // console.log('Profession ID from request:', professionId);
+    // console.log('Selected Profession:', profession);
+    // console.log('Available Professions:', availabledata);
 
-        // Move this line before the console.log statements
-        const profession = availabledata.find(proff => proff.id === professionId);
-        // console.log('Profession ID from request:', professionId);
-        // console.log('Selected Profession:', profession);
-        // console.log('Available Professions:', availabledata);
+    // const profession = availabledata.find(proff => proff.id === professionId);
+    // console.log(profession)
 
+<<<<<<< HEAD
         // const profession = availabledata.find(proff => proff.id === professionId);
         // console.log(profession)
 
@@ -130,15 +139,103 @@ router.post('/users/signup', async (req, res) => {
 
         res.status(400).json(errorRes)
         // console.log(e.message)
+=======
+    if (!profession) {
+      return res.status(400).json({
+        status: 400,
+        message: 'Invalid profession ID'
+      })
+>>>>>>> f781b853d514db9934b773e72e3080810df39311
     }
+
+    const isEmail = await User.findOne({ email })
+    if (isEmail) {
+      return res.status(400).json({
+        status: 400,
+        message: 'email is already registered!!!'
+      })
+    }
+
+    const isMob = await User.findOne({ mobileNumber })
+    if (isMob) {
+      return res.status(400).json({
+        status: 400,
+        message: 'mobile nubmer is already registered!!!'
+      })
+    }
+
+    const newUser = new User({
+      firstName,
+      lastName,
+      email,
+      gender,
+      DOB,
+      mobileNumber,
+      profession: {
+        _id: profession.id,
+        name: profession.name
+      },
+      user_id
+    })
+
+    await newUser.save()
+
+    const response = {
+      status: 200,
+      data: newUser,
+      message: 'successfully signup'
+    }
+
+    res.set({
+      'Content-Type': 'application/json'
+    })
+
+    res.json(response)
+    // console.log(newUser)
+    // console.log(res.status(201).send(newUser))
+  } catch (e) {
+    const errorRes = {
+      status: 400,
+      message: e.message
+    }
+
+    res.status(400).json(errorRes)
+    // console.log(e.message)
+  }
+})
+
+router.post('user/varify', async (req, res) => {
+  try {
+    const { mobileNumber } = req.body
+
+    const user = await User.findOne({ mobileNumber })
+
+    if (!user) {
+      return res.status(404).json({
+        status: 404,
+        message: 'User Not Found!!!'
+      })
+    }
+
+    res.status(200).json({
+      status: 200,
+      message: 'success!'
+    })
+  } catch (error) {
+    res.status(400).json({
+      status: 400,
+      message: error.message
+    })
+  }
 })
 
 router.post('/users/login', async (req, res) => {
-    try {
-        const { mobileNumber, OTP } = req.body;
-        const user = await User.findOne({ mobileNumber });
-        // console.log(user)
+  try {
+    const { mobileNumber } = req.body
+    const user = await User.findOne({ mobileNumber })
+    // console.log(user)
 
+<<<<<<< HEAD
         if (!user) {
             throw new Error('User not found');
         }
@@ -173,71 +270,96 @@ router.post('/users/login', async (req, res) => {
         //     'Content-Type': 'application/json'
         // })
         res.status(400).json(errorRes);
+=======
+    if (!user) {
+      throw new Error('User not found')
+>>>>>>> f781b853d514db9934b773e72e3080810df39311
     }
+
+    // if(!OTP || OTP === null || OTP.toString().length !== 4){
+    //     throw new Error('please provide 4 digit otp')
+    // }
+
+    const response = {
+      status: 200,
+      data: user,
+      message: 'login sucessfully'
+    }
+
+    res.json(response)
+  } catch (error) {
+    const errorRes = {
+      status: 400,
+      message: error.message
+    }
+
+    res.status(400).json(errorRes)
+  }
 })
 
 //use profile get
 
 router.get('/:userID/profile', async (req, res) => {
-    try {
-        const userID = req.params.userID
+  try {
+    const userID = req.params.userID
 
-        const user = await User.findById(userID)
+    const user = await User.findById(userID)
 
-        if(!user){
-            return res.status(404).json({
-                status:404,
-                message: 'user not found!'
-            })
-        }
-
-        res.status(200).json({
-            status: 200,
-            data: user,
-            message: 'success!!'
-        })
-    } catch (error) {
-        res.status(400).json({
-            status: 400,
-            message: error.message
-        })
+    if (!user) {
+      return res.status(404).json({
+        status: 404,
+        message: 'user not found!'
+      })
     }
+
+    res.status(200).json({
+      status: 200,
+      data: user,
+      message: 'success!!'
+    })
+  } catch (error) {
+    res.status(400).json({
+      status: 400,
+      message: error.message
+    })
+  }
 })
 
-//user profile update
+// user profile update
 
 router.patch('/:userID/profile/update', async (req, res) => {
-    try {
-        const {firstName, lastName} = req.body
+  try {
+    const { firstName, lastName } = req.body
 
-        const user = await User.findByIdAndUpdate(req.params.userID, {
-            firstName,
-            lastName
-        },{
-            new: true,
-            runValidators: true
-        })
+    const user = await User.findByIdAndUpdate(req.params.userID, {
+      firstName,
+      lastName
+    }, {
+      new: true,
+      runValidators: true
+    })
 
-        if(!user){
-            return res.status(404).json({
-                status: 404,
-                message: 'user not found!'
-            })
-        }
-        res.status(200).json({
-            status: 200,
-            data: user,
-            message: 'profile update successfully!'
-        })
-    } catch (error) {
-        res.status(400).json({
-            status: 400,
-            message: error.message
-        })
+    if (!user) {
+      return res.status(404).json({
+        status: 404,
+        message: 'user not found!'
+      })
     }
+    res.status(200).json({
+      status: 200,
+      data: user,
+      message: 'profile update successfully!'
+    })
+  } catch (error) {
+    res.status(400).json({
+      status: 400,
+      message: error.message
+    })
+  }
 })
 
 router.get('/users/profession', (req, res) => {
+<<<<<<< HEAD
 // <<<<<<< HEAD
 //     res.setHeader('Content-Type', 'application/json')
 // =======
@@ -251,78 +373,91 @@ router.get('/users/profession', (req, res) => {
 
 
 //upload user profile
+=======
+  res.set({
+    'Content-Type': 'application/json'
+  })
+  res.json(professions)
+})
+
+// upload user profile
+>>>>>>> f781b853d514db9934b773e72e3080810df39311
 
 const storage = multer.diskStorage({
-    destination: 'avatar',
-    filename(req, file, cb) {
-        // cb(null, file.fieldname + Date.now() + '_' + path.extname(file.originalname))
-        cb(null, file.originalname)
-    }
+  destination: 'avatar',
+  filename (req, file, cb) {
+    // cb(null, file.fieldname + Date.now() + '_' + path.extname(file.originalname))
+    cb(null, file.originalname)
+  }
 })
 
 const upload = multer({
-    storage,
-    limits: {
-        fileSize: 1000000
-    },
-    fileFilter(req, file, cb) {
-        if (!file.originalname.match(/\.(jpg|png|jpeg)/)) {
-            return cb(new Error('please upload an image'))
-        }
-        cb(undefined, true)
+  storage,
+  limits: {
+    fileSize: 1000000
+  },
+  fileFilter (req, file, cb) {
+    if (!file.originalname.match(/\.(jpg|png|jpeg)/)) {
+      return cb(new Error('please upload an image'))
     }
+    cb(undefined, true)
+  }
 })
 
 router.use('/', express.static('avatar'))
 
 router.post('/users/avatars', upload.single('avatar'), async (req, res) => {
-    if (!req.file) {
-        throw new Error('Please upload an image')
-    }
+  if (!req.file) {
+    throw new Error('Please upload an image')
+  }
 
-    const user_id = req.body.user_id
+  const user_id = req.body.user_id
 
-    console.log('User ID:', user_id)
+  console.log('User ID:', user_id)
 
-    const user = await User.findOne({ user_id: user_id })
-    if (!user) {
-        return res.status(404).json({
-            status: 404,
-            message: 'User not found',
-        });
-    }
-    user.userProfile = `http://localhost:3000/${req.file.originalname}`
+  const user = await User.findOne({ user_id })
+  if (!user) {
+    return res.status(404).json({
+      status: 404,
+      message: 'User not found'
+    })
+  }
+  user.userProfile = `http://localhost:3000/${req.file.originalname}`
 
-    await user.save()
-    res.send()
+  await user.save()
+  res.send()
 }, (error, req, res, next) => {
-    res.status(400).send({ error: error.message })
+  res.status(400).send({ error: error.message })
 })
 
-//delete user profile
+// delete user profile
 router.delete('/users/avatars', async (req, res) => {
-    try {
-        const user_id = req.body.user_id;
-        const user = await User.findOne({ user_id: user_id });
+  try {
+    const user_id = req.body.user_id
+    const user = await User.findOne({ user_id })
 
-        if (!user) {
-            return res.status(404).json({
-                status: 404,
-                message: 'User not found',
-            });
-        }
-
-        user.userProfile = undefined;
-        await user.save();
-        res.status(200).json({
-            status: 200,
-            message: 'User profile deleted successfully',
-            data: user,
-        });
-    } catch (error) {
-        console.error(error);
-        res.status(400).json({ status: 400, message: error.message });
+    if (!user) {
+      return res.status(404).json({
+        status: 404,
+        message: 'User not found'
+      })
     }
+
+<<<<<<< HEAD
+=======
+    user.userProfile = undefined
+    await user.save()
+    res.status(200).json({
+      status: 200,
+      message: 'User profile deleted successfully',
+      data: user
+    })
+  } catch (error) {
+    console.error(error)
+    res.status(400).json({ status: 400, message: error.message })
+  }
 })
 
+>>>>>>> f781b853d514db9934b773e72e3080810df39311
 module.exports = router
+/* eslint-enable camelcase */
