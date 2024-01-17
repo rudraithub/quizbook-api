@@ -26,7 +26,8 @@ router.get('/std/sub', async (req, res) => {
         if (isStd.length > 0) {
             return res.status(200).json({
                 status: 200,
-                data: isStd
+                data: isStd,
+                message: 'success'
             })
         }
 
