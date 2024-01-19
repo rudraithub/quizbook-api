@@ -8,46 +8,7 @@ const chapterData = require('./chapter')
 const { default: mongoose } = require('mongoose')
 const question = require('./question')
 const standard = require('./standard')
-<<<<<<< HEAD
-// <<<<<<< HEAD
-// =======
-// const cors = require('cors');
-
-// router.use(cors())
-// >>>>>>> a89d530fc387ff93f05b4b93ac17222b590aa361
-
-
-router.use(cors())
-router.get('/std/sub', async (req, res) => {
-    try {
-        const isStd = await Subject.find()
-        // res.set({
-        //     'Content-Type': 'application/json'
-        // })
-        if (isStd.length > 0) {
-            return res.status(200).json({
-                status: 200,
-                data: isStd,
-                message: 'success'
-            })
-        }
-
-        const createData = []
-
-        for (const stdData of standard) {
-            const subData = new Subject(stdData)
-            await subData.save()
-            createData.push[subData]
-        }
-        return res.status(201).json({
-            status: 200,
-            data: createData,
-            message: 'success!!'
-        })
-    } catch (error) {
-        res.status(400).json(error.message)
-=======
-const cors = require('cors')
+// const cors = require('cors')
 
 router.use(cors())
 
@@ -59,7 +20,6 @@ router.get('/std', async (req, res) => {
         status: 200,
         data: isStd
       })
->>>>>>> f781b853d514db9934b773e72e3080810df39311
     }
 
     const createData = []
@@ -105,112 +65,12 @@ router.get('/std/:stdid/subject/:subid/chapter', async (req, res) => {
   const stdId = req.params.stdid
   const subId = req.params.subid
 
-<<<<<<< HEAD
-// <<<<<<< HEAD
-    // res.set({
-    //     'Content-Type': 'application/json'
-    // })
-
-// =======
-// >>>>>>> a89d530fc387ff93f05b4b93ac17222b590aa361
-    const std = standard.find((p) => p.stdid === parseInt(stdId))
-
-    if (!std) {
-        return res.status(400).json({
-            status: 400,
-            message: "standard not found"
-        })
-    }
-
-    const sub = std.subject.find((p) => p.subid === parseInt(subId))
-
-    if (!sub) {
-        return res.status(400).json({
-            status: 400,
-            message: "standard not found"
-        })
-    }
-
-    const chapters = chapterData[stdId] && chapterData[stdId][subId]
-
-    console.log(chapters)
-
-    if (!chapters || chapters.length === 0) {
-        return res.status(400).json({
-            status: 400,
-            message: 'chapter data not found'
-        })
-    }
-
-    //     res.json({
-    //     status: 200, 
-    //     message: chapters
-    // })
-
-
-    try {
-        const db = mongoose.connection
-        const collection = db.collection('chapter')
-
-        // await collection.deleteMany()
-
-        const isChapter = await collection.find({ stdId, subId }).toArray()
-        console.log("isChapter:", isChapter)
-
-        if (!isChapter) {
-            // Insert chapters into the database
-            await collection.insertMany(chapters);
-        }
-
-        // const storedData = await collection.find({ stdId, subId }).toArray();
-
-        // if (storedData.length === 0) {
-        //     res.status(400).json({
-        //         status: 400,
-        //         message: 'data not found',
-        //     });
-        // } else {
-        //     res.json({
-        //         status: 200,
-        //         data: storedData,
-        //     });
-        // }
-        // await collection.insertMany(data)
-        res.set({
-            'Content-Type': 'application/json'
-        })
-        res.json({
-            status: 200,
-            data: chapters,
-            message: 'success!!'
-        })
-
-    } catch (error) {
-        // res.set({
-        //     'Content-Type': 'application/json'
-        // })
-        res.status(400).json({
-            status: 400,
-            message: error.message
-        })
-    }
-
-})
-
-
-router.get('/questions', async (req, res) => {
-    const arayQuestion = Object.values(question)
-    console.log(arayQuestion)
-    res.set({
-        'Content-Type': 'application/json'
-=======
   const std = standard.find((p) => p.stdid === parseInt(stdId))
 
   if (!std) {
     return res.status(400).json({
       status: 400,
       message: 'standard not found'
->>>>>>> f781b853d514db9934b773e72e3080810df39311
     })
   }
 
@@ -227,23 +87,6 @@ router.get('/questions', async (req, res) => {
 
   console.log(chapters)
 
-<<<<<<< HEAD
-    // const chapter = chapterData.find((p) => p.id === chapterId)
-    const chapter = chapterData[chapterId]
-// <<<<<<< HEAD
-    // res.set({
-    //     'Content-Type': 'application/json'
-    // })
-    // if(!chapter){
-// =======
-
-    if (!chapter) {
-// >>>>>>> a89d530fc387ff93f05b4b93ac17222b590aa361
-        return res.status(400).json({
-            status: 400,
-            message: 'chapter not found'
-        })
-=======
   if (!chapters || chapters.length === 0) {
     return res.status(400).json({
       status: 400,
@@ -263,12 +106,11 @@ router.get('/questions', async (req, res) => {
     // await collection.deleteMany()
 
     const isChapter = await collection.find({ stdId, subId }).toArray()
-    console.log('isChapter:', isChapter)
+    // console.log('isChapter:', isChapter)
 
     if (!isChapter) {
       // Insert chapters into the database
       await collection.insertMany(chapters)
->>>>>>> f781b853d514db9934b773e72e3080810df39311
     }
 
     // const storedData = await collection.find({ stdId, subId }).toArray();
@@ -284,25 +126,10 @@ router.get('/questions', async (req, res) => {
     //         data: storedData,
     //     });
     // }
-<<<<<<< HEAD
-
-    if (!qData) {
-        return res.status(404).json({
-            status: 404,
-            message: 'Chapter not found',
-        });
-    }
-
-    // console.log(qData)
-    // res.set({
-    //     'Content-Type': 'application/json'
-    // })
-=======
     // await collection.insertMany(data)
     res.set({
       'Content-Type': 'application/json'
     })
->>>>>>> f781b853d514db9934b773e72e3080810df39311
     res.json({
       status: 200,
       data: chapters,
@@ -395,7 +222,7 @@ router.get('/std/:stdID/subject/:subID/chapter/:chapterid/questions', (req, res)
     })
   }
 
-  const chapterQuestions = question.filter((questions) => questions.chapterid === parseInt(chapterId) || question.subid === subId || question.stdid === stdID);
+  const chapterQuestions = question.filter((questions) => questions.stdid === isStd.stdid && questions.subid === isSub.subid && questions.chapterid === ischapter.chapterid);
 
   if (chapterQuestions.length === 0) {
     return res.status(404).json({

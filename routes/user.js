@@ -4,16 +4,9 @@ const express = require('express')
 const User = require('../models/user')
 const axios = require('axios')
 const multer = require('multer')
-<<<<<<< HEAD
-const cors = require('cors')
-
-const router = express.Router()
-// const cors = require('cors');
-=======
 
 const router = express.Router()
 const cors = require('cors')
->>>>>>> f781b853d514db9934b773e72e3080810df39311
 
 // router.use(cors())
 
@@ -64,88 +57,11 @@ router.post('/users/signup', async (req, res) => {
     // const profession = availabledata.find(proff => proff.id === professionId);
     // console.log(profession)
 
-<<<<<<< HEAD
-        // const profession = availabledata.find(proff => proff.id === professionId);
-        // console.log(profession)
-
-        if (!profession) {
-            return res.status(400).json({
-                status: 400,
-                message: "Invalid profession ID"
-            });
-        }
-
-        const isEmail = await User.findOne({email})
-        if(isEmail){
-            return res.status(400).json({
-                status: 400,
-                message: "email is already registered!!!"
-            })
-        }
-
-        const isMob = await User.findOne({mobileNumber})
-        if(isMob){
-            return res.status(400).json({
-                status: 400,
-                message: "mobile nubmer is already registered!!!"
-            })
-        }
-
-        const newUser = new User({
-            firstName,
-            lastName,
-            email,
-            gender,
-            DOB,
-            mobileNumber,
-            profession: {
-                _id: profession.id,
-                name: profession.name
-            },
-            user_id
-        })
-
-        await newUser.save()
-
-        const response = {
-            status: 200,
-            data: newUser,
-            message: 'successfully signup'
-        }
-// <<<<<<< HEAD
-        res.header('Access-Control-Allow-Origin', '*')
-        // res.set({
-        //     'Content-Type': 'application/json'
-        // })
-// =======
-// >>>>>>> a89d530fc387ff93f05b4b93ac17222b590aa361
-
-        // res.set({
-        //     'Content-Type': 'application/json'
-        // })
-        
-        res.json(response)
-        // console.log(newUser)
-        // console.log(res.status(201).send(newUser))
-    } catch (e) {
-
-        const errorRes = {
-            status:400,
-            message: e.message
-        }
-        // res.set({
-        //     'Content-Type': 'application/json'
-        // })
-
-        res.status(400).json(errorRes)
-        // console.log(e.message)
-=======
     if (!profession) {
       return res.status(400).json({
         status: 400,
         message: 'Invalid profession ID'
       })
->>>>>>> f781b853d514db9934b773e72e3080810df39311
     }
 
     const isEmail = await User.findOne({ email })
@@ -204,7 +120,7 @@ router.post('/users/signup', async (req, res) => {
   }
 })
 
-router.post('user/varify', async (req, res) => {
+router.post('/user/varify', async (req, res) => {
   try {
     const { mobileNumber } = req.body
 
@@ -235,45 +151,8 @@ router.post('/users/login', async (req, res) => {
     const user = await User.findOne({ mobileNumber })
     // console.log(user)
 
-<<<<<<< HEAD
-        if (!user) {
-            throw new Error('User not found');
-        }
-     
-        //remove otp validation
-        // if(!OTP || OTP === null || OTP.toString().length !== 4){
-        //     throw new Error('please provide 4 digit otp')
-        // }
-         
-        res.set({
-            'Content-Type': 'application/json'
-        })
-
-        const response = {
-            status: 200,
-            data: user,
-            message: 'login sucessfully'
-        }
-        // res.header('Access-Control-Allow-Origin', '*')
-        // res.set({
-        //     'Content-Type': 'application/json'
-        // })
-
-        res.json(response)
-    } catch (error) {
-
-        const errorRes = {
-            status: 400,
-            message: error.message
-        }
-        // res.set({
-        //     'Content-Type': 'application/json'
-        // })
-        res.status(400).json(errorRes);
-=======
     if (!user) {
       throw new Error('User not found')
->>>>>>> f781b853d514db9934b773e72e3080810df39311
     }
 
     // if(!OTP || OTP === null || OTP.toString().length !== 4){
@@ -359,21 +238,6 @@ router.patch('/:userID/profile/update', async (req, res) => {
 })
 
 router.get('/users/profession', (req, res) => {
-<<<<<<< HEAD
-// <<<<<<< HEAD
-//     res.setHeader('Content-Type', 'application/json')
-// =======
-//     res.set({
-//         'Content-Type': 'application/json'
-//     })
-// >>>>>>> a89d530fc387ff93f05b4b93ac17222b590aa361
-    res.json(professions)
-})
-
-
-
-//upload user profile
-=======
   res.set({
     'Content-Type': 'application/json'
   })
@@ -381,7 +245,6 @@ router.get('/users/profession', (req, res) => {
 })
 
 // upload user profile
->>>>>>> f781b853d514db9934b773e72e3080810df39311
 
 const storage = multer.diskStorage({
   destination: 'avatar',
@@ -443,8 +306,6 @@ router.delete('/users/avatars', async (req, res) => {
       })
     }
 
-<<<<<<< HEAD
-=======
     user.userProfile = undefined
     await user.save()
     res.status(200).json({
@@ -458,6 +319,5 @@ router.delete('/users/avatars', async (req, res) => {
   }
 })
 
->>>>>>> f781b853d514db9934b773e72e3080810df39311
 module.exports = router
 /* eslint-enable camelcase */
