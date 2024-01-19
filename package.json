@@ -1,5 +1,4 @@
 {
-  "$schema": "https://json.schemastore.org/eslint",
   "name": "signup-login-api",
   "version": "1.0.0",
   "description": "",

@@ -12,10 +12,10 @@ const router = express.Router()
 
 router.use(cors())
 
-router.get('/:userID/history', async (req, res) => {
+router.get('/history', async (req, res) => {
   try {
     // const { stdID, subID, chapterID, questions } = req.body;
-    const userID = req.params.userID
+    const userID = req.body.userID
     const results = await Results.find({ userID })
 
     if (!results || results.length === 0) {
@@ -59,6 +59,8 @@ router.get('/:userID/history', async (req, res) => {
         questions: questions.map((resultItem) => {
           const queDataItem = question.filter(q => q.chapterid === chapterid).find((que) => que.queid === resultItem.queid)
           // const queDataItem = question.find(q => q.chapterid === chapterid && q.queid === resultItem.queid);
+
+          // console.log(queDataItem)
 
           return {
             questionID: resultItem.queid,

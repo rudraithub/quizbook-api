@@ -176,11 +176,9 @@ router.post('/users/login', async (req, res) => {
   }
 })
 
-//use profile get
-
-router.get('/:userID/profile', async (req, res) => {
+router.get('/profile', async (req, res) => {
   try {
-    const userID = req.params.userID
+    const userID = req.body.userID
 
     const user = await User.findById(userID)
 
@@ -206,11 +204,12 @@ router.get('/:userID/profile', async (req, res) => {
 
 // user profile update
 
-router.patch('/:userID/profile/update', async (req, res) => {
+router.patch('/profile/update', async (req, res) => {
   try {
     const { firstName, lastName } = req.body
 
-    const user = await User.findByIdAndUpdate(req.params.userID, {
+    const userID = req.body.userID
+    const user = await User.findByIdAndUpdate(userID, {
       firstName,
       lastName
     }, {

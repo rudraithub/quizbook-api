@@ -43,7 +43,7 @@ const historySchema = new mongoose.Schema({
       trim: true,
       required: true
     },
-    question: {
+    questionName: {
       type: String,
       trim: true
     },

@@ -7,18 +7,16 @@ const chapterData = require('./chapter')
 const cors = require('cors')
 const User = require('../models/user')
 
-
-
 const router = express.Router()
 
 router.use(cors())
 
-router.post('/:userID/results', async (req, res) => {
+router.post('/results', async (req, res) => {
   try {
     const { stdid, subid, chapterid, questions } = req.body
-    const userID = req.params.userID
+    const _id = req.body.userID
 
-    const user = await User.findById(userID)
+    const user = await User.findOne({ _id })
 
     if (!user) {
       return res.status(401).json({
@@ -56,7 +54,7 @@ router.post('/:userID/results', async (req, res) => {
 
     /* eslint-disable camelcase */
     const resultQuestion = questions.map(({ queid, user_answer }) => {
-      const queArr = question.filter((q) => q.chapterid === chapterid);
+      const queArr = question.filter((q) => q.chapterid === chapterid)
       const queData = queArr && queArr.find((p) => p.queid === queid)
 
       if (!queData) {
@@ -79,7 +77,7 @@ router.post('/:userID/results', async (req, res) => {
     /* eslint-enable camelcase */
 
     const result = new Results({
-      userID,
+      userID: user._id,
       stdid: stdId.stdid,
       subid: subId.subid,
       chapterid: chapterId.chapterid,

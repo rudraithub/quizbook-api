@@ -17,6 +17,22 @@ const standard = [
       subid: 4,
       subjectName: 'Social Science',
       img: 'https://i.ibb.co/qkJG260/word-design-school-subject-english-1308-6065.jpg'
+    }, {
+      subid: 5,
+      subjectName: 'Computer',
+      img: 'https://i.ibb.co/qkJG260/word-design-school-subject-english-1308-6065.jpg'
+    }, {
+      subid: 6,
+      subjectName: 'Science',
+      img: 'https://i.ibb.co/qkJG260/word-design-school-subject-english-1308-6065.jpg'
+    }, {
+      subid: 7,
+      subjectName: 'Hindi',
+      img: 'https://i.ibb.co/qkJG260/word-design-school-subject-english-1308-6065.jpg'
+    }, {
+      subid: 8,
+      subjectName: 'Environmental Studies',
+      img: 'https://i.ibb.co/qkJG260/word-design-school-subject-english-1308-6065.jpg'
     }],
     stdid: 1
   },
@@ -75,7 +91,7 @@ const standard = [
       subid: 3,
       subjectName: 'English',
       img: 'https://i.ibb.co/JmkjGZq/science-retro-concept-set-with-cartoon-education-objects-1284-7500.jpg'
-    },{
+    }, {
       subid: 4,
       subjectName: 'Social Science',
       img: 'https://i.ibb.co/qkJG260/word-design-school-subject-english-1308-6065.jpg'
@@ -95,7 +111,7 @@ const standard = [
       subid: 3,
       subjectName: 'English',
       img: 'https://i.ibb.co/JmkjGZq/science-retro-concept-set-with-cartoon-education-objects-1284-7500.jpg'
-    },{
+    }, {
       subid: 4,
       subjectName: 'Social Science',
       img: 'https://i.ibb.co/qkJG260/word-design-school-subject-english-1308-6065.jpg'
@@ -115,7 +131,7 @@ const standard = [
       subid: 3,
       subjectName: 'English',
       img: 'https://i.ibb.co/JmkjGZq/science-retro-concept-set-with-cartoon-education-objects-1284-7500.jpg'
-    },{
+    }, {
       subid: 4,
       subjectName: 'Social Science',
       img: 'https://i.ibb.co/qkJG260/word-design-school-subject-english-1308-6065.jpg'
