@@ -12,7 +12,7 @@ const router = express.Router()
 
 router.use(cors())
 
-router.get('/history', async (req, res) => {
+router.post('/history', async (req, res) => {
   try {
     // const { stdID, subID, chapterID, questions } = req.body;
     const userID = req.body.userID
@@ -21,7 +21,7 @@ router.get('/history', async (req, res) => {
     if (!results || results.length === 0) {
       return res.status(404).json({
         status: 404,
-        message: "user's data not found!"
+        message: "Oops! It seems like there is no result data available for your account."
       })
     }
 

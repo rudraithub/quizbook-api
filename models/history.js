@@ -51,10 +51,10 @@ const historySchema = new mongoose.Schema({
       type: Object
     },
     rightAnswer: {
-      type: String
+      type: Number
     },
     user_Ans: {
-      type: String
+      type: Number
     },
     user_Result: {
       type: Boolean
