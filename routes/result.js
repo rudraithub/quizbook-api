@@ -64,7 +64,7 @@ router.post('/results', async (req, res) => {
         })
       }
 
-      const isCorrect = user_answer.toLowerCase() === queData.rightAns.toLowerCase()
+      const isCorrect = user_answer === queData.rightAns
       console.log(isCorrect)
 
       return {
