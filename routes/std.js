@@ -5,7 +5,6 @@ require('../chapter.json')
 
 const router = express.Router()
 const chapterData = require('./chapter')
-const { default: mongoose } = require('mongoose')
 const question = require('./question')
 const standard = require('./standard')
 const cors = require('cors')
@@ -16,24 +15,34 @@ router.use(cors())
 //   try {
 //     const subdata = req.body
 
-//     const isStandard = await Subject.findOne({stdid: subdata.stdid})
-//     if(isStandard){
+//     const isStandard = await Subject.findOne({ stdid: subdata.stdid })
+//     if (isStandard) {
 //       isStandard.subject.push(...subdata.subject)
-
+//       console.log(isStandard)
 //       await isStandard.save()
 
-//       return res.status(200).json({
+//       res.status(200).json({
 //         status: 201,
 //         data: isStandard,
 //         message: 'Subject added to standatrd'
 //       })
-//     }else{
-//       const newStd
+//     } else {
+//       const newStd = req.body
 
+//       const subData = new Subject({...newStd})
+//       await subData.save()
 
+//       res.status(201).json({
+//         status: 201,
+//         data: newStd,
+//         message: 'New standard and subjects added!'
+//       })
 //     }
 //   } catch (error) {
-    
+//     res.status(404).json({
+//       status: 404,
+//       message: error.message
+//     })
 //   }
 // })
 
@@ -86,9 +95,9 @@ router.get('/chapter', async (req, res) => {
   })
 })
 
-router.get('/std/subject/chapter', async (req, res) => {
-  const stdId =  req.body.stdid 
-  const subId = req.body.subid 
+router.post('/std/subject/chapter', async (req, res) => {
+  const stdId = req.body.stdid
+  const subId = req.body.subid
 
   const std = standard.find((p) => p.stdid === parseInt(stdId))
 
@@ -178,7 +187,7 @@ router.get('/questions', async (req, res) => {
 //   })
 // })
 
-router.get('/std/subject/chapter/questions', (req, res) => {
+router.post('/std/subject/chapter/questions', (req, res) => {
   const stdID = req.body.stdid;
   const subId = req.body.subid;
   const chapterId = req.body.chapterid;

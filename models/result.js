@@ -28,7 +28,7 @@ const resultsSchema = new mongoose.Schema({
       required: true
     },
     user_answer: {
-      type: String,
+      type: Number,
       trim: true,
       required: true
     },

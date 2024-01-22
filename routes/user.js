@@ -173,7 +173,8 @@ router.post('/users/login', async (req, res) => {
   }
 })
 
-router.get('/profile', async (req, res) => {
+//get user profile
+router.post('/profile', async (req, res) => {
   try {
     const userID = req.body.userID
 
@@ -201,7 +202,7 @@ router.get('/profile', async (req, res) => {
 
 // user profile update
 
-router.patch('/profile/update', async (req, res) => {
+router.post('/profile/update', async (req, res) => {
   try {
     const { firstName, lastName } = req.body
 
