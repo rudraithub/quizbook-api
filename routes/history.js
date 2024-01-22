@@ -21,7 +21,7 @@ router.get('/history', async (req, res) => {
     if (!results || results.length === 0) {
       return res.status(404).json({
         status: 404,
-        message: "user's data not found!"
+        message: "Opps! there is no results avilable for you!!"
       })
     }
 
@@ -39,14 +39,27 @@ router.get('/history', async (req, res) => {
         console.error('std not found')
         return res.status(404).json({
           status: 404,
-          message: 'Data not found!'
+          message: 'Standard not found!'
         })
       }
 
       const sub = std.subject.find((s) => s.subid === subid)
+      if(!sub){
+        return res.status(404).json({
+          status: 404,
+          message: 'subject not found!'
+        })
+      }
 
       const chapters = chapterData[stdid] && chapterData[stdid][subid]
       const chap = chapters.find((ch) => ch.chapterid === chapterid)
+
+      if(!chap){
+        return res.status(404).json({
+          status: 404,
+          message: 'chapter not found!'
+        })
+      }
 
       const history = new History({
         stdID: std.stdid,
@@ -87,7 +100,7 @@ router.get('/history', async (req, res) => {
     console.error(error)
     res.status(500).json({
       status: 500,
-      message: 'Internal Server Error'
+      message: error.message
     })
   }
 })

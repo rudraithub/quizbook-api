@@ -99,7 +99,7 @@ router.post('/users/signup', async (req, res) => {
     const response = {
       status: 200,
       data: newUser,
-      message: 'successfully signup'
+      message: 'register successfully!'
     }
 
     res.set({
@@ -129,7 +129,7 @@ router.post('/user/varify', async (req, res) => {
     if (!user) {
       return res.status(404).json({
         status: 404,
-        message: 'User Not Found!!!'
+        message: 'You are not register yet, please signup first!'
       })
     }
 
@@ -152,7 +152,7 @@ router.post('/users/login', async (req, res) => {
     // console.log(user)
 
     if (!user) {
-      throw new Error('User not found')
+      throw new Error('You are not register yet, please signup!')
     }
 
     // if(!OTP || OTP === null || OTP.toString().length !== 4){
@@ -162,7 +162,7 @@ router.post('/users/login', async (req, res) => {
     const response = {
       status: 200,
       data: user,
-      message: 'login sucessfully'
+      message: 'login sucessfully!'
     }
 
     res.json(response)
@@ -185,7 +185,7 @@ router.get('/profile', async (req, res) => {
     if (!user) {
       return res.status(404).json({
         status: 404,
-        message: 'user not found!'
+        message: 'You are not register yet, please signup first!'
       })
     }
 
@@ -220,7 +220,7 @@ router.patch('/profile/update', async (req, res) => {
     if (!user) {
       return res.status(404).json({
         status: 404,
-        message: 'user not found!'
+        message: 'You are not register yet, please signup first!'
       })
     }
     res.status(200).json({
@@ -281,7 +281,7 @@ router.post('/users/avatars', upload.single('avatar'), async (req, res) => {
   if (!user) {
     return res.status(404).json({
       status: 404,
-      message: 'User not found'
+      message: 'You are not register yet, please signup first!'
     })
   }
   user.userProfile = `http://localhost:3000/${req.file.originalname}`
@@ -301,7 +301,7 @@ router.delete('/users/avatars', async (req, res) => {
     if (!user) {
       return res.status(404).json({
         status: 404,
-        message: 'User not found'
+        message: 'You are not register yet, please signup first!'
       })
     }
 
@@ -309,7 +309,7 @@ router.delete('/users/avatars', async (req, res) => {
     await user.save()
     res.status(200).json({
       status: 200,
-      message: 'User profile deleted successfully',
+      message: 'Profile deleted successfully',
       data: user
     })
   } catch (error) {

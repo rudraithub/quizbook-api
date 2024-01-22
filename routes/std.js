@@ -94,7 +94,7 @@ router.get('/std/subject/chapter', async (req, res) => {
     if (!std) {
       return res.status(400).json({
         status: 400,
-        message: 'standard not found'
+        message: 'standard not found!'
       })
     }
 
@@ -103,18 +103,18 @@ router.get('/std/subject/chapter', async (req, res) => {
     if (!sub) {
       return res.status(400).json({
         status: 400,
-        message: 'standard not found'
+        message: 'subject not found!'
       })
     }
 
     const chapters = chapterData[stdId] && chapterData[stdId][subId]
 
-    console.log(chapters)
+    // console.log(chapters)
 
     if (!chapters || chapters.length === 0) {
       return res.status(400).json({
         status: 400,
-        message: 'chapter data not found'
+        message: 'chapter is not found!'
       })
     }
 
@@ -214,7 +214,7 @@ router.get('/std/subject/chapter/questions', (req, res) => {
   if (chapterQuestions.length === 0) {
     return res.status(404).json({
       status: 404,
-      message: 'No questions found for the given chapterId'
+      message: 'No questions found!'
     })
   }
 
