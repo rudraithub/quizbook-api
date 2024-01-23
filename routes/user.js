@@ -129,7 +129,7 @@ router.post('/user/varify', async (req, res) => {
     if (!user) {
       return res.status(404).json({
         status: 404,
-        message: 'You are not register yet, please signup first!'
+        message: 'You are not register yet, please signup!'
       })
     }
 
