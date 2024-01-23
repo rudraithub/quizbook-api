@@ -8,7 +8,6 @@ const chapterData = require('./chapter')
 const question = require('./question')
 const standard = require('./standard')
 
-
 router.use(cors())
 
 // router.post('/std', async (req, res) => {
@@ -48,26 +47,17 @@ router.use(cors())
 
 router.get('/std', async (req, res) => {
   try {
+    await Subject.deleteMany()
+    await Subject.insertMany(standard)
+
     const isStd = await Subject.find()
     if (isStd.length > 0) {
-      return res.status(200).json({
+      res.status(201).json({
         status: 200,
-        data: isStd
+        data: isStd,
+        message: 'success!!'
       })
     }
-
-    const createData = []
-
-    for (const stdData of standard) {
-      const subData = new Subject(stdData)
-      await subData.save()
-      await createData.push[subData]
-    }
-    return res.status(201).json({
-      status: 200,
-      data: createData,
-      message: 'success!!'
-    })
   } catch (error) {
     res.status(400).json(error.message)
   }
@@ -94,8 +84,6 @@ router.get('/chapter', async (req, res) => {
     message: 'success!'
   })
 })
-
-
 
 router.post('/std/subject/chapter', async (req, res) => {
   const stdId = req.body.stdid
@@ -133,7 +121,6 @@ router.post('/std/subject/chapter', async (req, res) => {
   try {
     const stdId = req.body.stdid
     const subId = req.body.subid
-
 
     const std = standard.find((p) => p.stdid === parseInt(stdId))
 
@@ -223,9 +210,9 @@ router.get('/questions', async (req, res) => {
 // })
 
 router.post('/std/subject/chapter/questions', (req, res) => {
-  const stdID = req.body.stdid;
-  const subId = req.body.subid;
-  const chapterId = req.body.chapterid;
+  const stdID = req.body.stdid
+  const subId = req.body.subid
+  const chapterId = req.body.chapterid
 
   const isStd = standard.find(s => s.stdid === parseInt(stdID))
 

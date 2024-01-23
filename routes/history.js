@@ -13,7 +13,7 @@ const router = express.Router()
 
 router.use(cors())
 
-router.post('/history',auth, async (req, res) => {
+router.post('/history', auth, async (req, res) => {
   try {
     // const { stdID, subID, chapterID, questions } = req.body;
     const userID = req.user._id
@@ -22,7 +22,7 @@ router.post('/history',auth, async (req, res) => {
     if (!results || results.length === 0) {
       return res.status(404).json({
         status: 404,
-        message: "Oops! It seems like there is no result data available for your account."
+        message: 'Oops! It seems like there is no result data available for your account.'
       })
     }
 
@@ -45,7 +45,7 @@ router.post('/history',auth, async (req, res) => {
       }
 
       const sub = std.subject.find((s) => s.subid === subid)
-      if(!sub){
+      if (!sub) {
         return res.status(404).json({
           status: 404,
           message: 'subject not found!'
@@ -55,7 +55,7 @@ router.post('/history',auth, async (req, res) => {
       const chapters = chapterData[stdid] && chapterData[stdid][subid]
       const chap = chapters.find((ch) => ch.chapterid === chapterid)
 
-      if(!chap){
+      if (!chap) {
         return res.status(404).json({
           status: 404,
           message: 'chapter not found!'

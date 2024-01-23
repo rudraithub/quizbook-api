@@ -12,7 +12,7 @@ const router = express.Router()
 
 router.use(cors())
 
-router.post('/results',auth, async (req, res) => {
+router.post('/results', auth, async (req, res) => {
   try {
     const { stdid, subid, chapterid, questions } = req.body
     const _id = req.user._id
