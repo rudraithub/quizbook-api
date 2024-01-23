@@ -6,17 +6,18 @@ const chapterData = require('./chapter')
 
 const cors = require('cors')
 const User = require('../models/user')
+const auth = require('../middleware/auth')
 
 const router = express.Router()
 
 router.use(cors())
 
-router.post('/results', async (req, res) => {
+router.post('/results',auth, async (req, res) => {
   try {
     const { stdid, subid, chapterid, questions } = req.body
-    const _id = req.body.userID
+    const _id = req.user._id
 
-    const user = await User.findOne({ _id })
+    const user = await User.findById(_id)
 
     if (!user) {
       return res.status(401).json({

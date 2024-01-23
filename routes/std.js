@@ -7,7 +7,7 @@ const router = express.Router()
 const chapterData = require('./chapter')
 const question = require('./question')
 const standard = require('./standard')
-// const cors = require('cors')
+
 
 router.use(cors())
 
@@ -95,6 +95,8 @@ router.get('/chapter', async (req, res) => {
   })
 })
 
+
+
 router.post('/std/subject/chapter', async (req, res) => {
   const stdId = req.body.stdid
   const subId = req.body.subid
@@ -131,6 +133,7 @@ router.post('/std/subject/chapter', async (req, res) => {
   try {
     const stdId = req.body.stdid
     const subId = req.body.subid
+
 
     const std = standard.find((p) => p.stdid === parseInt(stdId))
 

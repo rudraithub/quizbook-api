@@ -7,6 +7,8 @@ const multer = require('multer')
 
 const router = express.Router()
 const cors = require('cors')
+const authToken = require('../utils/generateAuth')
+const auth = require('../middleware/auth')
 
 // router.use(cors())
 
@@ -150,6 +152,8 @@ router.post('/users/login', async (req, res) => {
     const { mobileNumber } = req.body
     const user = await User.findOne({ mobileNumber })
     // console.log(user)
+    const token = await authToken(user._id)
+    // console.log(token)
 
     if (!user) {
       throw new Error('You are not register yet, please signup!')
@@ -162,6 +166,7 @@ router.post('/users/login', async (req, res) => {
     const response = {
       status: 200,
       data: user,
+      token,
       message: 'login sucessfully!'
     }
 
@@ -177,9 +182,9 @@ router.post('/users/login', async (req, res) => {
 })
 
 //get user profile
-router.post('/profile', async (req, res) => {
+router.post('/profile', auth, async (req, res) => {
   try {
-    const userID = req.body.userID
+    const userID = req.user._id
 
     const user = await User.findById(userID)
 
@@ -205,11 +210,11 @@ router.post('/profile', async (req, res) => {
 
 // user profile update
 
-router.post('/profile/update', async (req, res) => {
+router.post('/profile/update',auth , async (req, res) => {
   try {
     const { firstName, lastName } = req.body
 
-    const userID = req.body.userID
+    const userID = req.user._id
     const user = await User.findByIdAndUpdate(userID, {
       firstName,
       lastName
@@ -269,16 +274,16 @@ const upload = multer({
 
 router.use('/', express.static('avatar'))
 
-router.post('/users/avatars', upload.single('avatar'), async (req, res) => {
+router.post('/users/avatars',auth, upload.single('avatar'), async (req, res) => {
   if (!req.file) {
     throw new Error('Please upload an image')
   }
 
-  const user_id = req.body.user_id
+  const userid = req.user._id
 
-  console.log('User ID:', user_id)
+  console.log('User ID:', userid)
 
-  const user = await User.findOne({ user_id })
+  const user = await User.findById(userid)
   if (!user) {
     return res.status(404).json({
       status: 404,
@@ -296,8 +301,8 @@ router.post('/users/avatars', upload.single('avatar'), async (req, res) => {
 // delete user profile
 router.delete('/users/avatars', async (req, res) => {
   try {
-    const user_id = req.body.user_id
-    const user = await User.findOne({ user_id })
+    const user_id = req.user._id
+    const user = await User.findById({ user_id })
 
     if (!user) {
       return res.status(404).json({

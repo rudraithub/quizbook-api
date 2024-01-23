@@ -74,7 +74,13 @@ const userSchema = new mongoose.Schema({
   user_id: {
     type: Number,
     unique: true
-  }
+  },
+  tokens:[{
+    token: {
+      type: String,
+      required: true
+    }
+  }]
 }, {
   timestamps: false
 })

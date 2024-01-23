@@ -7,15 +7,16 @@ const chapterData = require('./chapter')
 const cors = require('cors')
 // const User = require('../models/user')
 const Results = require('../models/result')
+const auth = require('../middleware/auth')
 
 const router = express.Router()
 
 router.use(cors())
 
-router.post('/history', async (req, res) => {
+router.post('/history',auth, async (req, res) => {
   try {
     // const { stdID, subID, chapterID, questions } = req.body;
-    const userID = req.body.userID
+    const userID = req.user._id
     const results = await Results.find({ userID })
 
     if (!results || results.length === 0) {
