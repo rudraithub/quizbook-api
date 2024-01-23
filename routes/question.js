@@ -279,41 +279,19 @@ const question = [{
   subid: 1,
   chapterid: 3,
   question_no: 9,
-<<<<<<< HEAD
-  question: 'If you subtract 1//3 from 4/5, what is the result?',
-  Option: {
-    a: '5/15',
-    b: '1/15',
-    c: '3/5',
-    d: '1/2'
-  },
-  rightAns: 'c'
-}, {
-=======
   question: 'If you subtract 1/3 from 4/5, what is the result?',
   Option: ['5/15', '1/15', '3/5', '1/2'],
   rightAns: 2
 },
 {
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
   queid: 10,
   stdid: 1,
   subid: 1,
   chapterid: 3,
   question_no: 10,
   question: 'What is the fraction equivalent of the decimal 0.2?',
-<<<<<<< HEAD
-  Option: {
-    a: '1/5',
-    b: '1/10',
-    c: '2/10',
-    d: '2/5'
-  },
-  rightAns: 'a'
-=======
   Option: ['1/5', '1/10', '2/10', '2/5'],
   rightAns: 0
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 // chapter 4 - Measurement
 {
@@ -323,207 +301,98 @@ const question = [{
   chapterid: 4,
   question_no: 1,
   question: 'What is the standard unit for measuring length in the metric system?',
-<<<<<<< HEAD
-  Option: {
-    a: 'Feet',
-    b: 'Inches',
-    c: 'Centimeters',
-    d: 'Yards'
-  },
-  rightAns: 'c'
-}, {
-=======
   Option: ['Feet', 'Inches', 'Centimeters', 'Yards'],
   rightAns: 2
 },
 {
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
   queid: 2,
   stdid: 1,
   subid: 1,
   chapterid: 4,
   question_no: 2,
   question: 'How many millimeters are in one centimeter?',
-<<<<<<< HEAD
-  Option: {
-    a: '10',
-    b: '100',
-    c: '1000',
-    d: '10000'
-  },
-  rightAns: 'a'
-}, {
-=======
   Option: ['10', '100', '1000', '10000'],
   rightAns: 0
 },
 {
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
   queid: 3,
   stdid: 1,
   subid: 1,
   chapterid: 4,
   question_no: 3,
   question: 'If a rectangle has a length of 8 cm and a width of 5 cm, what is its area?',
-<<<<<<< HEAD
-  Option: {
-    a: '13 cm²',
-    b: '30 cm²',
-    c: '40 cm²',
-    d: '48 cm²'
-  },
-  rightAns: 'c'
-}, {
-=======
   Option: ['13 cm2', '30 cm2', '40 cm2', '48 cm2'],
   rightAns: 2
 },
 {
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
   queid: 4,
   stdid: 1,
   subid: 1,
   chapterid: 4,
   question_no: 4,
   question: 'Which unit is used to measure the volume of a liquid?',
-<<<<<<< HEAD
-  Option: {
-    a: 'Gram',
-    b: 'Liter',
-    c: 'Meter',
-    d: 'Kilogram'
-  },
-  rightAns: 'b'
-}, {
-=======
   Option: ['Gram', 'Liter', 'Meter', 'Kilogram'],
   rightAns: 1
 },
 {
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
   queid: 5,
   stdid: 1,
   subid: 1,
   chapterid: 4,
   question_no: 5,
   question: 'What is the perimeter of a square with a side length of 6 meters?',
-<<<<<<< HEAD
-  Option: {
-    a: '18 meters',
-    b: '24 meters',
-    c: '30 meters',
-    d: '36 meters'
-  },
-  rightAns: 'b'
-}, {
-=======
   Option: ['18 meters', '24 meters', '30 meters', '36 meters'],
   rightAns: 1
 },
 {
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
   queid: 6,
   stdid: 1,
   subid: 1,
   chapterid: 4,
   question_no: 6,
   question: 'How many grams are in one kilogram?',
-<<<<<<< HEAD
-  Option: {
-    a: '100',
-    b: '500',
-    c: '1000',
-    d: '1500'
-  },
-  rightAns: 'c'
-}, {
-=======
   Option: ['100', '500', '1000', '1500'],
   rightAns: 2
 },
 {
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
   queid: 7,
   stdid: 1,
   subid: 1,
   chapterid: 4,
   question_no: 7,
   question: 'If a clock shows 3:45, how many degrees has the hour hand moved from 12:00?',
-<<<<<<< HEAD
-  Option: {
-    a: '112.5°',
-    b: '135°',
-    c: '180°',
-    d: '225°'
-  },
-  rightAns: 'b'
-}, {
-=======
   Option: ['112.5°', '135°', '180°', '225°'],
   rightAns: 1
 },
 {
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
   queid: 8,
   stdid: 1,
   subid: 1,
   chapterid: 4,
   question_no: 8,
   question: 'Which of the following is a unit of weight?',
-<<<<<<< HEAD
-  Option: {
-    a: 'Liter',
-    b: 'Meter',
-    c: 'Gram',
-    d: 'Kilometer'
-  },
-  rightAns: 'c'
-}, {
-=======
   Option: ['Liter', 'Meter', 'Gram', 'Kilometer'],
   rightAns: 2
 },
 {
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
   queid: 9,
   stdid: 1,
   subid: 1,
   chapterid: 4,
   question_no: 9,
   question: 'If you travel 250 km in 5 hours, what is your average speed?',
-<<<<<<< HEAD
-  Option: {
-    a: '45 km/h',
-    b: '50 km/h',
-    c: '55 km/h',
-    d: '60 km/h'
-  },
-  rightAns: 'b'
-}, {
-=======
   Option: ['45 km/h', '50 km/h', '55 km/h', '60 km/h'],
   rightAns: 1
 },
 {
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
   queid: 10,
   stdid: 1,
   subid: 1,
   chapterid: 4,
   question_no: 10,
   question: 'How many centimeters are in one meter?',
-<<<<<<< HEAD
-  Option: {
-    a: '10',
-    b: '100',
-    c: '1000',
-    d: '10000'
-  },
-  rightAns: 'b'
-=======
   Option: ['10', '100', '1000', '10000'],
   rightAns: 1
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 
 // subject Gujrati chapter 1 - Welcome
@@ -534,207 +403,98 @@ const question = [{
   chapterid: 1,
   question_no: 1,
   question: 'What is the name of Kinjal\'s new friend?',
-<<<<<<< HEAD
-  Option: {
-    a: 'Sejal ',
-    b: 'Reva ',
-    c: 'Nisha ',
-    d: 'Diya'
-  },
-  rightAns: 'a'
-}, {
-=======
   Option: ['Sejal', 'Reva', 'Nisha', 'Diya'],
   rightAns: 0
 },
 {
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
   queid: 2,
   stdid: 1,
   subid: 2,
   chapterid: 1,
   question_no: 2,
   question: 'What game does Sejal invite Kinjal to play?',
-<<<<<<< HEAD
-  Option: {
-    a: 'Hide and Seek ',
-    b: 'Cricket  ',
-    c: 'Kho-Kho ',
-    d: 'Kabaddi'
-  },
-  rightAns: 'd'
-}, {
-=======
   Option: ['Hide and Seek', 'Cricket', 'Kho-Kho', 'Kabaddi'],
   rightAns: 3
 },
 {
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
   queid: 3,
   stdid: 1,
   subid: 2,
   chapterid: 1,
   question_no: 3,
   question: 'How does Kinjal feel on the first day at the new school?',
-<<<<<<< HEAD
-  Option: {
-    a: 'Excited',
-    b: 'Nervous',
-    c: 'Sad',
-    d: 'Angry'
-  },
-  rightAns: 'b'
-}, {
-=======
   Option: ['Excited', 'Nervous', 'Sad', 'Angry'],
   rightAns: 1
 },
 {
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
   queid: 4,
   stdid: 1,
   subid: 2,
   chapterid: 1,
   question_no: 4,
   question: 'Where does Kinjal sit in the classroom?',
-<<<<<<< HEAD
-  Option: {
-    a: 'Front row',
-    b: 'Back row',
-    c: 'Middle row',
-    d: 'Next to Sejal'
-  },
-  rightAns: 'd'
-}, {
-=======
   Option: ['Front row', 'Back row', 'Middle row', 'Next to Sejal'],
   rightAns: 3
 },
 {
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
   queid: 5,
   stdid: 1,
   subid: 2,
   chapterid: 1,
   question_no: 5,
   question: 'What gift does Kinjal give Sejal?',
-<<<<<<< HEAD
-  Option: {
-    a: 'Chocolates',
-    b: 'Greeting card',
-    c: 'Flowers',
-    d: 'Toy'
-  },
-  rightAns: 'd'
-}, {
-=======
   Option: ['Chocolates', 'Greeting card', 'Flowers', 'Toy'],
   rightAns: 3
 },
 {
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
   queid: 6,
   stdid: 1,
   subid: 2,
   chapterid: 1,
   question_no: 6,
   question: 'Where does Sejal take Kinjal during lunch break?',
-<<<<<<< HEAD
-  Option: {
-    a: 'Library ',
-    b: 'Playground',
-    c: 'Canteen',
-    d: 'Classroom'
-  },
-  rightAns: 'c'
-}, {
-=======
   Option: ['Library', 'Playground', 'Canteen', 'Classroom'],
   rightAns: 2
 },
 {
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
   queid: 7,
   stdid: 1,
   subid: 2,
   chapterid: 1,
   question_no: 7,
   question: 'What food item does Kinjal share with Sejal?',
-<<<<<<< HEAD
-  Option: {
-    a: 'Sandwich',
-    b: 'Pizza',
-    c: 'Pasta',
-    d: 'Burger'
-  },
-  rightAns: 'a'
-}, {
-=======
   Option: ['Sandwich', 'Pizza', 'Pasta', 'Burger'],
   rightAns: 0
 },
 {
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
   queid: 8,
   stdid: 1,
   subid: 2,
   chapterid: 1,
   question_no: 8,
   question: 'How does Kinjal travel to school?',
-<<<<<<< HEAD
-  Option: {
-    a: 'Bus',
-    b: 'Car',
-    c: 'Train',
-    d: 'Auto rickshaw'
-  },
-  rightAns: 'b'
-}, {
-=======
   Option: ['Bus', 'Car', 'Train', 'Auto rickshaw'],
   rightAns: 1
 },
 {
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
   queid: 9,
   stdid: 1,
   subid: 2,
   chapterid: 1,
   question_no: 9,
   question: 'What is Kinjal\'s father\'s name?',
-<<<<<<< HEAD
-  Option: {
-    a: 'Rajesh',
-    b: 'Ramesh',
-    c: 'Mahesh',
-    d: 'Suresh'
-  },
-  rightAns: 'b'
-}, {
-=======
   Option: ['Rajesh', 'Ramesh', 'Mahesh', 'Suresh'],
   rightAns: 1
 },
 {
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
   queid: 10,
   stdid: 1,
   subid: 2,
   chapterid: 1,
   question_no: 10,
   question: 'What is Kinjal\'s favorite subject?',
-<<<<<<< HEAD
-  Option: {
-    a: 'English',
-    b: 'Maths',
-    c: 'Science',
-    d: 'Art'
-  },
-  rightAns: 'c'
-=======
   Option: ['English', 'Maths', 'Science', 'Art'],
   rightAns: 2
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 
 // english ch - 1
@@ -1041,12 +801,7 @@ const question = [{
   Option: ['2', '5', '10', '100'],
   rightAns: 2
 },
-<<<<<<< HEAD
-// subject gujrati
-
-=======
 //subject gujrati
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 {
   queid: 1,
   chapterid: 1,
@@ -1054,18 +809,8 @@ const question = [{
   subid: 2,
   question_no: 1,
   question: 'Who is the author of the novel Saraswatichandra?',
-<<<<<<< HEAD
-  Option: {
-    a: 'Govardhanram Tripathi',
-    b: 'K.M. Munshi',
-    c: 'Ramanbhai Neelkanth',
-    d: 'Dalpatram'
-  },
-  rightAns: 'a'
-=======
   Option: ['Govardhanram Tripathi', 'K.M. Munshi', 'Ramanbhai Neelkanth', 'Dalpatram'],
   rightAns: 0
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 {
   queid: 2,
@@ -1074,18 +819,8 @@ const question = [{
   subid: 2,
   question_no: 2,
   question: 'Which of these is a pen name of Narmadashankar Dave?',
-<<<<<<< HEAD
-  Option: {
-    a: 'Narsinh',
-    b: 'Kavi',
-    c: 'Priya',
-    d: 'Kamal'
-  },
-  rightAns: 'b'
-=======
   Option: ['Narsinh', 'Kavi', 'Priya', 'Kamal'],
   rightAns: 1
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 {
   queid: 3,
@@ -1094,18 +829,8 @@ const question = [{
   subid: 2,
   question_no: 3,
   question: 'Who wrote the novel Kadambari, considered the first Gujarati novel?',
-<<<<<<< HEAD
-  Option: {
-    a: 'Dalpatram',
-    b: 'Narmadashankar Dave',
-    c: 'Premanand Bhatt',
-    d: 'Govardhanram Tripathi'
-  },
-  rightAns: 'b'
-=======
   Option: ['Dalpatram', 'Narmadashankar Dave', 'Premanand Bhatt', 'Govardhanram Tripathi'],
   rightAns: 1
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 {
   queid: 4,
@@ -1124,18 +849,8 @@ const question = [{
   subid: 2,
   question_no: 5,
   question: 'Who wrote the poem Jai Jai Garavi Gujarat?',
-<<<<<<< HEAD
-  Option: {
-    a: 'Dalpatram',
-    b: 'Narmadashankar Dave',
-    c: 'Premanand Bhatt',
-    d: 'Govardhanram Tripathi'
-  },
-  rightAns: 'b'
-=======
   Option: ['Dalpatram', 'Narmadashankar Dave', 'Premanand Bhatt', 'Govardhanram Tripathi'],
   rightAns: 1
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 {
   queid: 6,
@@ -1154,18 +869,8 @@ const question = [{
   subid: 2,
   question_no: 7,
   question: 'Who is the author of Batris Putli?',
-<<<<<<< HEAD
-  Option: {
-    a: 'Alexander Kinloch Forbes',
-    b: 'Govardhanram Tripathi',
-    c: 'Jhaverchand Meghani',
-    d: 'K. M. Munshi'
-  },
-  rightAns: 'c'
-=======
   Option: ['Alexander Kinloch Forbes', 'Govardhanram Tripathi', 'Jhaverchand Meghani', 'K. M. Munshi'],
   rightAns: 2
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 {
   queid: 8,
@@ -1194,18 +899,8 @@ const question = [{
   subid: 2,
   question_no: 10,
   question: 'Which literary work is written by Narmadashankar Dave?',
-<<<<<<< HEAD
-  Option: {
-    a: 'Saraswatichandra',
-    b: 'Veermati',
-    c: 'Mari Hakikat',
-    d: 'Sudamacharitra'
-  },
-  rightAns: 'c'
-=======
   Option: ['Saraswatichandra', 'Veermati', 'Mari Hakikat', 'Sudamacharitra'],
   rightAns: 2
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 // english
 {
@@ -1214,20 +909,9 @@ const question = [{
   stdid: 2,
   subid: 2,
   question_no: 1,
-<<<<<<< HEAD
-  question: 'Choose the correct synonym of the word \'enormous\':',
-  Option: {
-    a: 'Tiny',
-    b: 'Huge',
-    c: 'Smooth',
-    d: 'Dangerous'
-  },
-  rightAns: 'b'
-=======
   question: "Choose the correct synonym of the word 'enormous':",
   Option: ["Tiny", "Huge", "Smooth", "Dangerous"],
   rightAns: 1
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 {
   queid: 2,
@@ -1251,18 +935,8 @@ const question = [{
   subid: 2,
   question_no: 3,
   question: 'Choose the correct abstract noun:',
-<<<<<<< HEAD
-  Option: {
-    a: 'Truth',
-    b: 'Dog',
-    c: 'Building',
-    d: 'Box'
-  },
-  rightAns: 'a'
-=======
   Option: ['Truth', 'Dog', 'Building', 'Box'],
   rightAns: 0
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 {
   queid: 4,
@@ -1281,18 +955,8 @@ const question = [{
   subid: 2,
   question_no: 5,
   question: 'Choose the correct collective noun:',
-<<<<<<< HEAD
-  Option: {
-    a: 'Crowd',
-    b: 'Team',
-    c: 'Flock',
-    d: 'Alphabet'
-  },
-  rightAns: 'c'
-=======
   Option: ['Crowd', 'Team', 'Flock', 'Alphabet'],
   rightAns: 2
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 {
   queid: 6,
@@ -1306,24 +970,6 @@ const question = [{
 },
 {
   queid: 7,
-<<<<<<< HEAD
-  chapterid: 1,
-  stdid: 2,
-  subid: 3,
-  question_no: 7,
-  question: 'Choose the correct antonym of the word \'brave\':',
-  Option: {
-    a: 'Cowardly',
-    b: 'Kind',
-    c: 'Joyful',
-    d: 'Polite'
-  },
-  rightAns: 'a'
-},
-{
-  queid: 8,
-=======
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
   chapterid: 1,
   stdid: 2,
   subid: 2,
@@ -1346,11 +992,7 @@ const question = [{
   queid: 9,
   chapterid: 1,
   stdid: 2,
-<<<<<<< HEAD
-  subid: 3,
-=======
   subid: 2,
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
   question_no: 9,
   question: 'Choose the correct pronoun to fill in the blank: _______ is a doctor.',
   Option: ['She', 'They', 'It', 'Her'],
@@ -1362,20 +1004,9 @@ const question = [{
   stdid: 2,
   subid: 2,
   question_no: 10,
-<<<<<<< HEAD
-  question: 'Identify the proper noun:',
-  Option: {
-    a: 'Building',
-    b: ' Delhi',
-    c: 'Country',
-    d: 'River'
-  },
-  rightAns: 'b'
-=======
   question: 'Which literary work is written by Narmadashankar Dave?',
   Option: ['Saraswatichandra', 'Veermati', 'Mari Hakikat', 'Sudamacharitra'],
   rightAns: 2
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 // scoial science
 {
@@ -1405,18 +1036,8 @@ const question = [{
   subid: 4,
   question_no: 3,
   question: 'Who discovered penicillin?',
-<<<<<<< HEAD
-  Option: {
-    a: 'Louis Pasteur',
-    b: 'Alexander Fleming',
-    c: 'Marie Curie',
-    d: 'Albert Einstein'
-  },
-  rightAns: 'b'
-=======
   Option: ['Louis Pasteur', 'Alexander Fleming', 'Marie Curie', 'Albert Einstein'],
   rightAns: 1
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 {
   queid: 4,
@@ -1445,18 +1066,8 @@ const question = [{
   subid: 4,
   question_no: 6,
   question: 'What is the SI unit of force?',
-<<<<<<< HEAD
-  Option: {
-    a: 'Joule',
-    b: 'Newton',
-    c: 'Pascal',
-    d: 'Watt'
-  },
-  rightAns: 'b'
-=======
   Option: ['Joule', 'Newton', 'Pascal', 'Watt'],
   rightAns: 1
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 {
   queid: 7,
@@ -1475,18 +1086,8 @@ const question = [{
   subid: 4,
   question_no: 8,
   question: 'Who invented the electric bulb?',
-<<<<<<< HEAD
-  Option: {
-    a: 'Marie Curie',
-    b: 'Thomas Edison',
-    c: 'Albert Einstein',
-    d: 'Alexander Graham Bell'
-  },
-  rightAns: 'b'
-=======
   Option: ['Marie Curie', 'Thomas Edison', 'Albert Einstein', 'Alexander Graham Bell'],
   rightAns: 1
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 {
   queid: 9,
@@ -1606,12 +1207,7 @@ const question = [{
   Option: ['2', '5', '10', '100'],
   rightAns: 2
 },
-<<<<<<< HEAD
-// subject gujrati
-
-=======
 //subject gujrati
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 {
   queid: 1,
   chapterid: 1,
@@ -1619,15 +1215,6 @@ const question = [{
   subid: 2,
   question_no: 1,
   question: 'Who is the author of the novel Saraswatichandra?',
-<<<<<<< HEAD
-  Option: {
-    a: 'Govardhanram Tripathi',
-    b: 'K.M. Munshi',
-    c: 'Ramanbhai Neelkanth',
-    d: 'Dalpatram'
-  },
-  rightAns: 'a'
-=======
   options: [
     'Govardhanram Tripathi',
     'K.M. Munshi',
@@ -1635,7 +1222,6 @@ const question = [{
     'Dalpatram'
   ],
   rightAns: 0 // Govardhanram Tripathi
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 {
   queid: 2,
@@ -1644,15 +1230,6 @@ const question = [{
   subid: 2,
   question_no: 2,
   question: 'Which of these is a pen name of Narmadashankar Dave?',
-<<<<<<< HEAD
-  Option: {
-    a: 'Narsinh',
-    b: 'Kavi',
-    c: 'Priya',
-    d: 'Kamal'
-  },
-  rightAns: 'b'
-=======
   options: [
     'Narsinh',
     'Kavi',
@@ -1660,7 +1237,6 @@ const question = [{
     'Kamal'
   ],
   rightAns: 1 // Kavi
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 {
   queid: 3,
@@ -1668,16 +1244,6 @@ const question = [{
   stdid: 3,
   subid: 2,
   question_no: 3,
-<<<<<<< HEAD
-  question: 'Who wrote the novel Kadambari, considered the first Gujarati novel?',
-  Option: {
-    a: 'Dalpatram',
-    b: 'Narmadashankar Dave',
-    c: 'Premanand Bhatt',
-    d: 'Govardhanram Tripathi'
-  },
-  rightAns: 'b'
-=======
   question: 'Who wrote the novel Kadambar',
   options: [
     'Dalpatram',
@@ -1686,7 +1252,6 @@ const question = [{
     'Govardhanram Tripathi'
   ],
   rightAns: 1 // Narmadashankar Dave
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 {
   queid: 4,
@@ -1710,15 +1275,6 @@ const question = [{
   subid: 2,
   question_no: 5,
   question: 'Who wrote the poem Jai Jai Garavi Gujarat?',
-<<<<<<< HEAD
-  Option: {
-    a: 'Dalpatram',
-    b: 'Narmadashankar Dave',
-    c: 'Premanand Bhatt',
-    d: 'Govardhanram Tripathi'
-  },
-  rightAns: 'b'
-=======
   options: [
     'Dalpatram',
     'Narmadashankar Dave',
@@ -1726,7 +1282,6 @@ const question = [{
     'Govardhanram Tripathi'
   ],
   rightAns: 1 // Narmadashankar Dave
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 {
   queid: 6,
@@ -1750,15 +1305,6 @@ const question = [{
   subid: 2,
   question_no: 7,
   question: 'Who is the author of Batris Putli?',
-<<<<<<< HEAD
-  Option: {
-    a: 'Alexander Kinloch Forbes',
-    b: 'Govardhanram Tripathi',
-    c: 'Jhaverchand Meghani',
-    d: 'K. M. Munshi'
-  },
-  rightAns: 'c'
-=======
   options: [
     'Alexander Kinloch Forbes',
     'Govardhanram Tripathi',
@@ -1766,7 +1312,6 @@ const question = [{
     'K. M. Munshi'
   ],
   rightAns: 3 // Jhaverchand Meghani
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 {
   queid: 8,
@@ -1805,15 +1350,6 @@ const question = [{
   subid: 2,
   question_no: 10,
   question: 'Which literary work is written by Narmadashankar Dave?',
-<<<<<<< HEAD
-  Option: {
-    a: 'Saraswatichandra',
-    b: 'Veermati',
-    c: 'Mari Hakikat',
-    d: 'Sudamacharitra'
-  },
-  rightAns: 'c'
-=======
   options: [
     'Saraswatichandra',
     'Veermati',
@@ -1821,7 +1357,6 @@ const question = [{
     'Sudamacharitra'
   ],
   rightAns: 3 // Mari Hakikat
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 // english
 {
@@ -1831,18 +1366,8 @@ const question = [{
   subid: 3,
   question_no: 1,
   question: 'Choose the correct synonym of the word \'enormous\':',
-<<<<<<< HEAD
-  Option: {
-    a: 'Tiny',
-    b: 'Huge',
-    c: 'Smooth',
-    d: 'Dangerous'
-  },
-  rightAns: 'b'
-=======
   options: ['Tiny', 'Huge', 'Smooth', 'Dangerous'],
   rightAns: 1 // Huge
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 {
   queid: 2,
@@ -1866,18 +1391,8 @@ const question = [{
   subid: 3,
   question_no: 3,
   question: 'Choose the correct abstract noun:',
-<<<<<<< HEAD
-  Option: {
-    a: 'Truth',
-    b: 'Dog',
-    c: 'Building',
-    d: 'Box'
-  },
-  rightAns: 'a'
-=======
   options: ['Truth', 'Dog', 'Building', 'Box'],
   rightAns: 0 // Truth
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 {
   queid: 4,
@@ -1896,18 +1411,8 @@ const question = [{
   subid: 3,
   question_no: 5,
   question: 'Choose the correct collective noun:',
-<<<<<<< HEAD
-  Option: {
-    a: 'Crowd',
-    b: 'Team',
-    c: 'Flock',
-    d: 'Alphabet'
-  },
-  rightAns: 'c'
-=======
   options: ['Crowd', 'Team', 'Flock', 'Alphabet'],
   rightAns: 2 // Flock
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 {
   queid: 6,
@@ -1926,18 +1431,8 @@ const question = [{
   subid: 3,
   question_no: 7,
   question: 'Choose the correct antonym of the word \'brave\':',
-<<<<<<< HEAD
-  Option: {
-    a: 'Cowardly',
-    b: 'Kind',
-    c: 'Joyful',
-    d: 'Polite'
-  },
-  rightAns: 'a'
-=======
   options: ['Cowardly', 'Kind', 'Joyful', 'Polite'],
   rightAns: 0 // Cowardly
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 {
   queid: 8,
@@ -1966,18 +1461,8 @@ const question = [{
   subid: 3,
   question_no: 10,
   question: 'Identify the proper noun:',
-<<<<<<< HEAD
-  Option: {
-    a: 'Building',
-    b: ' Delhi',
-    c: 'Country',
-    d: 'River'
-  },
-  rightAns: 'b'
-=======
   options: ['Building', 'Delhi', 'Country', 'River'],
   rightAns: 1 // Delhi
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 // scoial science
 {
@@ -2007,18 +1492,8 @@ const question = [{
   subid: 4,
   question_no: 3,
   question: 'Who discovered penicillin?',
-<<<<<<< HEAD
-  Option: {
-    a: 'Louis Pasteur',
-    b: 'Alexander Fleming',
-    c: 'Marie Curie',
-    d: 'Albert Einstein'
-  },
-  rightAns: 'b'
-=======
   options: ['Louis Pasteur', 'Alexander Fleming', 'Marie Curie', 'Albert Einstein'],
   rightAns: 1 // Alexander Fleming
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 {
   queid: 4,
@@ -2047,18 +1522,8 @@ const question = [{
   subid: 4,
   question_no: 6,
   question: 'What is the SI unit of force?',
-<<<<<<< HEAD
-  Option: {
-    a: 'Joule',
-    b: 'Newton',
-    c: 'Pascal',
-    d: 'Watt'
-  },
-  rightAns: 'b'
-=======
   options: ['Joule', 'Newton', 'Pascal', 'Watt'],
   rightAns: 1 // Newton
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 {
   queid: 7,
@@ -2077,18 +1542,8 @@ const question = [{
   subid: 4,
   question_no: 8,
   question: 'Who invented the electric bulb?',
-<<<<<<< HEAD
-  Option: {
-    a: 'Marie Curie',
-    b: 'Thomas Edison',
-    c: 'Albert Einstein',
-    d: 'Alexander Graham Bell'
-  },
-  rightAns: 'b'
-=======
   options: ['Marie Curie', 'Thomas Edison', 'Albert Einstein', 'Alexander Graham Bell'],
   rightAns: 1 // Thomas Edison
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 {
   queid: 9,
@@ -2131,18 +1586,8 @@ const question = [{
   subid: 1,
   question_no: 2,
   question: 'What is the HCF of 12, 18 and 30?',
-<<<<<<< HEAD
-  Option: {
-    a: '2',
-    b: '3',
-    c: '6',
-    d: '4'
-  },
-  rightAns: 'c'
-=======
   options: ['2', '3', '6', '4'],
   rightAns: 2
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 {
   queid: 3,
@@ -2181,18 +1626,8 @@ const question = [{
   subid: 1,
   question_no: 6,
   question: 'The perimeter of a rectangle is 140 cm. If its length is 30 cm, what is its breadth?',
-<<<<<<< HEAD
-  Option: {
-    a: '20 cm',
-    b: '35 cm',
-    c: '55 cm',
-    d: '105 cm'
-  },
-  rightAns: 'c'
-=======
   options: ['20 cm', '35 cm', '55 cm', '105 cm'],
   rightAns: 2
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 {
   queid: 7,
@@ -2201,18 +1636,8 @@ const question = [{
   subid: 1,
   question_no: 7,
   question: 'Which decimal represents the fraction 5/4?',
-<<<<<<< HEAD
-  Option: {
-    a: '0.2',
-    b: '1.25',
-    c: '1.5',
-    d: '2.5'
-  },
-  rightAns: 'b'
-=======
   options: ['0.2', '1.25', '1.5', '2.5'],
   rightAns: 1
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 {
   queid: 8,
@@ -2252,18 +1677,8 @@ const question = [{
   subid: 2,
   question_no: 1,
   question: 'Who is the author of Batris Putli?',
-<<<<<<< HEAD
-  Option: {
-    a: 'Govardhanram Tripathi',
-    b: 'K M Munshi',
-    c: 'Jhaverchand Meghani',
-    d: 'Ramanbhai Neelkanth'
-  },
-  rightAns: 'c'
-=======
   options: ['Govardhanram Tripathi', 'K M Munshi', 'Jhaverchand Meghani', 'Ramanbhai Neelkanth'],
   rightAns: 2
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 {
   queid: 2,
@@ -2292,18 +1707,8 @@ const question = [{
   subid: 2,
   question_no: 4,
   question: 'Who wrote the novel Kadambari?',
-<<<<<<< HEAD
-  Option: {
-    a: 'Alexander Kinloch Forbes',
-    b: 'Govardhanram Tripathi',
-    c: 'Narmadashankar Dave',
-    d: 'K M Munshi'
-  },
-  rightAns: 'c'
-=======
   options: ['Alexander Kinloch Forbes', 'Govardhanram Tripathi', 'Narmadashankar Dave', 'K M Munshi'],
   rightAns: 2
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 {
   queid: 5,
@@ -2312,18 +1717,8 @@ const question = [{
   subid: 2,
   question_no: 5,
   question: 'Who among the following was a social reformer?',
-<<<<<<< HEAD
-  Option: {
-    a: 'Gandhi',
-    b: 'Dayanand Saraswati',
-    c: 'Ranchhodlal Dave',
-    d: 'Kavi Dalpatram'
-  },
-  rightAns: 'b'
-=======
   options: ['Gandhi', 'Dayanand Saraswati', 'Ranchhodlal Dave', 'Kavi Dalpatram'],
   rightAns: 1
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 {
   queid: 6,
@@ -2342,18 +1737,8 @@ const question = [{
   subid: 2,
   question_no: 7,
   question: 'Who wrote the drama Jano Kharo Jani?',
-<<<<<<< HEAD
-  Option: {
-    a: 'Umashankar Joshi',
-    b: 'Chinu Modi',
-    c: 'Premanand Bhatt',
-    d: 'Narsinh Mehta'
-  },
-  rightAns: 'b'
-=======
   options: ['Umashankar Joshi', 'Chinu Modi', 'Premanand Bhatt', 'Narsinh Mehta'],
   rightAns: 1
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 {
   queid: 8,
@@ -2362,18 +1747,8 @@ const question = [{
   subid: 2,
   question_no: 8,
   question: 'Who wrote the novel Bhadrambhadra?',
-<<<<<<< HEAD
-  Option: {
-    a: 'Joseph Macwan',
-    b: 'Chandravadan Mehta',
-    c: 'K M Munshi',
-    d: 'Tarak Mehta'
-  },
-  rightAns: 'd'
-=======
   options: ['Joseph Macwan', 'Chandravadan Mehta', 'K M Munshi', 'Tarak Mehta'],
   rightAns: 3
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 {
   queid: 9,
@@ -2382,18 +1757,8 @@ const question = [{
   subid: 2,
   question_no: 9,
   question: 'Who wrote the collection Lekho?',
-<<<<<<< HEAD
-  Option: {
-    a: 'Sundaram',
-    b: 'Govardhanram Tripathi',
-    c: 'Kavi Dalpatram',
-    d: 'Narmadashankar Dave'
-  },
-  rightAns: 'd'
-=======
   options: ['Sundaram', 'Govardhanram Tripathi', 'Kavi Dalpatram', 'Narmadashankar Dave'],
   rightAns: 3
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 {
   queid: 10,
@@ -2402,18 +1767,8 @@ const question = [{
   subid: 2,
   question_no: 10,
   question: 'Who wrote the play Kanta?',
-<<<<<<< HEAD
-  Option: {
-    a: 'Umashankar Joshi',
-    b: 'Sundaram',
-    c: 'Govardhanram Tripathi',
-    d: 'K M Munshi'
-  },
-  rightAns: 'b'
-=======
   options: ['Umashankar Joshi', 'Sundaram', 'Govardhanram Tripathi', 'K M Munshi'],
   rightAns: 1
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 // English
 {
@@ -2423,18 +1778,8 @@ const question = [{
   subid: 3,
   question_no: 1,
   question: 'Choose the word that is spelled correctly:',
-<<<<<<< HEAD
-  Option: {
-    a: 'Exaggerate',
-    b: 'Exadurate',
-    c: 'Egzaverate',
-    d: 'Exajurate'
-  },
-  rightAns: 'a'
-=======
   options: ['Exaggerate', 'Exadurate', 'Egzaverate', 'Exajurate'],
   rightAns: 0
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 {
   queid: 2,
@@ -2453,18 +1798,8 @@ const question = [{
   subid: 3,
   question_no: 3,
   question: 'Choose the correct synonym of the word \'jovial\':',
-<<<<<<< HEAD
-  Option: {
-    a: 'Gloomy',
-    b: 'Merry',
-    c: 'Boring',
-    d: 'Lazy'
-  },
-  rightAns: 'b'
-=======
   options: ['Gloomy', 'Merry', 'Boring', 'Lazy'],
   rightAns: 1
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 {
   queid: 4,
@@ -2483,18 +1818,8 @@ const question = [{
   subid: 3,
   question_no: 5,
   question: 'Identify the adverb in this sentence: She sang very beautifully.',
-<<<<<<< HEAD
-  Option: {
-    a: 'Sang',
-    b: 'Beautifully',
-    c: 'Very',
-    d: 'She'
-  },
-  rightAns: 'b'
-=======
   options: ['Sang', 'Beautifully', 'Very', 'She'],
   rightAns: 1
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 {
   queid: 6,
@@ -2513,18 +1838,8 @@ const question = [{
   subid: 3,
   question_no: 7,
   question: 'Identify the abstract noun:',
-<<<<<<< HEAD
-  Option: {
-    a: 'Tree',
-    b: 'Truth',
-    c: 'Boy',
-    d: 'Chair'
-  },
-  rightAns: 'b'
-=======
   options: ['Tree', 'Truth', 'Boy', 'Chair'],
   rightAns: 1
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 },
 {
   queid: 8,
@@ -2553,18 +1868,8 @@ const question = [{
   subid: 3,
   question_no: 10,
   question: 'Choose the correct homophone for \'hour\':',
-<<<<<<< HEAD
-  Option: {
-    a: 'Our',
-    b: 'Are',
-    c: 'Or',
-    d: 'Oar'
-  },
-  rightAns: 'a'
-=======
   options: ['Our', 'Are', 'Or', 'Oar'],
   rightAns: 0
->>>>>>> 82d8bf3621f36aaf99ee9df1278b86caee03c8fb
 }
 ]
 
