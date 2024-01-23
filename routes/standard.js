@@ -141,3 +141,4 @@ const standard = [
 ]
 
 module.exports = standard
+

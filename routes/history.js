@@ -8,6 +8,7 @@ const cors = require('cors')
 // const User = require('../models/user')
 const Results = require('../models/result')
 const auth = require('../middleware/auth')
+const auth = require('../middleware/auth')
 
 const router = express.Router()
 

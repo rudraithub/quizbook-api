@@ -9,6 +9,8 @@ const router = express.Router()
 const cors = require('cors')
 const authToken = require('../utils/generateAuth')
 const auth = require('../middleware/auth')
+const authToken = require('../utils/generateAuth')
+const auth = require('../middleware/auth')
 
 // router.use(cors())
 
@@ -154,6 +156,8 @@ router.post('/users/login', async (req, res) => {
     // console.log(user)
     const token = await authToken(user._id)
     // console.log(token)
+    const token = await authToken(user._id)
+    // console.log(token)
 
     if (!user) {
       throw new Error('You are not register yet, please signup!')
@@ -166,6 +170,7 @@ router.post('/users/login', async (req, res) => {
     const response = {
       status: 200,
       data: user,
+      token,
       token,
       message: 'login sucessfully!'
     }
@@ -184,6 +189,7 @@ router.post('/users/login', async (req, res) => {
 // get user profile
 router.post('/profile', auth, async (req, res) => {
   try {
+    const userID = req.user._id
     const userID = req.user._id
 
     const user = await User.findById(userID)
@@ -301,6 +307,8 @@ router.post('/users/avatars', auth, upload.single('avatar'), async (req, res) =>
 // delete user profile
 router.delete('/users/avatars', async (req, res) => {
   try {
+    const user_id = req.user._id
+    const user = await User.findById({ user_id })
     const user_id = req.user._id
     const user = await User.findById({ user_id })
 
