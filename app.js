@@ -19,6 +19,13 @@ app.use(stdRouter)
 app.use(resultRouter)
 app.use(historyRouter)
 
+app.use('*', (req, res) => {
+  res.status(404).json({
+    status: 404,
+    message: 'Not Found!!!'
+  })
+})
+
 app.listen(port, () => {
   console.log('sever connected on ', port)
 })

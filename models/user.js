@@ -75,7 +75,7 @@ const userSchema = new mongoose.Schema({
     type: Number,
     unique: true
   },
-  tokens:[{
+  tokens: [{
     token: {
       type: String,
       required: true

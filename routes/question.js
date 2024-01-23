@@ -74,7 +74,7 @@ const question = [{
   question_no: 8,
   question: 'What is the place value of the digit 9 in the number 4,987?',
   Option: ['9', '90', '900', '9,000'],
-  rightAns:2
+  rightAns: 2
 }, {
   queid: 9,
   stdid: 1,
@@ -801,7 +801,7 @@ const question = [{
   Option: ['2', '5', '10', '100'],
   rightAns: 2
 },
-//subject gujrati
+// subject gujrati
 {
   queid: 1,
   chapterid: 1,
@@ -910,7 +910,7 @@ const question = [{
   subid: 2,
   question_no: 1,
   question: "Choose the correct synonym of the word 'enormous':",
-  Option: ["Tiny", "Huge", "Smooth", "Dangerous"],
+  Option: ['Tiny', 'Huge', 'Smooth', 'Dangerous'],
   rightAns: 1
 },
 {
@@ -1207,7 +1207,7 @@ const question = [{
   Option: ['2', '5', '10', '100'],
   rightAns: 2
 },
-//subject gujrati
+// subject gujrati
 {
   queid: 1,
   chapterid: 1,
