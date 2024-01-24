@@ -1,9 +1,3 @@
-const express = require('express')
-const History = require('../models/history')
-const standard = require('./standard')
-const question = require('./question')
-const chapterData = require('./chapter')
-
 const cors = require('cors')
 // const User = require('../models/user')
 const Results = require('../models/result')

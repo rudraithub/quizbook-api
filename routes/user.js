@@ -310,6 +310,7 @@ router.delete('/users/avatars', async (req, res) => {
         message: 'You are not register yet, please signup first!'
       })
     }
+    
 
     user.userProfile = undefined
     await user.save()
