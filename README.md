@@ -1,4 +1,4 @@
-# quizbook-api
+# QuizBook-api
 
 ## 1 - Install Git:
 If you haven't installed Git on your machine, you can download and install it from https://git-scm.com/.
@@ -21,12 +21,26 @@ After cloning, navigate into the cloned directory using the cd command:
 
 cd path/to/your/directory
 
-## 6 - Install Dependencies:
+## 6 - Database setup and connections:
+
+1. Start Database/create using docker
+
+```bash
+docker compose up -d
+```
+
+
+## 7 - Install Dependencies:
 If the Node.js project has package.json file, run the following command to install the project dependencies:
 
+```bash
 npm install
+```
 
-## 7 - Run the Project:
+
+## 8 - Run the Project:
 If the project is a runnable Node.js application, check the project documentation for specific instructions on how to run it. Typically, you might use a command like:
 
+```bash
 npm run dev
+```
