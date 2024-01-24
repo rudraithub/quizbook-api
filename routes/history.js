@@ -10,7 +10,6 @@ const Results = require('../models/result')
 const auth = require('../middleware/auth')
 
 const router = express.Router()
-
 router.use(cors())
 
 router.post('/history', auth, async (req, res) => {
