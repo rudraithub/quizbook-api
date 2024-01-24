@@ -96,7 +96,6 @@ const question = [{
 },
 
 // Chapter 2 - Basic Arithmetic
-
 {
   queid: 1,
   stdid: 1,

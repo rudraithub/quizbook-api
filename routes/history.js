@@ -1,3 +1,7 @@
+const express = require('express')
+const standard = require('../routes/standard')
+const chapterData = require('../routes/chapter')
+const question = require('../routes/question')
 const cors = require('cors')
 // const User = require('../models/user')
 const Results = require('../models/result')

@@ -185,7 +185,6 @@ router.post('/users/login', async (req, res) => {
 router.post('/profile', auth, async (req, res) => {
   try {
     const userID = req.user._id
-
     const user = await User.findById(userID)
 
     if (!user) {
@@ -310,7 +309,6 @@ router.delete('/users/avatars', async (req, res) => {
         message: 'You are not register yet, please signup first!'
       })
     }
-    
 
     user.userProfile = undefined
     await user.save()
