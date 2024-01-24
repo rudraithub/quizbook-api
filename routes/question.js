@@ -94,7 +94,6 @@ const question = [{
   Option: ['2', '5', '10', '100'],
   rightAns: 2
 },
-
 // Chapter 2 - Basic Arithmetic
 {
   queid: 1,
