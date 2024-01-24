@@ -10,6 +10,7 @@ const cors = require('cors')
 const authToken = require('../utils/generateAuth')
 const auth = require('../middleware/auth')
 
+
 // router.use(cors())
 
 // const id = {
@@ -154,6 +155,7 @@ router.post('/users/login', async (req, res) => {
     // console.log(user)
     const token = await authToken(user._id)
     // console.log(token)
+
 
     if (!user) {
       throw new Error('You are not register yet, please signup!')
