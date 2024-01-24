@@ -1,16 +1,13 @@
 const express = require('express')
-const History = require('../models/history')
-const standard = require('./standard')
-const question = require('./question')
-const chapterData = require('./chapter')
-
+const standard = require('../routes/standard')
+const chapterData = require('../routes/chapter')
+const question = require('../routes/question')
 const cors = require('cors')
 // const User = require('../models/user')
 const Results = require('../models/result')
 const auth = require('../middleware/auth')
 
 const router = express.Router()
-
 router.use(cors())
 
 router.post('/history', auth, async (req, res) => {
