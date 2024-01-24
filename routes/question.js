@@ -1,43 +1,3 @@
-<<<<<<< HEAD
-const question = {
-   1:[ {
-       queid: 1,
-       question_no : 1,
-       question: 'what is summation?',
-       Option: {
-        a: 'a+b',
-        b: 'a-b',
-        c: 'a*b',
-        d: 'a/b'
-       },
-       rightAns: 'a'
-    },
-    {
-      queid: 2,
-        question_no : 2,
-        question: 'what is subtrsaction?',
-        Option: {
-         a: 'a+b',
-         b: 'a-b',
-         c: 'a*b',
-         d: 'a/b'
-        },
-        rightAns: 'b'
-     },
-     {
-      queid: 3,
-        question_no : 3,
-        question: 'what is multiplication?',
-        Option: {
-         a: 'a+b',
-         b: 'a-b',
-         c: 'a*b',
-         d: 'a/b'
-        },
-        rightAns: 'c'
-     }]
-    }
-=======
 const question = [{
   queid: 1,
   chapterid: 1,
@@ -134,10 +94,7 @@ const question = [{
   Option: ['2', '5', '10', '100'],
   rightAns: 2
 },
->>>>>>> 4545e8ac478fdfd9760198bdd04cf721bb6e0bc1
-
 // Chapter 2 - Basic Arithmetic
-
 {
   queid: 1,
   stdid: 1,
