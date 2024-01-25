@@ -11,9 +11,13 @@ const auth = async (req, res, next) => {
     const user = await User.findOne({ _id: decode.id, 'tokens.token': token })
     // console.log(user)
     req.user = user
+    req.token = token
     next()
   } catch (error) {
-    res.send('somethings went wronge!')
+    res.status(401).json({
+      status: 401,
+      message: 'unauthorized!'
+    })
   }
 }
 

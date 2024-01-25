@@ -1,7 +1,6 @@
 const express = require('express')
 const cors = require('cors')
 const Subject = require('../models/std')
-require('../chapter.json')
 
 const router = express.Router()
 const chapterData = require('./chapter')
@@ -51,15 +50,23 @@ router.get('/std', async (req, res) => {
     await Subject.insertMany(standard)
 
     const isStd = await Subject.find()
-    if (isStd.length > 0) {
-      res.status(201).json({
-        status: 200,
-        data: isStd,
-        message: 'success!!'
+    if (!isStd) {
+      return res.status(400).json({
+        status: 400,
+        message: 'fail!'
       })
     }
+
+    res.status(200).json({
+      status: 200,
+      data: isStd,
+      message: 'success!'
+    })
   } catch (error) {
-    res.status(400).json(error.message)
+    res.status(400).json({
+      status: 404,
+      message: error.message
+    })
   }
 })
 
@@ -86,38 +93,6 @@ router.get('/chapter', async (req, res) => {
 })
 
 router.post('/std/subject/chapter', async (req, res) => {
-  const stdId = req.body.stdid
-  const subId = req.body.subid
-
-  const std = standard.find((p) => p.stdid === parseInt(stdId))
-
-  if (!std) {
-    return res.status(400).json({
-      status: 400,
-      message: 'standard not found'
-    })
-  }
-
-  const sub = std.subject.find((p) => p.subid === parseInt(subId))
-
-  if (!sub) {
-    return res.status(400).json({
-      status: 400,
-      message: 'standard not found'
-    })
-  }
-
-  const chapters = chapterData[stdId] && chapterData[stdId][subId]
-
-  console.log(chapters)
-
-  if (!chapters || chapters.length === 0) {
-    return res.status(400).json({
-      status: 400,
-      message: 'chapter data not found'
-    })
-  }
-
   try {
     const stdId = req.body.stdid
     const subId = req.body.subid
@@ -210,52 +185,59 @@ router.get('/questions', async (req, res) => {
 // })
 
 router.post('/std/subject/chapter/questions', (req, res) => {
-  const stdID = req.body.stdid
-  const subId = req.body.subid
-  const chapterId = req.body.chapterid
+  try {
+    const stdID = req.body.stdid
+    const subId = req.body.subid
+    const chapterId = req.body.chapterid
 
-  const isStd = standard.find(s => s.stdid === parseInt(stdID))
+    const isStd = standard.find(s => s.stdid === parseInt(stdID))
 
-  if (!isStd) {
-    return res.status(404).json({
-      status: 404,
-      message: 'standard not found!'
+    if (!isStd) {
+      return res.status(404).json({
+        status: 404,
+        message: 'standard not found!'
+      })
+    }
+
+    const isSub = isStd.subject.find(s => s.subid === parseInt(subId))
+
+    if (!isSub) {
+      return res.status(404).json({
+        status: 404,
+        message: 'subject not found!'
+      })
+    }
+
+    const chapters = chapterData[stdID] && chapterData[stdID][subId]
+
+    const ischapter = chapters.find(s => s.chapterid === parseInt(chapterId))
+
+    if (!ischapter) {
+      return res.status(404).json({
+        status: 404,
+        message: 'chapter not found!'
+      })
+    }
+
+    const chapterQuestions = question.filter((questions) => questions.stdid === isStd.stdid && questions.subid === isSub.subid && questions.chapterid === ischapter.chapterid)
+    if (chapterQuestions.length === 0) {
+      return res.status(404).json({
+        status: 404,
+        message: 'No questions found!'
+      })
+    }
+
+    res.status(200).json({
+      status: 200,
+      data: chapterQuestions,
+      message: 'Success!'
+    })
+  } catch (error) {
+    res.status(400).json({
+      status: 400,
+      message: error.message
     })
   }
-
-  const isSub = isStd.subject.find(s => s.subid === parseInt(subId))
-
-  if (!isSub) {
-    return res.status(404).json({
-      status: 404,
-      message: 'subject not found!'
-    })
-  }
-
-  const chapters = chapterData[stdID] && chapterData[stdID][subId]
-
-  const ischapter = chapters.find(s => s.chapterid === parseInt(chapterId))
-
-  if (!ischapter) {
-    return res.status(404).json({
-      status: 404,
-      message: 'chapter not found!'
-    })
-  }
-
-  const chapterQuestions = question.filter((questions) => questions.stdid === isStd.stdid && questions.subid === isSub.subid && questions.chapterid === ischapter.chapterid)
-  if (chapterQuestions.length === 0) {
-    return res.status(404).json({
-      status: 404,
-      message: 'No questions found!'
-    })
-  }
-
-  res.status(200).json({
-    status: 200,
-    data: chapterQuestions,
-    message: 'Success!'
-  })
 })
 
 module.exports = router
