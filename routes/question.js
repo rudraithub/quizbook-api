@@ -1288,7 +1288,7 @@ const question = [{
   subid: 2,
   question_no: 6,
   question: 'Which of these is written by Ramanbhai Neelkanth?',
-  option: [
+  Option: [
     'Prabhodhchandroday',
     'Moolraj',
     'Kusumamala',
@@ -1429,7 +1429,7 @@ const question = [{
   subid: 3,
   question_no: 7,
   question: 'Choose the correct antonym of the word \'brave\':',
-  option: ['Cowardly', 'Kind', 'Joyful', 'Polite'],
+  Option: ['Cowardly', 'Kind', 'Joyful', 'Polite'],
   rightAns: 0 // Cowardly
 },
 {
@@ -1500,7 +1500,7 @@ const question = [{
   subid: 4,
   question_no: 4,
   question: 'Which vitamin helps the body heal wounds?',
-  option: ['Vitamin A', 'Vitamin B', 'Vitamin C', 'Vitamin D'],
+  Option: ['Vitamin A', 'Vitamin B', 'Vitamin C', 'Vitamin D'],
   rightAns: 2 // Vitamin C
 },
 {
