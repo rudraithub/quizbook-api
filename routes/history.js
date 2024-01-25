@@ -6,11 +6,11 @@ const cors = require('cors')
 // const User = require('../models/user')
 const Results = require('../models/result')
 const auth = require('../middleware/auth')
-
+const History = require('../models/history')
 const router = express.Router()
 router.use(cors())
 
-router.post('/history', auth, async (req, res) => {
+router.get('/history', auth, async (req, res) => {
   try {
     // const { stdID, subID, chapterID, questions } = req.body;
     const userID = req.user._id

@@ -100,7 +100,6 @@ router.post('/users/signup', async (req, res) => {
 
     const response = {
       status: 200,
-      data: newUser,
       message: 'register successfully!'
     }
 
@@ -173,16 +172,34 @@ router.post('/users/login', async (req, res) => {
     res.json(response)
   } catch (error) {
     const errorRes = {
-      status: 400,
-      message: error.message
+      status: 404,
+      message: 'You are not register yet, please signup!'
     }
 
-    res.status(400).json(errorRes)
+    res.status(404).json(errorRes)
+  }
+})
+
+router.post('/user/logout', auth, async (req, res) => {
+  try {
+    if (req.user) {
+      req.user.tokens = req.user.tokens.filter((token) => token.token !== req.token)
+    }
+    await req.user.save()
+    res.status(200).json({
+      status: 200,
+      message: 'logout success'
+    })
+  } catch (error) {
+    res.status(400).json({
+      status: 400,
+      message: error.message
+    })
   }
 })
 
 // get user profile
-router.post('/profile', auth, async (req, res) => {
+router.get('/profile', auth, async (req, res) => {
   try {
     const userID = req.user._id
 
@@ -203,7 +220,7 @@ router.post('/profile', auth, async (req, res) => {
   } catch (error) {
     res.status(400).json({
       status: 400,
-      message: error.message
+      message: 'You are not register yet, please signup or login'
     })
   }
 })
