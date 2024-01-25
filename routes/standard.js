@@ -64,7 +64,7 @@ const standard = [
       subjectName: 'maths',
       img: 'https://i.ibb.co/hZ42CNC/2362932.jpg'
     }, {
-      subid: 1,
+      subid: 2,
       subjectName: 'Gujarati',
       img: 'https://i.ibb.co/k3MF12B/free-editable-gujarati-kakko-letters-chalk-text-effect-771535-10.jpg'
     }, {

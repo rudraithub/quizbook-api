@@ -66,13 +66,13 @@ router.post('/users/signup', async (req, res) => {
       })
     }
 
-    const isEmail = await User.findOne({ email })
-    if (isEmail) {
-      return res.status(400).json({
-        status: 400,
-        message: 'email is already registered!!!'
-      })
-    }
+    // const isEmail = await User.findOne({ email })
+    // if (isEmail) {
+    //   return res.status(400).json({
+    //     status: 400,
+    //     message: 'email is already registered!!!'
+    //   })
+    // }
 
     const isMob = await User.findOne({ mobileNumber })
     if (isMob) {
@@ -99,7 +99,8 @@ router.post('/users/signup', async (req, res) => {
     await newUser.save()
 
     const response = {
-      status: 200,
+      status: 201,
+      data: newUser,
       message: 'register successfully!'
     }
 
@@ -107,7 +108,7 @@ router.post('/users/signup', async (req, res) => {
       'Content-Type': 'application/json'
     })
 
-    res.json(response)
+    res.status(201).json(response)
     // console.log(newUser)
     // console.log(res.status(201).send(newUser))
   } catch (e) {
@@ -193,7 +194,7 @@ router.post('/user/logout', auth, async (req, res) => {
   } catch (error) {
     res.status(400).json({
       status: 400,
-      message: error.message
+      message: 'you are already logout!'
     })
   }
 })
@@ -203,7 +204,7 @@ router.get('/profile', auth, async (req, res) => {
   try {
     const userID = req.user._id
 
-    const user = await User.findById(userID)
+    const user = await User.findOne({ _id: userID })
 
     if (!user) {
       return res.status(404).json({
@@ -254,7 +255,7 @@ router.post('/profile/update', auth, async (req, res) => {
   } catch (error) {
     res.status(400).json({
       status: 400,
-      message: error.message
+      message: 'You are not register yet, please signup or login'
     })
   }
 })

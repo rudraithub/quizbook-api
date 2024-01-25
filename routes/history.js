@@ -95,10 +95,10 @@ router.get('/history', auth, async (req, res) => {
       message: 'success!!'
     })
   } catch (error) {
-    console.error(error)
+    // console.error(error.message)
     res.status(500).json({
       status: 500,
-      message: error.message
+      message: "user's history not found!"
     })
   }
 })
