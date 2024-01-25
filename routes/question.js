@@ -1213,7 +1213,7 @@ const question = [{
   subid: 2,
   question_no: 1,
   question: 'Who is the author of the novel Saraswatichandra?',
-  option: [
+  Option: [
     'Govardhanram Tripathi',
     'K.M. Munshi',
     'Ramanbhai Neelkanth',
@@ -1243,7 +1243,7 @@ const question = [{
   subid: 2,
   question_no: 3,
   question: 'Who wrote the novel Kadambar',
-  option: [
+  Option: [
     'Dalpatram',
     'Narmadashankar Dave',
     'Premanand Bhatt',
@@ -1258,7 +1258,7 @@ const question = [{
   subid: 2,
   question_no: 4,
   question: 'Which of these is written by Premanand Bhatt?',
-  option: [
+  Option: [
     'Sudamacharitra',
     'Vasantvilas',
     'Kusumamala',
@@ -1273,7 +1273,7 @@ const question = [{
   subid: 2,
   question_no: 5,
   question: 'Who wrote the poem Jai Jai Garavi Gujarat?',
-  option: [
+  Option: [
     'Dalpatram',
     'Narmadashankar Dave',
     'Premanand Bhatt',
@@ -1303,7 +1303,7 @@ const question = [{
   subid: 2,
   question_no: 7,
   question: 'Who is the author of Batris Putli?',
-  option: [
+  Option: [
     'Alexander Kinloch Forbes',
     'Govardhanram Tripathi',
     'Jhaverchand Meghani',
@@ -1318,7 +1318,7 @@ const question = [{
   subid: 2,
   question_no: 8,
   question: 'Which literary work is authored by Dalpatram?',
-  option: [
+  Option: [
     'Kavi Dalpatram ni Lekh Sangrah',
     'Bhanakhar',
     'Sudamacharitra',
@@ -1333,7 +1333,7 @@ const question = [{
   subid: 2,
   question_no: 9,
   question: 'Who wrote the play Kanta?',
-  option: [
+  Option: [
     'Umashankar Joshi',
     'Sundaram',
     'Govardhanram Tripathi',
@@ -1348,7 +1348,7 @@ const question = [{
   subid: 2,
   question_no: 10,
   question: 'Which literary work is written by Narmadashankar Dave?',
-  option: [
+  Option: [
     'Saraswatichandra',
     'Veermati',
     'Mari Hakikat',
@@ -1364,7 +1364,7 @@ const question = [{
   subid: 3,
   question_no: 1,
   question: 'Choose the correct synonym of the word \'enormous\':',
-  option: ['Tiny', 'Huge', 'Smooth', 'Dangerous'],
+  Option: ['Tiny', 'Huge', 'Smooth', 'Dangerous'],
   rightAns: 1 // Huge
 },
 {
@@ -1374,7 +1374,7 @@ const question = [{
   subid: 3,
   question_no: 2,
   question: 'Which sentence has a spelling error?',
-  option: [
+  Option: [
     'My mother made a deliscious cake.',
     'I want to become an ingineer.',
     'We went on a field trip to the zoo.',
@@ -1389,7 +1389,7 @@ const question = [{
   subid: 3,
   question_no: 3,
   question: 'Choose the correct abstract noun:',
-  option: ['Truth', 'Dog', 'Building', 'Box'],
+  Option: ['Truth', 'Dog', 'Building', 'Box'],
   rightAns: 0 // Truth
 },
 {
@@ -1399,7 +1399,7 @@ const question = [{
   subid: 3,
   question_no: 4,
   question: 'Which punctuation mark shows possession?',
-  option: ['Colon', 'Apostrophe', 'Quotation mark', 'Exclamation point'],
+  Option: ['Colon', 'Apostrophe', 'Quotation mark', 'Exclamation point'],
   rightAns: 1 // Apostrophe
 },
 {
@@ -1409,7 +1409,7 @@ const question = [{
   subid: 3,
   question_no: 5,
   question: 'Choose the correct collective noun:',
-  option: ['Crowd', 'Team', 'Flock', 'Alphabet'],
+  Option: ['Crowd', 'Team', 'Flock', 'Alphabet'],
   rightAns: 2 // Flock
 },
 {
@@ -1419,7 +1419,7 @@ const question = [{
   subid: 3,
   question_no: 6,
   question: 'Identify the common noun:',
-  option: ['Jupiter', 'Country', 'Ram', 'River'],
+  Option: ['Jupiter', 'Country', 'Ram', 'River'],
   rightAns: 3 // River
 },
 {
@@ -1439,7 +1439,7 @@ const question = [{
   subid: 3,
   question_no: 8,
   question: 'Which punctuation mark begins and ends a quotation?',
-  option: ['Parentheses', 'Quotation marks', 'Apostrophe', 'Colon'],
+  Option: ['Parentheses', 'Quotation marks', 'Apostrophe', 'Colon'],
   rightAns: 1 // Quotation marks
 },
 {
@@ -1449,7 +1449,7 @@ const question = [{
   subid: 3,
   question_no: 9,
   question: 'Choose the correct pronoun to fill in the blank: _______ is a doctor.',
-  option: ['She', 'They', 'It', 'Her'],
+  Option: ['She', 'They', 'It', 'Her'],
   rightAns: 0 // She
 },
 {
@@ -1459,7 +1459,7 @@ const question = [{
   subid: 3,
   question_no: 10,
   question: 'Identify the proper noun:',
-  option: ['Building', 'Delhi', 'Country', 'River'],
+  Option: ['Building', 'Delhi', 'Country', 'River'],
   rightAns: 1 // Delhi
 },
 // scoial science
@@ -1470,7 +1470,7 @@ const question = [{
   subid: 4,
   question_no: 1,
   question: 'Who invented the telephone?',
-  option: ['Thomas Edison', 'Alexander Graham Bell', 'Albert Einstein', 'Isaac Newton'],
+  Option: ['Thomas Edison', 'Alexander Graham Bell', 'Albert Einstein', 'Isaac Newton'],
   rightAns: 1 // Alexander Graham Bell
 },
 {
@@ -1480,7 +1480,7 @@ const question = [{
   subid: 4,
   question_no: 2,
   question: 'Which planet is known as the Red Planet?',
-  option: ['Jupiter', 'Saturn', 'Mars', 'Venus'],
+  Option: ['Jupiter', 'Saturn', 'Mars', 'Venus'],
   rightAns: 2 // Mars
 },
 {
@@ -1490,7 +1490,7 @@ const question = [{
   subid: 4,
   question_no: 3,
   question: 'Who discovered penicillin?',
-  option: ['Louis Pasteur', 'Alexander Fleming', 'Marie Curie', 'Albert Einstein'],
+  Option: ['Louis Pasteur', 'Alexander Fleming', 'Marie Curie', 'Albert Einstein'],
   rightAns: 1 // Alexander Fleming
 },
 {
@@ -1510,7 +1510,7 @@ const question = [{
   subid: 4,
   question_no: 5,
   question: 'Who proposed the three laws of motion?',
-  option: ['Albert Einstein', 'Isaac Newton', 'Marie Curie', 'Thomas Edison'],
+  Option: ['Albert Einstein', 'Isaac Newton', 'Marie Curie', 'Thomas Edison'],
   rightAns: 1 // Isaac Newton
 },
 {
@@ -1520,7 +1520,7 @@ const question = [{
   subid: 4,
   question_no: 6,
   question: 'What is the SI unit of force?',
-  option: ['Joule', 'Newton', 'Pascal', 'Watt'],
+  Option: ['Joule', 'Newton', 'Pascal', 'Watt'],
   rightAns: 1 // Newton
 },
 {
@@ -1530,7 +1530,7 @@ const question = [{
   subid: 4,
   question_no: 7,
   question: 'Which gas forms the major part of the earth\'s atmosphere?',
-  option: ['Oxygen', 'Hydrogen', 'Nitrogen', 'Carbon dioxide'],
+  Option: ['Oxygen', 'Hydrogen', 'Nitrogen', 'Carbon dioxide'],
   rightAns: 2 // Nitrogen
 },
 {
@@ -1540,7 +1540,7 @@ const question = [{
   subid: 4,
   question_no: 8,
   question: 'Who invented the electric bulb?',
-  option: ['Marie Curie', 'Thomas Edison', 'Albert Einstein', 'Alexander Graham Bell'],
+  Option: ['Marie Curie', 'Thomas Edison', 'Albert Einstein', 'Alexander Graham Bell'],
   rightAns: 1 // Thomas Edison
 },
 {
@@ -1550,7 +1550,7 @@ const question = [{
   subid: 4,
   question_no: 9,
   question: 'Which planet is known as the Red Planet?',
-  option: ['Jupiter', 'Earth', 'Mars', 'Venus'],
+  Option: ['Jupiter', 'Earth', 'Mars', 'Venus'],
   rightAns: 2 // Mars
 },
 {
@@ -1560,7 +1560,7 @@ const question = [{
   subid: 4,
   question_no: 10,
   question: 'Who discovered gravity?',
-  option: ['Albert Einstein', 'Isaac Newton', 'Marie Curie', 'Thomas Edison'],
+  Option: ['Albert Einstein', 'Isaac Newton', 'Marie Curie', 'Thomas Edison'],
   rightAns: 1 // Isaac Newton
 },
 
@@ -1574,7 +1574,7 @@ const question = [{
   subid: 1,
   question_no: 1,
   question: 'If A = {1, 2, 3} and B = {3, 4, 5}, what is A ∪ B?',
-  option: ['{1, 2, 3, 4, 5}', '{1, 2}', '{3, 4, 5}', '{1, 2, 3}'],
+  Option: ['{1, 2, 3, 4, 5}', '{1, 2}', '{3, 4, 5}', '{1, 2, 3}'],
   rightAns: 0
 },
 {
@@ -1584,7 +1584,7 @@ const question = [{
   subid: 1,
   question_no: 2,
   question: 'What is the HCF of 12, 18 and 30?',
-  option: ['2', '3', '6', '4'],
+  Option: ['2', '3', '6', '4'],
   rightAns: 2
 },
 {
@@ -1594,7 +1594,7 @@ const question = [{
   subid: 1,
   question_no: 3,
   question: 'If a^2 - b^2 = 16 and ab = 8, what is the value of a + b?',
-  option: ['4', '8', '12', '16'],
+  Option: ['4', '8', '12', '16'],
   rightAns: 2
 },
 {
@@ -1604,7 +1604,7 @@ const question = [{
   subid: 1,
   question_no: 4,
   question: 'The mean of the first 10 whole numbers is:',
-  option: ['5', '5.5', '10', '55'],
+  Option: ['5', '5.5', '10', '55'],
   rightAns: 0
 },
 {
@@ -1614,7 +1614,7 @@ const question = [{
   subid: 1,
   question_no: 5,
   question: 'If 5x - 3(x + 2) = 7, then x equals:',
-  option: ['2', '5', '10', '-2'],
+  Option: ['2', '5', '10', '-2'],
   rightAns: 3
 },
 {
@@ -1624,7 +1624,7 @@ const question = [{
   subid: 1,
   question_no: 6,
   question: 'The perimeter of a rectangle is 140 cm. If its length is 30 cm, what is its breadth?',
-  option: ['20 cm', '35 cm', '55 cm', '105 cm'],
+  Option: ['20 cm', '35 cm', '55 cm', '105 cm'],
   rightAns: 2
 },
 {
@@ -1634,7 +1634,7 @@ const question = [{
   subid: 1,
   question_no: 7,
   question: 'Which decimal represents the fraction 5/4?',
-  option: ['0.2', '1.25', '1.5', '2.5'],
+  Option: ['0.2', '1.25', '1.5', '2.5'],
   rightAns: 1
 },
 {
@@ -1644,7 +1644,7 @@ const question = [{
   subid: 1,
   question_no: 8,
   question: 'The simplest form of 0.4 is:',
-  option: ['2/5', '4/10', '8/20', '20/50'],
+  Option: ['2/5', '4/10', '8/20', '20/50'],
   rightAns: 1
 },
 {
@@ -1654,7 +1654,7 @@ const question = [{
   subid: 1,
   question_no: 9,
   question: 'If 5a + 3b = 18 and 2a - b = 7, find a - b:',
-  option: ['2', '5', '6', '8'],
+  Option: ['2', '5', '6', '8'],
   rightAns: 2
 },
 {
@@ -1664,7 +1664,7 @@ const question = [{
   subid: 1,
   question_no: 10,
   question: 'The least number which should be subtracted from 9320 to make it a perfect square is:',
-  option: ['3', '20', '80', '100'],
+  Option: ['3', '20', '80', '100'],
   rightAns: 3
 },
 // Gujarati
@@ -1675,7 +1675,7 @@ const question = [{
   subid: 2,
   question_no: 1,
   question: 'Who is the author of Batris Putli?',
-  option: ['Govardhanram Tripathi', 'K M Munshi', 'Jhaverchand Meghani', 'Ramanbhai Neelkanth'],
+  Option: ['Govardhanram Tripathi', 'K M Munshi', 'Jhaverchand Meghani', 'Ramanbhai Neelkanth'],
   rightAns: 2
 },
 {
@@ -1685,7 +1685,7 @@ const question = [{
   subid: 2,
   question_no: 2,
   question: 'Which novel is written by Govardhanram Tripathi?',
-  option: ['Saraswatichandra', 'Snehrashmi', 'Vadhu Vidhati', 'Manvini Bhavai'],
+  Option: ['Saraswatichandra', 'Snehrashmi', 'Vadhu Vidhati', 'Manvini Bhavai'],
   rightAns: 0
 },
 {
@@ -1695,7 +1695,7 @@ const question = [{
   subid: 2,
   question_no: 3,
   question: 'Who wrote the poem Jai Jai Garvi Gujarat?',
-  option: ['Narsinh Mehta', 'Premanand Bhatt', 'Narmadashankar Dave', 'Dalpatram'],
+  Option: ['Narsinh Mehta', 'Premanand Bhatt', 'Narmadashankar Dave', 'Dalpatram'],
   rightAns: 2
 },
 {
@@ -1705,7 +1705,7 @@ const question = [{
   subid: 2,
   question_no: 4,
   question: 'Who wrote the novel Kadambari?',
-  option: ['Alexander Kinloch Forbes', 'Govardhanram Tripathi', 'Narmadashankar Dave', 'K M Munshi'],
+  Option: ['Alexander Kinloch Forbes', 'Govardhanram Tripathi', 'Narmadashankar Dave', 'K M Munshi'],
   rightAns: 2
 },
 {
@@ -1715,7 +1715,7 @@ const question = [{
   subid: 2,
   question_no: 5,
   question: 'Who among the following was a social reformer?',
-  option: ['Gandhi', 'Dayanand Saraswati', 'Ranchhodlal Dave', 'Kavi Dalpatram'],
+  Option: ['Gandhi', 'Dayanand Saraswati', 'Ranchhodlal Dave', 'Kavi Dalpatram'],
   rightAns: 1
 },
 {
@@ -1725,7 +1725,7 @@ const question = [{
   subid: 2,
   question_no: 6,
   question: 'Who wrote the novel Snehrashmi?',
-  option: ['Ramanbhai Neelkanth', 'Pannalal Patel', 'Suresh Joshi', 'K M Munshi'],
+  Option: ['Ramanbhai Neelkanth', 'Pannalal Patel', 'Suresh Joshi', 'K M Munshi'],
   rightAns: 2
 },
 {
@@ -1735,7 +1735,7 @@ const question = [{
   subid: 2,
   question_no: 7,
   question: 'Who wrote the drama Jano Kharo Jani?',
-  option: ['Umashankar Joshi', 'Chinu Modi', 'Premanand Bhatt', 'Narsinh Mehta'],
+  Option: ['Umashankar Joshi', 'Chinu Modi', 'Premanand Bhatt', 'Narsinh Mehta'],
   rightAns: 1
 },
 {
@@ -1745,7 +1745,7 @@ const question = [{
   subid: 2,
   question_no: 8,
   question: 'Who wrote the novel Bhadrambhadra?',
-  option: ['Joseph Macwan', 'Chandravadan Mehta', 'K M Munshi', 'Tarak Mehta'],
+  Option: ['Joseph Macwan', 'Chandravadan Mehta', 'K M Munshi', 'Tarak Mehta'],
   rightAns: 3
 },
 {
@@ -1755,7 +1755,7 @@ const question = [{
   subid: 2,
   question_no: 9,
   question: 'Who wrote the collection Lekho?',
-  option: ['Sundaram', 'Govardhanram Tripathi', 'Kavi Dalpatram', 'Narmadashankar Dave'],
+  Option: ['Sundaram', 'Govardhanram Tripathi', 'Kavi Dalpatram', 'Narmadashankar Dave'],
   rightAns: 3
 },
 {
@@ -1765,7 +1765,7 @@ const question = [{
   subid: 2,
   question_no: 10,
   question: 'Who wrote the play Kanta?',
-  option: ['Umashankar Joshi', 'Sundaram', 'Govardhanram Tripathi', 'K M Munshi'],
+  Option: ['Umashankar Joshi', 'Sundaram', 'Govardhanram Tripathi', 'K M Munshi'],
   rightAns: 1
 },
 // English
@@ -1776,7 +1776,7 @@ const question = [{
   subid: 3,
   question_no: 1,
   question: 'Choose the word that is spelled correctly:',
-  option: ['Exaggerate', 'Exadurate', 'Egzaverate', 'Exajurate'],
+  Option: ['Exaggerate', 'Exadurate', 'Egzaverate', 'Exajurate'],
   rightAns: 0
 },
 {
@@ -1786,7 +1786,7 @@ const question = [{
   subid: 3,
   question_no: 2,
   question: 'Which of the following words is a noun?',
-  option: ['Run', 'Happy', 'Phone', 'Quickly'],
+  Option: ['Run', 'Happy', 'Phone', 'Quickly'],
   rightAns: 2
 },
 {
@@ -1796,7 +1796,7 @@ const question = [{
   subid: 3,
   question_no: 3,
   question: 'Choose the correct synonym of the word \'jovial\':',
-  option: ['Gloomy', 'Merry', 'Boring', 'Lazy'],
+  Option: ['Gloomy', 'Merry', 'Boring', 'Lazy'],
   rightAns: 1
 },
 {
@@ -1806,7 +1806,7 @@ const question = [{
   subid: 3,
   question_no: 4,
   question: 'Choose the correct degree of the adjective \'wise\':',
-  option: ['Wisest', 'Most wise', 'More wise', 'Much wise'],
+  Option: ['Wisest', 'Most wise', 'More wise', 'Much wise'],
   rightAns: 0
 },
 {
@@ -1816,7 +1816,7 @@ const question = [{
   subid: 3,
   question_no: 5,
   question: 'Identify the adverb in this sentence: She sang very beautifully.',
-  option: ['Sang', 'Beautifully', 'Very', 'She'],
+  Option: ['Sang', 'Beautifully', 'Very', 'She'],
   rightAns: 1
 },
 {
@@ -1826,7 +1826,7 @@ const question = [{
   subid: 3,
   question_no: 6,
   question: 'Choose the correct collective noun:',
-  option: ['Furniture', 'Litter', 'Galaxy', 'Flock'],
+  Option: ['Furniture', 'Litter', 'Galaxy', 'Flock'],
   rightAns: 3
 },
 {
@@ -1836,7 +1836,7 @@ const question = [{
   subid: 3,
   question_no: 7,
   question: 'Identify the abstract noun:',
-  option: ['Tree', 'Truth', 'Boy', 'Chair'],
+  Option: ['Tree', 'Truth', 'Boy', 'Chair'],
   rightAns: 1
 },
 {
@@ -1846,7 +1846,7 @@ const question = [{
   subid: 3,
   question_no: 8,
   question: 'Choose the correct preposition to fill in the blank: The cat hid ____ the sofa.',
-  option: ['Below', 'Above', 'Beside', 'Under'],
+  Option: ['Below', 'Above', 'Beside', 'Under'],
   rightAns: 3
 },
 {
@@ -1856,7 +1856,7 @@ const question = [{
   subid: 3,
   question_no: 9,
   question: 'Choose the correct pronoun to complete the sentence: ____ went to the library.',
-  option: ['Him', 'They', 'It', 'She'],
+  Option: ['Him', 'They', 'It', 'She'],
   rightAns: 3
 },
 {
@@ -1866,7 +1866,7 @@ const question = [{
   subid: 3,
   question_no: 10,
   question: 'Choose the correct homophone for \'hour\':',
-  option: ['Our', 'Are', 'Or', 'Oar'],
+  Option: ['Our', 'Are', 'Or', 'Oar'],
   rightAns: 0
 }
 ]

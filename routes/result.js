@@ -114,9 +114,10 @@ router.post('/results', auth, async (req, res) => {
   }
 })
 
-router.get('/results', async (req, res) => {
+router.get('/results', auth, async (req, res) => {
   try {
-    const result = await Results.find()
+    const id = req.user._id
+    const result = await Results.find({ userID: id })
     // console.log(result)
     const allQuestions = result.flatMap(question => question.questions)
     // console.log(allQuestions)
