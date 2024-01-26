@@ -99,7 +99,7 @@ router.post('/users/signup', async (req, res) => {
     await newUser.save()
 
     const response = {
-      status: 201,
+      status: 200,
       data: newUser,
       message: 'register successfully!'
     }
@@ -108,7 +108,7 @@ router.post('/users/signup', async (req, res) => {
       'Content-Type': 'application/json'
     })
 
-    res.status(201).json(response)
+    res.status(200).json(response)
     // console.log(newUser)
     // console.log(res.status(201).send(newUser))
   } catch (e) {
@@ -293,27 +293,37 @@ const upload = multer({
 router.use('/', express.static('avatar'))
 
 router.post('/users/avatars', auth, upload.single('avatar'), async (req, res) => {
-  if (!req.file) {
-    throw new Error('Please upload an image')
-  }
-
-  const userid = req.user._id
-
-  console.log('User ID:', userid)
-
-  const user = await User.findById(userid)
-  if (!user) {
-    return res.status(404).json({
-      status: 404,
-      message: 'You are not register yet, please signup first!'
+  try {
+    if (!req.file) {
+      throw new Error('Please upload an image')
+    }
+  
+    const userid = req.user._id
+  
+    console.log('User ID:', userid)
+  
+    const user = await User.findById(userid)
+    if (!user) {
+      return res.status(404).json({
+        status: 404,
+        message: 'You are not register yet, please signup first!'
+      })
+    }
+    user.userProfile = `http://localhost:3000/${req.file.originalname}`
+  
+    await user.save()
+    res.status(200).json({
+      status: 200,
+      message: 'profile upload success!'
     })
-  }
-  user.userProfile = `http://localhost:3000/${req.file.originalname}`
-
-  await user.save()
-  res.send()
+  } catch (error) {
+    res.status(400).json({
+      status: 400,
+      message: error.message
+    })
+  } 
 }, (error, req, res, next) => {
-  res.status(400).send({ error: error.message })
+  res.status(400).json({ error: error.message })
 })
 
 // delete user profile
