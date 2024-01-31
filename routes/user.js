@@ -327,7 +327,7 @@ router.post('/users/avatars', auth, upload.single('avatar'), async (req, res) =>
 })
 
 // delete user profile
-router.delete('/users/avatars', async (req, res) => {
+router.delete('/users/avatars',auth, async (req, res) => {
   try {
     const user_id = req.user._id
     const user = await User.findById({ user_id })
