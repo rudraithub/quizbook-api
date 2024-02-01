@@ -33,13 +33,13 @@ const professions = [{
 
 const genders = [{
   id: 1,
-  gender: "Male"
-},{
+  gender: 'Male'
+}, {
   id: 2,
-  gender: "Female"
-},{
+  gender: 'Female'
+}, {
   id: 3,
-  gender: "Others"
+  gender: 'Others'
 }]
 
 router.get('/users/gender', async (req, res) => {
@@ -83,7 +83,7 @@ router.post('/users/signup', async (req, res) => {
     console.log(genderData)
 
     const isGender = genderData.find(id => id.id === genderID)
-    if(!isGender){
+    if (!isGender) {
       return res.status(400).json({
         status: 400,
         message: 'Invalid Gender ID'
@@ -325,11 +325,11 @@ router.post('/users/avatars', auth, upload.single('avatar'), async (req, res) =>
     if (!req.file) {
       throw new Error('Please upload an image')
     }
-  
+
     const userid = req.user._id
-  
+
     console.log('User ID:', userid)
-  
+
     const user = await User.findById(userid)
     if (!user) {
       return res.status(404).json({
@@ -338,7 +338,7 @@ router.post('/users/avatars', auth, upload.single('avatar'), async (req, res) =>
       })
     }
     user.userProfile = `http://localhost:3000/${req.file.originalname}`
-  
+
     await user.save()
     res.status(200).json({
       status: 200,
@@ -349,13 +349,13 @@ router.post('/users/avatars', auth, upload.single('avatar'), async (req, res) =>
       status: 400,
       message: error.message
     })
-  } 
+  }
 }, (error, req, res, next) => {
   res.status(400).json({ error: error.message })
 })
 
 // delete user profile
-router.delete('/users/avatars',auth, async (req, res) => {
+router.delete('/users/avatars', auth, async (req, res) => {
   try {
     const user_id = req.user._id
     const user = await User.findById({ user_id })
