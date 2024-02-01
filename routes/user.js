@@ -31,33 +31,43 @@ const professions = [{
 }
 ]
 
-// router.use(cors())
+const genders = [{
+  id: 1,
+  gender: "Male"
+},{
+  id: 2,
+  gender: "Female"
+},{
+  id: 3,
+  gender: "Others"
+}]
+
+router.get('/users/gender', async (req, res) => {
+  try {
+    const genderData = genders
+    res.status(200).json({
+      status: 200,
+      data: genderData,
+      message: 'Gender fetch success!!'
+    })
+  } catch (error) {
+    res.status(400).json({
+      status: 400,
+      error: error.message
+    })
+  }
+})
 
 router.post('/users/signup', async (req, res) => {
   try {
-    const { firstName, lastName, email, gender, DOB, professionId, mobileNumber, user_id } = req.body
+    const { firstName, lastName, email, genderID, DOB, professionId, mobileNumber, user_id } = req.body
 
     const prof = await axios.get('http://localhost:3000/users/profession')
     // console.log(prof.data)
 
     const availabledata = prof.data
 
-    // console.log('Profession ID from request:', professionId);
-    // console.log('Available Professions:', availabledata);
-    // availabledata.forEach(proff => {
-    //     console.log('ID:', proff.id, 'Type:', typeof proff.id);
-    // });
-
-    // const availabledata = prof.data;
-
-    // Move this line before the console.log statements
     const profession = availabledata.find(proff => proff.id === professionId)
-    // console.log('Profession ID from request:', professionId);
-    // console.log('Selected Profession:', profession);
-    // console.log('Available Professions:', availabledata);
-
-    // const profession = availabledata.find(proff => proff.id === professionId);
-    // console.log(profession)
 
     if (!profession) {
       return res.status(400).json({
@@ -65,6 +75,21 @@ router.post('/users/signup', async (req, res) => {
         message: 'Invalid profession ID'
       })
     }
+
+    const genders = await axios.get('http://localhost:3000/users/gender')
+    // console.log(gender)
+
+    const genderData = genders.data.data
+    console.log(genderData)
+
+    const isGender = genderData.find(id => id.id === genderID)
+    if(!isGender){
+      return res.status(400).json({
+        status: 400,
+        message: 'Invalid Gender ID'
+      })
+    }
+    console.log(isGender)
 
     // const isEmail = await User.findOne({ email })
     // if (isEmail) {
@@ -86,7 +111,10 @@ router.post('/users/signup', async (req, res) => {
       firstName,
       lastName,
       email,
-      gender,
+      gender: {
+        _id: isGender.id,
+        name: isGender.gender
+      },
       DOB,
       mobileNumber,
       profession: {
