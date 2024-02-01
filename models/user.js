@@ -23,11 +23,19 @@ const userSchema = new mongoose.Schema({
       message: 'Please provide a valid email'
     }
   },
-  gender: {
-    type: String,
-    required: true,
-    trim: true
-  },
+  gender: [{
+    _id: {
+      type: Number,
+      required: true,
+      trim: true
+    },
+    name: {
+      type: String,
+      required: true,
+      trim: true
+      // enum: ['teacher', 'student', 'admin']
+    }
+  }],
   DOB: {
     type: String,
     required: true,

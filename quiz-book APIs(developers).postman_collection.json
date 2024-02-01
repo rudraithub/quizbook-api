@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"firstName\": \"rahul11\",\r\n    \"lastName\": \"romin\",\r\n    \"email\": \"raj@1.com\",\r\n    \"gender\": \"Male\",\r\n    \"DOB\": \"11/11/1919\",\r\n    \"mobileNumber\": \"7513454577\",\r\n    \"professionId\": 1\r\n}",
+					"raw": "{\r\n    \"firstName\": \"rahul11\",\r\n    \"lastName\": \"romin\",\r\n    \"email\": \"raj@z1.com\",\r\n    \"genderID\": 1,\r\n    \"DOB\": \"11/11/1919\",\r\n    \"mobileNumber\": \"7513454574\",\r\n    \"professionId\": 1\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -314,7 +314,7 @@
 			"response": []
 		},
 		{
-			"name": "read profession",
+			"name": "read_all_profession",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -385,7 +385,7 @@
 						{
 							"key": "avatar",
 							"type": "file",
-							"src": "/D:/yarg/node-course-images/node-course-images/profile-pic.jpg"
+							"src": "postman-cloud:///1eebbfdd-ff01-4fc0-a337-9483755cf6db"
 						}
 					]
 				},
@@ -456,6 +456,24 @@
 					"path": [
 						"user",
 						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "all_genders",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/users/gender",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"users",
+						"gender"
 					]
 				}
 			},
