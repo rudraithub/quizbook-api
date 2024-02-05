@@ -65,7 +65,7 @@ router.post('/results', auth, async (req, res) => {
         })
       }
 
-      const isCorrect = user_answer == queData.rightAns
+      const isCorrect = user_answer === queData.rightAns
       console.log(isCorrect)
 
       return {

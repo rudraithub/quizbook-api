@@ -31,11 +31,11 @@
 
 // module.exports = Subject
 
-//std and subject model
+// std and subject model
 
-const { DataTypes } = require("sequelize")
+const { DataTypes } = require('sequelize')
 
-const sequelize = require('../db/dbConnect');
+const sequelize = require('../db/dbConnect')
 
 const Std = sequelize.define('standard', {
   stdid: {
@@ -71,4 +71,4 @@ const Subject = sequelize.define('subject', {
 Std.hasMany(Subject, { foreignKey: 'stdid', as: 'Subjects' })
 Subject.belongsTo(Std, { foreignKey: 'stdid' })
 
-module.exports = {Std, Subject}
+module.exports = { Std, Subject }

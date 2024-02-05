@@ -1,4 +1,4 @@
-//user model with mongodb
+// user model with mongodb
 
 // const mongoose = require('mongoose')
 // const validator = require('validator')
@@ -128,77 +128,74 @@
 
 // module.exports = User
 
+// user model with Sequelize
 
-//user model with Sequelize
-
-
-const { DataTypes } = require("sequelize")
+const { DataTypes } = require('sequelize')
 const moment = require('moment')
 
-const sequelize = require('../db/dbConnect');
-
+const sequelize = require('../db/dbConnect')
 
 const User = sequelize.define('User', {
-    // Define user model fields here
-    id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        unique: true
-    },
-    firstName: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    lastName: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            isEmail: true
-        }
-    },
-    gender: {
-        type: DataTypes.JSON(),
-        allowNull: false
-    },
-    DOB: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            isDate: true,
-            isDDMMYYYYFormat(value) {
-                if (!moment(value, 'DD/MM/YYYY', true).isValid()) {
-                    throw new Error('Please provide a valid date in DD/MM/YYYY format for DOB');
-                }
-            }
-        }
-    },
-    mobileNumber: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-        validate: {
-            isMobilePhone: {
-                args: ['en-IN'],
-                msg: 'Please provide a valid mobile number'
-            }
-        }
-    },
-    profession: {
-        type: DataTypes.JSON(),
-        allowNull: false
-    },
-    tokens: {
-        type: DataTypes.STRING,
-        // defaultValue: []
+  // Define user model fields here
+  id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true,
+    unique: true
+  },
+  firstName: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  lastName: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      isEmail: true
     }
+  },
+  gender: {
+    type: DataTypes.JSON(),
+    allowNull: false
+  },
+  DOB: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      isDate: true,
+      isDDMMYYYYFormat (value) {
+        if (!moment(value, 'DD/MM/YYYY', true).isValid()) {
+          throw new Error('Please provide a valid date in DD/MM/YYYY format for DOB')
+        }
+      }
+    }
+  },
+  mobileNumber: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+    validate: {
+      isMobilePhone: {
+        args: ['en-IN'],
+        msg: 'Please provide a valid mobile number'
+      }
+    }
+  },
+  profession: {
+    type: DataTypes.JSON(),
+    allowNull: false
+  },
+  tokens: {
+    type: DataTypes.STRING
+    // defaultValue: []
+  }
 }, {
-    timestamps: false
+  timestamps: false
 })
 
 module.exports = User

@@ -9,13 +9,13 @@ const auth = async (req, res, next) => {
     const decode = jwt.verify(token, 'rudraIthubfotquizbook')
     // console.log(decode)
     // const user = await User.findOne({ _id: decode.id, 'tokens.token': token })
-    const user = await User.findOne({ where: { id: decode.id } } )
+    const user = await User.findOne({ where: { id: decode.id } })
 
-    if(!user || !user.tokens){
+    if (!user || !user.tokens) {
       return res.status(400).json({
-           message: 'user not found'
-       })
-   }
+        message: 'user not found'
+      })
+    }
 
     // console.log(user)
     req.user = user
