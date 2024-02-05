@@ -60,7 +60,7 @@ router.get('/users/gender', async (req, res) => {
 
 router.post('/users/signup', async (req, res) => {
   try {
-    const { firstName, lastName, email, genderID, DOB, professionId, mobileNumber, user_id } = req.body
+    const { firstName, lastName, email, genderID, DOB, professionId, mobileNumber } = req.body
 
     const prof = await axios.get('http://localhost:3000/users/profession')
     // console.log(prof.data)
@@ -99,7 +99,7 @@ router.post('/users/signup', async (req, res) => {
     //   })
     // }
 
-    const isMob = await User.findOne({ mobileNumber })
+    const isMob = await User.findOne({ where: { mobileNumber } })
     if (isMob) {
       return res.status(400).json({
         status: 400,
@@ -107,34 +107,27 @@ router.post('/users/signup', async (req, res) => {
       })
     }
 
-    const newUser = new User({
+    const newUser = await User.create({
       firstName,
       lastName,
       email,
-      gender: {
+      gender: [{
         _id: isGender.id,
         name: isGender.gender
-      },
+      }],
       DOB,
       mobileNumber,
-      profession: {
+      profession: [{
         _id: profession.id,
         name: profession.name
-      },
-      user_id
+      }]
     })
-
-    await newUser.save()
 
     const response = {
       status: 200,
       data: newUser,
       message: 'register successfully!'
     }
-
-    res.set({
-      'Content-Type': 'application/json'
-    })
 
     res.status(200).json(response)
     // console.log(newUser)
@@ -144,7 +137,6 @@ router.post('/users/signup', async (req, res) => {
       status: 400,
       message: e.message
     }
-
     res.status(400).json(errorRes)
     // console.log(e.message)
   }
@@ -154,7 +146,7 @@ router.post('/user/varify', async (req, res) => {
   try {
     const { mobileNumber } = req.body
 
-    const user = await User.findOne({ mobileNumber })
+    const user = await User.findOne({ where: { mobileNumber } })
 
     if (!user) {
       return res.status(404).json({
@@ -178,9 +170,12 @@ router.post('/user/varify', async (req, res) => {
 router.post('/users/login', async (req, res) => {
   try {
     const { mobileNumber } = req.body
-    const user = await User.findOne({ mobileNumber })
+    const user = await User.findOne({
+      where: { mobileNumber },
+      attributes: { exclude: ['tokens'] }
+    })
     // console.log(user)
-    const token = await authToken(user._id)
+    const token = await authToken(user.id)
     // console.log(token)
 
     if (!user) {

@@ -1,71 +1,45 @@
 const express = require('express')
 const cors = require('cors')
-const Subject = require('../models/std')
-
 const router = express.Router()
 const chapterData = require('./chapter')
 const question = require('./question')
 const standard = require('./standard')
+const { Std, Subject } = require('../models/std')
 
 router.use(cors())
 
-// router.post('/std', async (req, res) => {
-//   try {
-//     const subdata = req.body
-
-//     const isStandard = await Subject.findOne({ stdid: subdata.stdid })
-//     if (isStandard) {
-//       isStandard.subject.push(...subdata.subject)
-//       console.log(isStandard)
-//       await isStandard.save()
-
-//       res.status(200).json({
-//         status: 201,
-//         data: isStandard,
-//         message: 'Subject added to standatrd'
-//       })
-//     } else {
-//       const newStd = req.body
-
-//       const subData = new Subject({...newStd})
-//       await subData.save()
-
-//       res.status(201).json({
-//         status: 201,
-//         data: newStd,
-//         message: 'New standard and subjects added!'
-//       })
-//     }
-//   } catch (error) {
-//     res.status(404).json({
-//       status: 404,
-//       message: error.message
-//     })
-//   }
-// })
+// sql router for std and subjects
 
 router.get('/std', async (req, res) => {
   try {
-    await Subject.deleteMany()
-    await Subject.insertMany(standard)
+    // Delete records from the subjects table
+    await Subject.destroy({ truncate: true })
 
-    const isStd = await Subject.find()
-    if (!isStd) {
-      return res.status(400).json({
-        status: 400,
-        message: 'fail!'
-      })
-    }
+    // Rebuild and save standards with associated subjects
+    const stdInstances = await Std.bulkCreate(standard.map((stdData) => {
+      return {
+        std: stdData.std,
+        stdid: stdData.stdid,
+        Subjects: stdData.subject
+      }
+    }), {
+      include: {
+        model: Subject,
+        as: 'Subjects'
+      },
+      returning: true
+    })
 
     res.status(200).json({
       status: 200,
-      data: isStd,
-      message: 'success!'
+      data: stdInstances,
+      message: 'Success!'
     })
   } catch (error) {
-    res.status(400).json({
-      status: 404,
-      message: error.message
+    console.error(error)
+    res.status(500).json({
+      status: 500,
+      message: 'Internal Server Error!'
     })
   }
 })
@@ -78,19 +52,6 @@ router.get('/std', async (req, res) => {
 //         res.status(400).json(error.message)
 //     }
 // })
-
-router.get('/chapter', async (req, res) => {
-  const Chapter = Object.values(chapterData).flatMap(data => Object.values(data))
-  // console.log(Chapter)
-  const chap = Chapter.flat()
-  // console.log(chap)'
-
-  res.json({
-    status: 200,
-    data: chap,
-    message: 'success!'
-  })
-})
 
 router.post('/std/subject/chapter', async (req, res) => {
   try {
@@ -150,39 +111,6 @@ router.get('/questions', async (req, res) => {
     data: arayQuestion
   })
 })
-
-// router.get('/chapter/:chapterid/questions', async (req, res) => {
-//   const chapterId = req.params.chapterid
-
-//   // const chapter = chapterData.find((p) => p.id === chapterId)
-//   const chapter = chapterData[chapterId]
-
-//   if (!chapter) {
-//     return res.status(400).json({
-//       status: 400,
-//       message: 'chapter not found'
-//     })
-//   }
-
-//   const qData = question[chapterId]
-
-//   if (!qData) {
-//     return res.status(404).json({
-//       status: 404,
-//       message: 'Chapter not found'
-//     })
-//   }
-
-//   // console.log(qData)
-//   res.set({
-//     'Content-Type': 'application/json'
-//   })
-//   res.json({
-//     status: 200,
-//     data: qData,
-//     message: 'success!!'
-//   })
-// })
 
 router.post('/std/subject/chapter/questions', (req, res) => {
   try {
