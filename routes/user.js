@@ -99,7 +99,7 @@ router.post('/users/signup', async (req, res) => {
     //   })
     // }
 
-    const isMob = await User.findOne({ mobileNumber })
+    const isMob = await User.findOne({ where: { mobileNumber } })
     if (isMob) {
       return res.status(400).json({
         status: 400,
@@ -107,34 +107,27 @@ router.post('/users/signup', async (req, res) => {
       })
     }
 
-    const newUser = new User({
+    const newUser = await User.create({
       firstName,
       lastName,
       email,
-      gender: {
+      gender: [{
         _id: isGender.id,
         name: isGender.gender
-      },
+      }],
       DOB,
       mobileNumber,
-      profession: {
+      profession: [{
         _id: profession.id,
         name: profession.name
-      },
-      user_id
+      }],
     })
-
-    await newUser.save()
 
     const response = {
       status: 200,
       data: newUser,
       message: 'register successfully!'
     }
-
-    res.set({
-      'Content-Type': 'application/json'
-    })
 
     res.status(200).json(response)
     // console.log(newUser)
@@ -144,7 +137,6 @@ router.post('/users/signup', async (req, res) => {
       status: 400,
       message: e.message
     }
-
     res.status(400).json(errorRes)
     // console.log(e.message)
   }
@@ -154,7 +146,7 @@ router.post('/user/varify', async (req, res) => {
   try {
     const { mobileNumber } = req.body
 
-    const user = await User.findOne({ mobileNumber })
+    const user = await User.findOne({ where: { mobileNumber } })
 
     if (!user) {
       return res.status(404).json({
@@ -178,9 +170,12 @@ router.post('/user/varify', async (req, res) => {
 router.post('/users/login', async (req, res) => {
   try {
     const { mobileNumber } = req.body
-    const user = await User.findOne({ mobileNumber })
+    const user = await User.findOne({ 
+      where: { mobileNumber },
+      attributes: { exclude: ['tokens'] } 
+    })
     // console.log(user)
-    const token = await authToken(user._id)
+    const token = await authToken(user.id)
     // console.log(token)
 
     if (!user) {
@@ -209,176 +204,176 @@ router.post('/users/login', async (req, res) => {
   }
 })
 
-router.post('/user/logout', auth, async (req, res) => {
-  try {
-    if (req.user) {
-      req.user.tokens = req.user.tokens.filter((token) => token.token !== req.token)
-    }
-    await req.user.save()
-    res.status(200).json({
-      status: 200,
-      message: 'logout success'
-    })
-  } catch (error) {
-    res.status(400).json({
-      status: 400,
-      message: 'you are already logout!'
-    })
-  }
-})
+// router.post('/user/logout', auth, async (req, res) => {
+//   try {
+//     if (req.user) {
+//       req.user.tokens = req.user.tokens.filter((token) => token.token !== req.token)
+//     }
+//     await req.user.save()
+//     res.status(200).json({
+//       status: 200,
+//       message: 'logout success'
+//     })
+//   } catch (error) {
+//     res.status(400).json({
+//       status: 400,
+//       message: 'you are already logout!'
+//     })
+//   }
+// })
 
-// get user profile
-router.get('/profile', auth, async (req, res) => {
-  try {
-    const userID = req.user._id
+// // get user profile
+// router.get('/profile', auth, async (req, res) => {
+//   try {
+//     const userID = req.user._id
 
-    const user = await User.findOne({ _id: userID })
+//     const user = await User.findOne({ _id: userID })
 
-    if (!user) {
-      return res.status(404).json({
-        status: 404,
-        message: 'You are not register yet, please signup first!'
-      })
-    }
+//     if (!user) {
+//       return res.status(404).json({
+//         status: 404,
+//         message: 'You are not register yet, please signup first!'
+//       })
+//     }
 
-    res.status(200).json({
-      status: 200,
-      data: user,
-      message: 'success!!'
-    })
-  } catch (error) {
-    res.status(400).json({
-      status: 400,
-      message: 'You are not register yet, please signup or login'
-    })
-  }
-})
+//     res.status(200).json({
+//       status: 200,
+//       data: user,
+//       message: 'success!!'
+//     })
+//   } catch (error) {
+//     res.status(400).json({
+//       status: 400,
+//       message: 'You are not register yet, please signup or login'
+//     })
+//   }
+// })
 
-// user profile update
+// // user profile update
 
-router.post('/profile/update', auth, async (req, res) => {
-  try {
-    const { firstName, lastName } = req.body
+// router.post('/profile/update', auth, async (req, res) => {
+//   try {
+//     const { firstName, lastName } = req.body
 
-    const userID = req.user._id
-    const user = await User.findByIdAndUpdate(userID, {
-      firstName,
-      lastName
-    }, {
-      new: true,
-      runValidators: true
-    })
+//     const userID = req.user._id
+//     const user = await User.findByIdAndUpdate(userID, {
+//       firstName,
+//       lastName
+//     }, {
+//       new: true,
+//       runValidators: true
+//     })
 
-    if (!user) {
-      return res.status(404).json({
-        status: 404,
-        message: 'You are not register yet, please signup first!'
-      })
-    }
-    res.status(200).json({
-      status: 200,
-      data: user,
-      message: 'profile update successfully!'
-    })
-  } catch (error) {
-    res.status(400).json({
-      status: 400,
-      message: 'You are not register yet, please signup or login'
-    })
-  }
-})
+//     if (!user) {
+//       return res.status(404).json({
+//         status: 404,
+//         message: 'You are not register yet, please signup first!'
+//       })
+//     }
+//     res.status(200).json({
+//       status: 200,
+//       data: user,
+//       message: 'profile update successfully!'
+//     })
+//   } catch (error) {
+//     res.status(400).json({
+//       status: 400,
+//       message: 'You are not register yet, please signup or login'
+//     })
+//   }
+// })
 
-router.get('/users/profession', (req, res) => {
-  res.set({
-    'Content-Type': 'application/json'
-  })
-  res.json(professions)
-})
+// router.get('/users/profession', (req, res) => {
+//   res.set({
+//     'Content-Type': 'application/json'
+//   })
+//   res.json(professions)
+// })
 
-// upload user profile
+// // upload user profile
 
-const storage = multer.diskStorage({
-  destination: 'avatar',
-  filename (req, file, cb) {
-    // cb(null, file.fieldname + Date.now() + '_' + path.extname(file.originalname))
-    cb(null, file.originalname)
-  }
-})
+// const storage = multer.diskStorage({
+//   destination: 'avatar',
+//   filename(req, file, cb) {
+//     // cb(null, file.fieldname + Date.now() + '_' + path.extname(file.originalname))
+//     cb(null, file.originalname)
+//   }
+// })
 
-const upload = multer({
-  storage,
-  limits: {
-    fileSize: 1000000
-  },
-  fileFilter (req, file, cb) {
-    if (!file.originalname.match(/\.(jpg|png|jpeg)/)) {
-      return cb(new Error('please upload an image'))
-    }
-    cb(undefined, true)
-  }
-})
+// const upload = multer({
+//   storage,
+//   limits: {
+//     fileSize: 1000000
+//   },
+//   fileFilter(req, file, cb) {
+//     if (!file.originalname.match(/\.(jpg|png|jpeg)/)) {
+//       return cb(new Error('please upload an image'))
+//     }
+//     cb(undefined, true)
+//   }
+// })
 
-router.use('/', express.static('avatar'))
+// router.use('/', express.static('avatar'))
 
-router.post('/users/avatars', auth, upload.single('avatar'), async (req, res) => {
-  try {
-    if (!req.file) {
-      throw new Error('Please upload an image')
-    }
+// router.post('/users/avatars', auth, upload.single('avatar'), async (req, res) => {
+//   try {
+//     if (!req.file) {
+//       throw new Error('Please upload an image')
+//     }
 
-    const userid = req.user._id
+//     const userid = req.user._id
 
-    console.log('User ID:', userid)
+//     console.log('User ID:', userid)
 
-    const user = await User.findById(userid)
-    if (!user) {
-      return res.status(404).json({
-        status: 404,
-        message: 'You are not register yet, please signup first!'
-      })
-    }
-    user.userProfile = `http://localhost:3000/${req.file.originalname}`
+//     const user = await User.findById(userid)
+//     if (!user) {
+//       return res.status(404).json({
+//         status: 404,
+//         message: 'You are not register yet, please signup first!'
+//       })
+//     }
+//     user.userProfile = `http://localhost:3000/${req.file.originalname}`
 
-    await user.save()
-    res.status(200).json({
-      status: 200,
-      message: 'profile upload success!'
-    })
-  } catch (error) {
-    res.status(400).json({
-      status: 400,
-      message: error.message
-    })
-  }
-}, (error, req, res, next) => {
-  res.status(400).json({ error: error.message })
-})
+//     await user.save()
+//     res.status(200).json({
+//       status: 200,
+//       message: 'profile upload success!'
+//     })
+//   } catch (error) {
+//     res.status(400).json({
+//       status: 400,
+//       message: error.message
+//     })
+//   }
+// }, (error, req, res, next) => {
+//   res.status(400).json({ error: error.message })
+// })
 
-// delete user profile
-router.delete('/users/avatars', auth, async (req, res) => {
-  try {
-    const user_id = req.user._id
-    const user = await User.findById({ user_id })
+// // delete user profile
+// router.delete('/users/avatars', auth, async (req, res) => {
+//   try {
+//     const user_id = req.user._id
+//     const user = await User.findById({ user_id })
 
-    if (!user) {
-      return res.status(404).json({
-        status: 404,
-        message: 'You are not register yet, please signup first!'
-      })
-    }
+//     if (!user) {
+//       return res.status(404).json({
+//         status: 404,
+//         message: 'You are not register yet, please signup first!'
+//       })
+//     }
 
-    user.userProfile = undefined
-    await user.save()
-    res.status(200).json({
-      status: 200,
-      message: 'Profile deleted successfully',
-      data: user
-    })
-  } catch (error) {
-    console.error(error)
-    res.status(400).json({ status: 400, message: error.message })
-  }
-})
+//     user.userProfile = undefined
+//     await user.save()
+//     res.status(200).json({
+//       status: 200,
+//       message: 'Profile deleted successfully',
+//       data: user
+//     })
+//   } catch (error) {
+//     console.error(error)
+//     res.status(400).json({ status: 400, message: error.message })
+//   }
+// })
 
 module.exports = router
 /* eslint-enable camelcase */
