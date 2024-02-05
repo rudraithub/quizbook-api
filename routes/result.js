@@ -43,7 +43,7 @@ router.post('/results', auth, async (req, res) => {
       })
     }
 
-    const chapterIdArray = chapterData[stdid] && chapterData[stdid][subid]
+    const chapterIdArray = chapterData[stdId.stdid] && chapterData[stdId.stdid][subId.subid]
     const chapterId = chapterIdArray && chapterIdArray.find((p) => p.chapterid === chapterid)
 
     if (!chapterId) {
@@ -55,7 +55,7 @@ router.post('/results', auth, async (req, res) => {
 
     /* eslint-disable camelcase */
     const resultQuestion = questions.map(({ queid, user_answer }) => {
-      const queArr = question.filter((q) => q.chapterid === chapterid)
+      const queArr = question.filter((q) => q.chapterid === chapterId.chapterid && q.stdid === stdId.stdid && q.subid === subId.subid)
       const queData = queArr && queArr.find((p) => p.queid === queid)
 
       if (!queData) {
@@ -65,7 +65,7 @@ router.post('/results', auth, async (req, res) => {
         })
       }
 
-      const isCorrect = user_answer === queData.rightAns
+      const isCorrect = user_answer == queData.rightAns
       console.log(isCorrect)
 
       return {
