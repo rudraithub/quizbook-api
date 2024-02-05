@@ -135,10 +135,10 @@
 const { DataTypes } = require("sequelize")
 const moment = require('moment')
 
-const sequelize = require('../db/mongoose');
+const sequelize = require('../db/dbConnect');
 
 
-const User = sequelize.define('user', {
+const User = sequelize.define('User', {
     // Define user model fields here
     id: {
         type: DataTypes.INTEGER,

@@ -5,7 +5,7 @@ const chapterData = require('./chapter')
 const question = require('./question')
 const standard = require('./standard')
 const { Std, Subject } = require('../models/std')
-const sequelize = require('../db/mongoose')
+const sequelize = require('../db/dbConnect')
 
 router.use(cors())
 

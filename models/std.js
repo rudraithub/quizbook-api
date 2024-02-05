@@ -35,7 +35,7 @@
 
 const { DataTypes } = require("sequelize")
 
-const sequelize = require('../db/mongoose');
+const sequelize = require('../db/dbConnect');
 
 const Std = sequelize.define('standard', {
   stdid: {
