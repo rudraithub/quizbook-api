@@ -1,12 +1,15 @@
 const express = require('express')
 const Results = require('../models/result')
-const standard = require('./standard')
-const question = require('./question')
-const chapterData = require('./chapter')
+// const standard = require('./standard')
+// const question = require('./question')
+// const chapterData = require('./chapter')
 
 const cors = require('cors')
-const User = require('../models/user')
+// const User = require('../models/user')
 const auth = require('../middleware/auth')
+const Chapters = require('../models/chapter')
+const { Subject, Std } = require('../models/std')
+const Question = require('../models/question')
 
 const router = express.Router()
 
@@ -15,104 +18,214 @@ router.use(cors())
 router.post('/results', auth, async (req, res) => {
   try {
     const { stdid, subid, chapterid, questions } = req.body
-    const _id = req.user._id
 
-    const user = await User.findById(_id)
+    const std = await Std.findOne({ where: { stdid } })
 
-    if (!user) {
-      return res.status(401).json({
-        status: 401,
-        message: 'User not found'
+    if (!std) {
+      return res.status(400).json({
+        status: 400,
+        message: 'standard not found!'
       })
     }
 
-    const stdId = standard.find((p) => p.stdid === stdid)
-    if (!stdId) {
+    const sub = await Subject.findOne({ where: { subid } })
+
+    if (!sub) {
       return res.status(400).json({
-        status: 'fails',
-        message: 'No standard found'
+        status: 400,
+        message: 'subject not found!'
       })
     }
 
-    const subId = stdId.subject.find((p) => p.subid === subid)
-
-    if (!subId) {
+    const chapter = await Chapters.findOne({ where: { chapterid } })
+    if (!chapter) {
       return res.status(400).json({
-        status: 'fails',
-        message: 'No subject found'
+        status: 400,
+        message: 'chapter not found!'
       })
     }
 
-    const chapterIdArray = chapterData[stdId.stdid] && chapterData[stdId.stdid][subId.subid]
-    const chapterId = chapterIdArray && chapterIdArray.find((p) => p.chapterid === chapterid)
-
-    if (!chapterId) {
+    const question = await Question.findAll({ where: { stdid, subid, chapterid } })
+    if (!question) {
       return res.status(400).json({
-        status: 'fails',
-        message: 'No chapter found'
+        status: 400,
+        message: 'no question found'
       })
     }
 
     /* eslint-disable camelcase */
-    const resultQuestion = questions.map(({ queid, user_answer }) => {
-      const queArr = question.filter((q) => q.chapterid === chapterId.chapterid && q.stdid === stdId.stdid && q.subid === subId.subid)
-      const queData = queArr && queArr.find((p) => p.queid === queid)
-
-      if (!queData) {
-        return res.status(400).json({
-          status: 'fails',
-          message: 'No question found'
-        })
+    const questionList = []
+    for (const { queid, user_answer } of questions) {
+      // Fetch question data based on queid
+      const questionData = await Question.findOne({ where: { queid } })
+      if (!questionData) {
+        return res.status(400).json({ status: 400, message: `Question with queid ${queid} not found!` })
       }
 
-      const isCorrect = user_answer === queData.rightAns
-      console.log(isCorrect)
+      // Determine if user's answer is correct
+      const isCorrect = user_answer === questionData.rightAns
 
-      return {
-        queid: queData.queid,
+      // Construct question object with queid, user_answer, and user_result
+      questionList.push({
+        queid: questionData.queid,
         user_answer,
         user_result: isCorrect
-      }
-    })
-
-    /* eslint-enable camelcase */
-
-    const result = new Results({
-      userID: user._id,
-      stdid: stdId.stdid,
-      subid: subId.subid,
-      chapterid: chapterId.chapterid,
-      questions: resultQuestion
-    })
-
-    await result.save()
-    const totalRightQuestions = resultQuestion.filter(question => question.user_result === true).length
-    const totalWrongQuestions = resultQuestion.length - totalRightQuestions
-
-    if (!result) {
-      return res.status(400).json({
-        status: 400,
-        message: 'no result found!'
       })
     }
+    /* eslint-enable camelcase */
+    // const questionList = questions.map(({queid, user_answer}) => {
+    //   const isQestion = question.find((q) => q.queid ===  queid)
+    //   if(!isQestion){
+    //     return res.status(400).json({
+    //       status: 400,
+    //       message: 'no question found!'
+    //     })
+    //   }
 
-    res.json({
-      status: 200,
-      data: {
-        ...result.toObject(),
-        totalRightQuestions,
-        totalWrongQuestions
-      },
-      message: 'success!!'
+    //   const correct = user_answer === isQestion.rightAns
 
+    //   return {
+    //     queid: isQestion.queid,
+    //     user_answer,
+    //     user_result: correct
+    //   }
+    // })
+
+    const results = Results.build({
+      stdid: std.stdid,
+      subid: sub.subid,
+      chapterid: chapter.chapterid,
+      questions: questionList
     })
-  } catch (e) {
+
+    // await results.save()
+
+    const totalRightQuestions = questionList.filter((qestion) => qestion.user_result === true).length
+    const totalWrongQuestions = questionList.length - totalRightQuestions
+
+    const resultsData = {
+      stdid: results.stdid,
+      subid: results.subid,
+      chapterid: results.chapterid,
+      questions: results.questions,
+      totalRightQuestions,
+      totalWrongQuestions
+    }
+
+    res.status(200).json({
+      status: 200,
+      data: resultsData,
+      message: 'results'
+    })
+  } catch (error) {
     res.status(400).json({
       status: 400,
-      message: e.message
+      message: error.message
     })
   }
 })
+
+// router.post('/results', auth, async (req, res) => {
+//   try {
+//     const { stdid, subid, chapterid, questions } = req.body
+//     const _id = req.user._id
+
+//     const user = await User.findById(_id)
+
+//     if (!user) {
+//       return res.status(401).json({
+//         status: 401,
+//         message: 'User not found'
+//       })
+//     }
+
+//     const stdId = standard.find((p) => p.stdid === stdid)
+//     if (!stdId) {
+//       return res.status(400).json({
+//         status: 'fails',
+//         message: 'No standard found'
+//       })
+//     }
+
+//     const subId = stdId.subject.find((p) => p.subid === subid)
+
+//     if (!subId) {
+//       return res.status(400).json({
+//         status: 'fails',
+//         message: 'No subject found'
+//       })
+//     }
+
+//     const chapterIdArray = chapterData[stdId.stdid] && chapterData[stdId.stdid][subId.subid]
+//     const chapterId = chapterIdArray && chapterIdArray.find((p) => p.chapterid === chapterid)
+
+//     if (!chapterId) {
+//       return res.status(400).json({
+//         status: 'fails',
+//         message: 'No chapter found'
+//       })
+//     }
+
+//     /* eslint-disable camelcase */
+//     const resultQuestion = questions.map(({ queid, user_answer }) => {
+//       const queArr = question.filter((q) => q.chapterid === chapterId.chapterid && q.stdid === stdId.stdid && q.subid === subId.subid)
+//       const queData = queArr && queArr.find((p) => p.queid === queid)
+
+//       if (!queData) {
+//         return res.status(400).json({
+//           status: 'fails',
+//           message: 'No question found'
+//         })
+//       }
+
+//       const isCorrect = user_answer === queData.rightAns
+//       console.log(isCorrect)
+
+//       return {
+//         queid: queData.queid,
+//         user_answer,
+//         user_result: isCorrect
+//       }
+//     })
+
+//     /* eslint-enable camelcase */
+
+//     const result = new Results({
+//       userID: user._id,
+//       stdid: stdId.stdid,
+//       subid: subId.subid,
+//       chapterid: chapterId.chapterid,
+//       questions: resultQuestion
+//     })
+
+//     await result.save()
+//     const totalRightQuestions = resultQuestion.filter(question => question.user_result === true).length
+//     const totalWrongQuestions = resultQuestion.length - totalRightQuestions
+
+//     if (!result) {
+//       return res.status(400).json({
+//         status: 400,
+//         message: 'no result found!'
+//       })
+//     }
+
+//     res.json({
+//       status: 200,
+//       data: {
+//         ...result.toObject(),
+//         totalRightQuestions,
+//         totalWrongQuestions
+//       },
+//       message: 'success!!'
+
+//     })
+//   } catch (e) {
+//     res.status(400).json({
+//       status: 400,
+//       message: e.message
+//     })
+//   }
+// })
 
 router.get('/results', auth, async (req, res) => {
   try {
