@@ -5,36 +5,68 @@ const chapterData = require('./chapter')
 const question = require('./question')
 const standard = require('./standard')
 const { Std, Subject } = require('../models/std')
-
 router.use(cors())
 
 // sql router for std and subjects
 
 router.get('/std', async (req, res) => {
   try {
-    // Delete records from the subjects table
-    await Subject.destroy({ truncate: true })
+    // await Subject.destroy({where: {}, truncate: false })
+    // await Std.destroy({where: {}, truncate: false})
 
-    // Rebuild and save standards with associated subjects
-    const stdInstances = await Std.bulkCreate(standard.map((stdData) => {
-      return {
-        std: stdData.std,
-        stdid: stdData.stdid,
-        Subjects: stdData.subject
-      }
-    }), {
+    const existingStdInstances = await Std.findAll({
       include: {
         model: Subject,
-        as: 'Subjects'
-      },
-      returning: true
+        as: 'Subjects',
+        attributes: { exclude: ['stdid'] }
+      }
     })
 
-    res.status(200).json({
-      status: 200,
-      data: stdInstances,
-      message: 'Success!'
-    })
+    if (existingStdInstances.length === 0) {
+      // Rebuild and save standards with associated subjects
+      const stdInstances = await Std.bulkCreate(standard.map((stdData) => {
+        return {
+          std: stdData.std,
+          stdid: stdData.stdid,
+          Subjects: stdData.subject.map((subData) => {
+            return {
+              // subid: subData.subid,
+              subjectName: subData.subjectName,
+              img: subData.img
+            }
+          })
+        }
+      }), {
+        include: {
+          model: Subject,
+          as: 'Subjects'
+        },
+        returning: true
+        // upsert: true
+      })
+
+      res.status(200).json({
+        status: 200,
+        data: stdInstances,
+        message: 'Success!'
+      })
+    } else {
+      const stdInstances = await Std.findAll({
+        include: {
+          model: Subject,
+          as: 'Subjects',
+          attributes: { exclude: ['stdid'] }
+        }
+      })
+
+      res.status(200).json({
+        status: 200,
+        data: stdInstances,
+        message: 'Data fetched successfully!'
+      })
+    }
+
+    // Delete records from the subjects table
   } catch (error) {
     console.error(error)
     res.status(500).json({
