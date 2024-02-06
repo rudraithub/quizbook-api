@@ -1,45 +1,33 @@
-const mongoose = require('mongoose')
-// const validator = require('validator')
+const { DataTypes } = require('sequelize')
+const sequelize = require('../db/dbConnect')
 
-const resultsSchema = new mongoose.Schema({
-  userID: {
-    type: mongoose.Schema.ObjectId,
-    ref: 'user'
+const Results = sequelize.define('results', {
+  resultid: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    allowNull: false,
+    autoIncrement: true
   },
+  // userID: {
+  //   type: DataTypes.INTEGER,
+  //   allowNull: false
+  // },
   stdid: {
-    type: Number,
-    trim: true,
-    required: true
+    type: DataTypes.INTEGER,
+    allowNull: false
   },
   subid: {
-    type: Number,
-    trim: true,
-    required: true
+    type: DataTypes.INTEGER,
+    allowNull: false
   },
   chapterid: {
-    type: Number,
-    trim: true,
-    required: true
+    type: DataTypes.INTEGER,
+    allowNull: false
   },
-  questions: [{
-    queid: {
-      type: Number,
-      trim: true,
-      required: true
-    },
-    user_answer: {
-      type: Number,
-      trim: true,
-      required: true
-    },
-    user_result: {
-      type: Boolean,
-      trim: true,
-      required: true
-    }
-  }]
-})
-
-const Results = mongoose.model('results', resultsSchema)
+  questions: {
+    type: DataTypes.JSON, // Store questions as JSON
+    allowNull: false
+  }
+}, { timestamps: false })
 
 module.exports = Results

@@ -1,20 +1,84 @@
 const express = require('express')
 const cors = require('cors')
 const router = express.Router()
-const chapterData = require('./chapter')
+// const chapterData = require('./chapter')
 const question = require('./question')
-const standard = require('./standard')
+// const standard = require('./standard')
 const { Std, Subject } = require('../models/std')
+const Chapters = require('../models/chapter')
+const Question = require('../models/question')
 router.use(cors())
 
 // sql router for std and subjects
 
+router.post('/addstd', async (req, res) => {
+  try {
+    const { std } = req.body
+
+    const isStd = await Std.findOne({ where: { std } })
+
+    if (isStd) {
+      return res.status(400).json({
+        status: 400,
+        message: 'standard already exist!'
+      })
+    }
+    const newStd = Std.build({
+      std
+    })
+
+    await newStd.save()
+
+    res.status(200).json({
+      status: 200,
+      data: newStd,
+      message: 'Standard added successfully!'
+    })
+  } catch (error) {
+    res.status(400).json({
+      status: 400,
+      message: error.message
+    })
+  }
+})
+
+router.post('/addsubjects', async (req, res) => {
+  try {
+    const { stdid, subjectName, img } = req.body
+
+    const isStd = await Std.findOne({ where: { stdid } })
+
+    if (!isStd) {
+      return res.status(400).json({
+        status: 400,
+        message: 'standard not found!'
+      })
+    }
+
+    const newSubject = Subject.build({
+      stdid,
+      subjectName,
+      img
+    })
+
+    await newSubject.save()
+
+    res.status(200).json({
+      status: 200,
+      data: newSubject,
+      message: 'subject added successfully!'
+    })
+  } catch (error) {
+    res.status(400).json({
+      status: 400,
+      message: error.message
+    })
+  }
+})
+
 router.get('/std', async (req, res) => {
   try {
-    // await Subject.destroy({where: {}, truncate: false })
-    // await Std.destroy({where: {}, truncate: false})
-
-    const existingStdInstances = await Std.findAll({
+    const std = await Std.findAll({
       include: {
         model: Subject,
         as: 'Subjects',
@@ -22,51 +86,11 @@ router.get('/std', async (req, res) => {
       }
     })
 
-    if (existingStdInstances.length === 0) {
-      // Rebuild and save standards with associated subjects
-      const stdInstances = await Std.bulkCreate(standard.map((stdData) => {
-        return {
-          std: stdData.std,
-          stdid: stdData.stdid,
-          Subjects: stdData.subject.map((subData) => {
-            return {
-              // subid: subData.subid,
-              subjectName: subData.subjectName,
-              img: subData.img
-            }
-          })
-        }
-      }), {
-        include: {
-          model: Subject,
-          as: 'Subjects'
-        },
-        returning: true
-        // upsert: true
-      })
-
-      res.status(200).json({
-        status: 200,
-        data: stdInstances,
-        message: 'Success!'
-      })
-    } else {
-      const stdInstances = await Std.findAll({
-        include: {
-          model: Subject,
-          as: 'Subjects',
-          attributes: { exclude: ['stdid'] }
-        }
-      })
-
-      res.status(200).json({
-        status: 200,
-        data: stdInstances,
-        message: 'Data fetched successfully!'
-      })
-    }
-
-    // Delete records from the subjects table
+    res.status(200).json({
+      status: 200,
+      data: std,
+      message: 'Data fetched successfully!'
+    })
   } catch (error) {
     console.error(error)
     res.status(500).json({
@@ -76,22 +100,10 @@ router.get('/std', async (req, res) => {
   }
 })
 
-// router.get('/std', async(req, res) => {
-//     try {
-//         const subData = await Subject.create(standard)
-//         res.json(subData)
-//     } catch (error) {
-//         res.status(400).json(error.message)
-//     }
-// })
-
-router.post('/std/subject/chapter', async (req, res) => {
+router.post('/std/subject/addchapters', async (req, res) => {
   try {
-    const stdId = req.body.stdid
-    const subId = req.body.subid
-
-    const std = standard.find((p) => p.stdid === parseInt(stdId))
-
+    const { stdid, subid, chapterid, content, chapterno, teacher, que, minute } = req.body
+    const std = await Std.findOne({ where: { stdid } })
     if (!std) {
       return res.status(400).json({
         status: 400,
@@ -99,7 +111,7 @@ router.post('/std/subject/chapter', async (req, res) => {
       })
     }
 
-    const sub = std.subject.find((p) => p.subid === parseInt(subId))
+    const sub = await Subject.findOne({ where: { subid } })
 
     if (!sub) {
       return res.status(400).json({
@@ -108,11 +120,55 @@ router.post('/std/subject/chapter', async (req, res) => {
       })
     }
 
-    const chapters = chapterData[stdId] && chapterData[stdId][subId]
+    const newChapter = Chapters.build({
+      stdid,
+      subid,
+      content,
+      chapterid,
+      chapterno,
+      teacher,
+      que,
+      minute
+    })
 
-    // console.log(chapters)
+    await newChapter.save()
 
-    if (!chapters || chapters.length === 0) {
+    console.log(newChapter)
+    res.status(200).json({
+      status: 200,
+      data: newChapter,
+      message: 'Chapter Added successfully!'
+    })
+  } catch (error) {
+    console.log(error.message)
+  }
+})
+
+router.post('/std/subject/chapter', async (req, res) => {
+  try {
+    const stdId = req.body.stdid
+    const subId = req.body.subid
+
+    const std = await Std.findOne({ where: { stdid: stdId } })
+
+    if (!std) {
+      return res.status(400).json({
+        status: 400,
+        message: 'standard not found!'
+      })
+    }
+
+    const sub = await Subject.findOne({ where: { subid: subId } })
+
+    if (!sub) {
+      return res.status(400).json({
+        status: 400,
+        message: 'subject not found!'
+      })
+    }
+
+    const chapterDetails = await Chapters.findAll({ where: { stdid: std.stdid, subid: sub.subid }, attributes: { exclude: ['stdid', 'subid'] } })
+    if (chapterDetails.length === 0) {
       return res.status(400).json({
         status: 400,
         message: 'chapter is not found!'
@@ -121,7 +177,7 @@ router.post('/std/subject/chapter', async (req, res) => {
 
     res.json({
       status: 200,
-      data: chapters,
+      data: chapterDetails,
       message: 'success!!'
     })
   } catch (error) {
@@ -144,52 +200,106 @@ router.get('/questions', async (req, res) => {
   })
 })
 
-router.post('/std/subject/chapter/questions', (req, res) => {
+router.post('/std/subject/chapter/addquestions', async (req, res) => {
+  try {
+    /* eslint-disable camelcase */
+    const { stdid, subid, chapterid, question_no, question, Option, rightAns } = req.body
+    const std = await Std.findOne({ where: { stdid } })
+
+    if (!std) {
+      return res.status(400).json({
+        status: 400,
+        message: 'standard not found!'
+      })
+    }
+
+    const sub = await Subject.findOne({ where: { subid } })
+
+    if (!sub) {
+      return res.status(400).json({
+        status: 400,
+        message: 'subject not found!'
+      })
+    }
+
+    const chapter = await Chapters.findOne({ where: { chapterid } })
+    if (!chapter) {
+      return res.status(400).json({
+        status: 400,
+        message: 'chapter not found!'
+      })
+    }
+
+    const questionData = Question.build({
+      stdid,
+      subid,
+      chapterid,
+      question_no,
+      question,
+      Option,
+      rightAns
+    })
+
+    await questionData.save()
+
+    res.status(200).json({
+      status: 200,
+      data: questionData,
+      message: 'question successfully added!'
+    })
+    /* eslint-enable camelcase */
+  } catch (error) {
+    res.status(400).json({
+      status: 400,
+      message: error.message
+    })
+  }
+})
+
+router.post('/std/subject/chapter/questions', async (req, res) => {
   try {
     const stdID = req.body.stdid
     const subId = req.body.subid
     const chapterId = req.body.chapterid
 
-    const isStd = standard.find(s => s.stdid === parseInt(stdID))
+    const std = await Std.findOne({ where: { stdid: stdID } })
 
-    if (!isStd) {
-      return res.status(404).json({
-        status: 404,
+    if (!std) {
+      return res.status(400).json({
+        status: 400,
         message: 'standard not found!'
       })
     }
 
-    const isSub = isStd.subject.find(s => s.subid === parseInt(subId))
+    const sub = await Subject.findOne({ where: { subid: subId } })
 
-    if (!isSub) {
-      return res.status(404).json({
-        status: 404,
+    if (!sub) {
+      return res.status(400).json({
+        status: 400,
         message: 'subject not found!'
       })
     }
 
-    const chapters = chapterData[stdID] && chapterData[stdID][subId]
-
-    const ischapter = chapters.find(s => s.chapterid === parseInt(chapterId))
-
-    if (!ischapter) {
-      return res.status(404).json({
-        status: 404,
+    const chapter = await Chapters.findOne({ where: { chapterid: chapterId } })
+    if (!chapter) {
+      return res.status(400).json({
+        status: 400,
         message: 'chapter not found!'
       })
     }
 
-    const chapterQuestions = question.filter((questions) => questions.stdid === isStd.stdid && questions.subid === isSub.subid && questions.chapterid === ischapter.chapterid)
-    if (chapterQuestions.length === 0) {
-      return res.status(404).json({
-        status: 404,
-        message: 'No questions found!'
+    const question = await Question.findAll({ where: { stdid: stdID, subid: subId, chapterid: chapterId } })
+
+    if (!question) {
+      return res.status(400).json({
+        status: 400,
+        message: 'no qestion found!'
       })
     }
 
     res.status(200).json({
       status: 200,
-      data: chapterQuestions,
+      data: question,
       message: 'Success!'
     })
   } catch (error) {

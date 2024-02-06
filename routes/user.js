@@ -225,9 +225,9 @@ router.post('/user/logout', auth, async (req, res) => {
 // get user profile
 router.get('/profile', auth, async (req, res) => {
   try {
-    const userID = req.user._id
+    const userID = req.user.id
 
-    const user = await User.findOne({ _id: userID })
+    const user = await User.findOne({ where: { id: userID } })
 
     if (!user) {
       return res.status(404).json({
