@@ -48,7 +48,7 @@ const Std = sequelize.define('standard', {
     type: DataTypes.STRING,
     allowNull: false
   }
-})
+}, { timestamps: false })
 
 const Subject = sequelize.define('subject', {
   subid: {
@@ -66,9 +66,9 @@ const Subject = sequelize.define('subject', {
     allowNull: false,
     defaultValue: 'default-image.png'
   }
-})
+}, { timestamps: false })
 
-Std.hasMany(Subject, { foreignKey: 'stdid', as: 'Subjects' })
-Subject.belongsTo(Std, { foreignKey: 'stdid' })
+Std.hasMany(Subject, { foreignKey: 'stdid', as: 'Subjects', onDelete: 'CASCADE' })
+Subject.belongsTo(Std, { foreignKey: 'stdid', onDelete: 'CASCADE' })
 
 module.exports = { Std, Subject }
