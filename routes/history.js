@@ -95,11 +95,10 @@ router.get('/history', auth, async (req, res) => {
         }
 
         if (q.user_answer === question.rightAns) {
-          totalRightQuestions++;
+          totalRightQuestions++
         } else {
-          totalWrongQuestions++;
+          totalWrongQuestions++
         }
-        
 
         questionList.push({
           questionid: q.queid,
