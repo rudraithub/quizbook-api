@@ -1,106 +1,133 @@
-const express = require('express')
-const standard = require('../routes/standard')
-const chapterData = require('../routes/chapter')
-const question = require('../routes/question')
-const cors = require('cors')
+// const express = require('express')
+// const standard = require('../routes/standard')
+// const chapterData = require('../routes/chapter')
+// const question = require('../routes/question')
+// const cors = require('cors')
 // const User = require('../models/user')
-const Results = require('../models/result')
-const auth = require('../middleware/auth')
-const History = require('../models/history')
-const router = express.Router()
-router.use(cors())
+// const Results = require('../models/result')
+// const auth = require('../middleware/auth')
+// const History = require('../models/history')
+// // const User = require('../models/user')
+// const router = express.Router()
+// router.use(cors())
 
-router.get('/history', auth, async (req, res) => {
-  try {
-    // const { stdID, subID, chapterID, questions } = req.body;
-    const userID = req.user._id
-    const results = await Results.find({ userID })
+// // router.get('history', auth, async (req, res) => {
+// //   try {
+// //     const userID = req.user.id
 
-    if (!results || results.length === 0) {
-      return res.status(404).json({
-        status: 404,
-        message: 'Oops! It seems like there is no result data available for your account.'
-      })
-    }
+// //     const user = await User.findOne({ where: { id: userID } })
+// //     if (!user) {
+// //       return res.status(400).json({
+// //         status: 400,
+// //         message: 'user not found!'
+// //       })
+// //     }
 
-    const historyData = []
+// //     const results = await Results.findAll({where : {userID: userID}})
 
-    for (const result of results) {
-      const stdid = result.stdid
-      const subid = result.subid
-      const chapterid = result.chapterid
-      const questions = result.questions
+// //     if(!results){
+// //       return res.status(400).json({
+// //         status: 400,
+// //         message: 'Oops! It seems like there is no result data available for your account.'
+// //       })
+// //     }
 
-      const std = standard.find((s) => s.stdid === stdid)
+// //   } catch (error) {
 
-      if (!std) {
-        console.error('std not found')
-        return res.status(404).json({
-          status: 404,
-          message: 'Standard not found!'
-        })
-      }
+// //   }
+// // })
 
-      const sub = std.subject.find((s) => s.subid === subid)
-      if (!sub) {
-        return res.status(404).json({
-          status: 404,
-          message: 'subject not found!'
-        })
-      }
+// router.get('/history', auth, async (req, res) => {
+//   try {
+//     // const { stdID, subID, chapterID, questions } = req.body;
+//     const userID = req.user._id
+//     const results = await Results.find({ userID })
 
-      const chapters = chapterData[stdid] && chapterData[stdid][subid]
-      const chap = chapters.find((ch) => ch.chapterid === chapterid)
+//     if (!results || results.length === 0) {
+//       return res.status(404).json({
+//         status: 404,
+//         message: 'Oops! It seems like there is no result data available for your account.'
+//       })
+//     }
 
-      if (!chap) {
-        return res.status(404).json({
-          status: 404,
-          message: 'chapter not found!'
-        })
-      }
+//     const historyData = []
 
-      const history = new History({
-        stdID: std.stdid,
-        std: std.std,
-        subID: sub.subid,
-        subjectName: sub.subjectName,
-        chapterID: chap.chapterid,
-        chapterName: chap.content,
-        teacher: chap.teacher,
-        questions: questions.map((resultItem) => {
-          const queDataItem = question.filter(q => q.chapterid === chapterid).find((que) => que.queid === resultItem.queid)
-          // const queDataItem = question.find(q => q.chapterid === chapterid && q.queid === resultItem.queid);
+//     for (const result of results) {
+//       const stdid = result.stdid
+//       const subid = result.subid
+//       const chapterid = result.chapterid
+//       const questions = result.questions
 
-          // console.log(queDataItem)
+//       const std = standard.find((s) => s.stdid === stdid)
 
-          return {
-            questionID: resultItem.queid,
-            questionName: queDataItem.question,
-            option: queDataItem.Option,
-            rightAnswer: queDataItem.rightAns,
-            user_Ans: resultItem.user_answer || null,
-            user_Result: resultItem.user_result
-          }
-        })
-      })
+//       if (!std) {
+//         console.error('std not found')
+//         return res.status(404).json({
+//           status: 404,
+//           message: 'Standard not found!'
+//         })
+//       }
 
-      historyData.push(history)
-    }
+//       const sub = std.subject.find((s) => s.subid === subid)
+//       if (!sub) {
+//         return res.status(404).json({
+//           status: 404,
+//           message: 'subject not found!'
+//         })
+//       }
 
-    await History.insertMany(historyData)
+//       const chapters = chapterData[stdid] && chapterData[stdid][subid]
+//       const chap = chapters.find((ch) => ch.chapterid === chapterid)
 
-    res.status(200).json({
-      status: 200,
-      data: historyData,
-      message: 'success!!'
-    })
-  } catch (error) {
-    // console.error(error.message)
-    res.status(500).json({
-      status: 500,
-      message: "user's history not found!"
-    })
-  }
-})
+//       if (!chap) {
+//         return res.status(404).json({
+//           status: 404,
+//           message: 'chapter not found!'
+//         })
+//       }
 
-module.exports = router
+//       const history = new History({
+//         stdID: std.stdid,
+//         std: std.std,
+//         subID: sub.subid,
+//         subjectName: sub.subjectName,
+//         chapterID: chap.chapterid,
+//         chapterName: chap.content,
+//         teacher: chap.teacher,
+//         questions: questions.map((resultItem) => {
+//           const queDataItem = question.filter(q => q.chapterid === chapterid).find((que) => que.queid === resultItem.queid)
+//           // const queDataItem = question.find(q => q.chapterid === chapterid && q.queid === resultItem.queid);
+
+//           // console.log(queDataItem)
+
+//           return {
+//             questionID: resultItem.queid,
+//             questionName: queDataItem.question,
+//             option: queDataItem.Option,
+//             rightAnswer: queDataItem.rightAns,
+//             user_Ans: resultItem.user_answer || null,
+//             user_Result: resultItem.user_result
+//           }
+//         })
+//       })
+
+//       historyData.push(history)
+//     }
+
+//     await History.insertMany(historyData)
+
+//     res.status(200).json({
+//       status: 200,
+//       data: historyData,
+//       message: 'success!!'
+//     })
+//   } catch (error) {
+//     // console.error(error.message)
+//     res.status(500).json({
+//       status: 500,
+//       message: "user's history not found!"
+//     })
+//   }
+// })
+
+// module.exports = router
