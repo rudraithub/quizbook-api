@@ -10,6 +10,7 @@ const auth = require('../middleware/auth')
 const Chapters = require('../models/chapter')
 const { Subject, Std } = require('../models/std')
 const Question = require('../models/question')
+const User = require('../models/user')
 
 const router = express.Router()
 
@@ -18,6 +19,18 @@ router.use(cors())
 router.post('/results', auth, async (req, res) => {
   try {
     const { stdid, subid, chapterid, questions } = req.body
+
+    const userID = req.user.id
+
+    const user = await User.findOne({ where: { id: userID } })
+    // console.log(user)
+
+    if (!user) {
+      return res.status(400).json({
+        status: 400,
+        message: 'user not found!'
+      })
+    }
 
     const std = await Std.findOne({ where: { stdid } })
 
@@ -57,6 +70,7 @@ router.post('/results', auth, async (req, res) => {
     const questionList = []
     for (const { queid, user_answer } of questions) {
       // Fetch question data based on queid
+
       const questionData = await Question.findOne({ where: { queid } })
       if (!questionData) {
         return res.status(400).json({ status: 400, message: `Question with queid ${queid} not found!` })
@@ -92,18 +106,20 @@ router.post('/results', auth, async (req, res) => {
     // })
 
     const results = Results.build({
+      userID: user.id,
       stdid: std.stdid,
       subid: sub.subid,
       chapterid: chapter.chapterid,
       questions: questionList
     })
 
-    // await results.save()
+    await results.save()
 
     const totalRightQuestions = questionList.filter((qestion) => qestion.user_result === true).length
     const totalWrongQuestions = questionList.length - totalRightQuestions
 
     const resultsData = {
+      userID: results.userID,
       stdid: results.stdid,
       subid: results.subid,
       chapterid: results.chapterid,

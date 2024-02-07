@@ -2,6 +2,10 @@ const { DataTypes } = require('sequelize')
 const sequelize = require('../db/dbConnect')
 
 const Results = sequelize.define('results', {
+  userID: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
   resultid: {
     type: DataTypes.INTEGER,
     primaryKey: true,
