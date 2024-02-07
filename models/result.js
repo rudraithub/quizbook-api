@@ -31,6 +31,11 @@ const Results = sequelize.define('results', {
   questions: {
     type: DataTypes.JSON, // Store questions as JSON
     allowNull: false
+  },
+  submitTime: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: DataTypes.NOW
   }
 }, { timestamps: false })
 

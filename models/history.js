@@ -1,67 +1,65 @@
-const mongoose = require('mongoose')
-// const validator = require('validator')
+const { DataTypes } = require('sequelize')
+const sequelize = require('../db/dbConnect')
 
-const historySchema = new mongoose.Schema({
-  stdID: {
-    type: Number,
-    required: true,
-    trim: true
+const History = sequelize.define('History', {
+  id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true
+  },
+  stdid: {
+    type: DataTypes.INTEGER,
+    allowNull: false
   },
   std: {
-    type: String,
-    trim: true
+    type: DataTypes.STRING,
+    allowNull: false
   },
   subID: {
-    type: Number,
-    // required: true,
-    trim: true
+    type: DataTypes.INTEGER,
+    allowNull: false
   },
   subjectName: {
-    type: String,
-    trim: true
+    type: DataTypes.STRING,
+    allowNull: false
   },
   chapterID: {
-    type: Number,
-    trim: true,
-    required: true
-  },
-  chapterNo: {
-    type: Number,
-    trim: true
+    type: DataTypes.INTEGER,
+    allowNull: false
   },
   chapterName: {
-    type: String,
-    trim: true
+    type: DataTypes.STRING,
+    allowNull: false
   },
   teacher: {
-    type: String,
-    trim: true
+    type: DataTypes.STRING,
+    allowNull: false
   },
-  questions: [{
-    questionID: {
-      type: Number,
-      trim: true,
-      required: true
-    },
-    questionName: {
-      type: String,
-      trim: true
-    },
-    option: {
-      type: Object
-    },
-    rightAnswer: {
-      type: Number
-    },
-    user_Ans: {
-      type: Number
-    },
-    user_Result: {
-      type: Boolean
-    }
-  }]
+  questions: {
+    type: DataTypes.JSON,
+    allowNull: false
+  },
+  submitTime: {
+    type: DataTypes.DATE,
+    allowNull: false
+  },
+  totalQuestions: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  totalRightQuestions: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  totalWrongQuestions: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  }
+}, {
+  timestamps: false,
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 })
-
-const History = mongoose.model('history', historySchema)
 
 module.exports = History

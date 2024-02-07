@@ -1,41 +1,152 @@
-// const express = require('express')
+const express = require('express')
 // const standard = require('../routes/standard')
 // const chapterData = require('../routes/chapter')
 // const question = require('../routes/question')
-// const cors = require('cors')
+const cors = require('cors')
+const User = require('../models/user')
+const Results = require('../models/result')
+const auth = require('../middleware/auth')
+const History = require('../models/history')
+const { Std, Subject } = require('../models/std')
+const Chapters = require('../models/chapter')
+const Question = require('../models/question')
 // const User = require('../models/user')
-// const Results = require('../models/result')
-// const auth = require('../middleware/auth')
-// const History = require('../models/history')
-// // const User = require('../models/user')
-// const router = express.Router()
-// router.use(cors())
+const router = express.Router()
+router.use(cors())
 
-// // router.get('history', auth, async (req, res) => {
-// //   try {
-// //     const userID = req.user.id
+router.get('/history', auth, async (req, res) => {
+  try {
+    const userID = req.user.id
 
-// //     const user = await User.findOne({ where: { id: userID } })
-// //     if (!user) {
-// //       return res.status(400).json({
-// //         status: 400,
-// //         message: 'user not found!'
-// //       })
-// //     }
+    const user = await User.findOne({ where: { id: userID } })
+    if (!user) {
+      return res.status(400).json({
+        status: 400,
+        message: 'user not found!'
+      })
+    }
 
-// //     const results = await Results.findAll({where : {userID: userID}})
+    const results = await Results.findAll({ where: { userID } })
+    // console.log(results)
 
-// //     if(!results){
-// //       return res.status(400).json({
-// //         status: 400,
-// //         message: 'Oops! It seems like there is no result data available for your account.'
-// //       })
-// //     }
+    if (!results) {
+      return res.status(400).json({
+        status: 400,
+        message: 'Oops! It seems like there is no result data available for your account.'
+      })
+    }
 
-// //   } catch (error) {
+    const historyData = []
 
-// //   }
-// // })
+    for (const data of results) {
+      const stdid = data.stdid
+      const subid = data.subid
+      const chapterid = data.chapterid
+      const questions = data.questions
+      const submitTime = data.submitTime
+
+      const std = await Std.findOne({ where: { stdid } })
+      if (!std) {
+        return res.status(400).json({
+          status: 400,
+          message: 'standard not found!'
+        })
+      }
+
+      const sub = await Subject.findOne({ where: { subid } })
+      // Check if sub is fetched correctly
+      if (!sub) {
+        return res.status(400).json({
+          status: 400,
+          message: 'subject not found!'
+        })
+      }
+
+      const chapter = await Chapters.findOne({ where: { chapterid } })
+      // Check if chapter is fetched correctly
+
+      if (!chapter) {
+        return res.status(400).json({
+          status: 400,
+          message: 'chapter not found!'
+        })
+      }
+
+      const totalQuestions = questions.length
+      // console.log(totalQuestions)
+      let totalRightQuestions = 0
+      let totalWrongQuestions = 0
+
+      const questionList = []
+      for (const q of questions) {
+        const queid = q.queid
+        // if (q.user_Result = true) {
+        //   totalRightQuestions++
+        // } else {
+        //   totalWrongQuestions++
+        // }
+        const question = await Question.findOne({ where: { queid, stdid: std.stdid, subid: sub.subid, chapterid } })
+
+        if (!question) {
+          return res.status(400).json({
+            status: 400,
+            message: 'question not found!'
+          })
+        }
+
+        if (q.user_answer === question.rightAns) {
+          totalRightQuestions++;
+        } else {
+          totalWrongQuestions++;
+        }
+        
+
+        questionList.push({
+          questionid: q.queid,
+          questionName: question.question,
+          option: question.Option,
+          rightAnswer: question.rightAns,
+          user_Ans: q.user_answer || null,
+          user_Result: q.user_result
+        })
+      }
+
+      // console.log(questionList)
+
+      const history = {
+        stdid: std.stdid,
+        std: std.std,
+        subID: sub.subid,
+        subjectName: sub.subjectName,
+        chapterID: chapter.chapterid,
+        chapterName: chapter.content,
+        teacher: chapter.teacher,
+        questions: questionList,
+        submitTime,
+        totalQuestions,
+        totalRightQuestions,
+        totalWrongQuestions
+      }
+
+      historyData.push(history)
+    }
+
+    await History.bulkCreate(historyData)
+
+    // console.log(historyData)
+
+    res.status(200).json({
+      status: 200,
+      data: historyData,
+      message: 'success!!'
+    })
+  } catch (error) {
+    res.status(400).json({
+      status: 400,
+      message: error.message
+    })
+  }
+})
 
 // router.get('/history', auth, async (req, res) => {
 //   try {
@@ -130,4 +241,4 @@
 //   }
 // })
 
-// module.exports = router
+module.exports = router

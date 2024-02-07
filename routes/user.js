@@ -4,7 +4,7 @@ const express = require('express')
 const User = require('../models/user')
 const axios = require('axios')
 const multer = require('multer')
-
+const moment = require('moment')
 const router = express.Router()
 const cors = require('cors')
 const authToken = require('../utils/generateAuth')
@@ -61,6 +61,13 @@ router.get('/users/gender', async (req, res) => {
 router.post('/users/signup', async (req, res) => {
   try {
     const { firstName, lastName, email, genderID, DOB, professionId, mobileNumber } = req.body
+
+    if (!moment(DOB, 'DD/MM/YYYY', true).isValid()) {
+      return res.status(400).json({
+        status: 400,
+        message: 'Invalid date format for DOB. Please provide a date in DD/MM/YYYY format.'
+      })
+    }
 
     const prof = await axios.get('http://localhost:3000/users/profession')
     // console.log(prof.data)
@@ -207,9 +214,9 @@ router.post('/users/login', async (req, res) => {
 router.post('/user/logout', auth, async (req, res) => {
   try {
     if (req.user) {
-      req.user.tokens = req.user.tokens.filter((token) => token.token !== req.token)
+      req.user.tokens = null
+      await req.user.save()
     }
-    await req.user.save()
     res.status(200).json({
       status: 200,
       message: 'logout success'
@@ -255,24 +262,19 @@ router.post('/profile/update', auth, async (req, res) => {
   try {
     const { firstName, lastName } = req.body
 
-    const userID = req.user._id
-    const user = await User.findByIdAndUpdate(userID, {
-      firstName,
-      lastName
-    }, {
-      new: true,
-      runValidators: true
-    })
-
+    const userID = req.user.id
+    const user = await User.update({ firstName, lastName }, { where: { id: userID } })
     if (!user) {
       return res.status(404).json({
         status: 404,
         message: 'You are not register yet, please signup first!'
       })
     }
+
+    const updatedUser = await User.findOne({ where: { id: userID } })
     res.status(200).json({
       status: 200,
-      data: user,
+      data: updatedUser,
       message: 'profile update successfully!'
     })
   } catch (error) {
@@ -321,11 +323,11 @@ router.post('/users/avatars', auth, upload.single('avatar'), async (req, res) =>
       throw new Error('Please upload an image')
     }
 
-    const userid = req.user._id
+    const userid = req.user.id
 
     console.log('User ID:', userid)
 
-    const user = await User.findById(userid)
+    const user = await User.findOne({ where: { id: userid } })
     if (!user) {
       return res.status(404).json({
         status: 404,
@@ -352,8 +354,8 @@ router.post('/users/avatars', auth, upload.single('avatar'), async (req, res) =>
 // delete user profile
 router.delete('/users/avatars', auth, async (req, res) => {
   try {
-    const user_id = req.user._id
-    const user = await User.findById({ user_id })
+    const user_id = req.user.id
+    const user = await User.findOne({ where: { id: user_id } })
 
     if (!user) {
       return res.status(404).json({
@@ -362,7 +364,7 @@ router.delete('/users/avatars', auth, async (req, res) => {
       })
     }
 
-    user.userProfile = undefined
+    user.userProfile = null
     await user.save()
     res.status(200).json({
       status: 200,
