@@ -66,7 +66,7 @@ router.post('/users/signup', async (req, res) => {
       return res.status(400).json({
         status: 400,
         message: 'Invalid date format for DOB. Please provide a date in DD/MM/YYYY format.'
-      })
+      });
     }
 
     const prof = await axios.get('http://localhost:3000/users/profession')
@@ -263,7 +263,7 @@ router.post('/profile/update', auth, async (req, res) => {
     const { firstName, lastName } = req.body
 
     const userID = req.user.id
-    const user = await User.update({ firstName, lastName }, { where: { id: userID } })
+    const user = await User.update({ firstName, lastName },{where: {id: userID}})
     if (!user) {
       return res.status(404).json({
         status: 404,
@@ -277,6 +277,7 @@ router.post('/profile/update', auth, async (req, res) => {
       data: updatedUser,
       message: 'profile update successfully!'
     })
+
   } catch (error) {
     res.status(400).json({
       status: 400,
@@ -327,7 +328,7 @@ router.post('/users/avatars', auth, upload.single('avatar'), async (req, res) =>
 
     console.log('User ID:', userid)
 
-    const user = await User.findOne({ where: { id: userid } })
+    const user = await User.findOne({where: {id: userid}})
     if (!user) {
       return res.status(404).json({
         status: 404,
@@ -355,7 +356,7 @@ router.post('/users/avatars', auth, upload.single('avatar'), async (req, res) =>
 router.delete('/users/avatars', auth, async (req, res) => {
   try {
     const user_id = req.user.id
-    const user = await User.findOne({ where: { id: user_id } })
+    const user = await User.findOne({where: { id: user_id }})
 
     if (!user) {
       return res.status(404).json({
