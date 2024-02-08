@@ -105,7 +105,7 @@ router.get('/history', auth, async (req, res) => {
           questionName: question.question,
           option: question.Option,
           rightAnswer: question.rightAns,
-          user_Ans: q.user_answer || null,
+          user_Ans: q.user_answer,
           user_Result: q.user_result
         })
       }
