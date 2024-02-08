@@ -131,7 +131,6 @@
 // user model with Sequelize
 
 const { DataTypes } = require('sequelize')
-const moment = require('moment')
 
 const sequelize = require('../db/dbConnect')
 
@@ -165,15 +164,7 @@ const User = sequelize.define('User', {
   },
   DOB: {
     type: DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      isDate: true,
-      isDDMMYYYYFormat (value) {
-        if (!moment(value, 'DD/MM/YYYY', true).isValid()) {
-          throw new Error('Please provide a valid date in DD/MM/YYYY format for DOB')
-        }
-      }
-    }
+    allowNull: false
   },
   mobileNumber: {
     type: DataTypes.STRING,
@@ -189,6 +180,9 @@ const User = sequelize.define('User', {
   profession: {
     type: DataTypes.JSON(),
     allowNull: false
+  },
+  userProfile: {
+    type: DataTypes.STRING
   },
   tokens: {
     type: DataTypes.STRING

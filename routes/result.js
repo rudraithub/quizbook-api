@@ -125,7 +125,8 @@ router.post('/results', auth, async (req, res) => {
       chapterid: results.chapterid,
       questions: results.questions,
       totalRightQuestions,
-      totalWrongQuestions
+      totalWrongQuestions,
+      submitTime: results.submitTime
     }
 
     res.status(200).json({
