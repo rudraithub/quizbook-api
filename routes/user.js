@@ -21,13 +21,13 @@ const auth = require('../middleware/auth')
 router.use(cors())
 const professions = [{
   id: 1,
-  name: 'student'
+  name: 'Student'
 }, {
   id: 2,
-  name: 'teacher'
+  name: 'Teacher'
 }, {
   id: 3,
-  name: 'admin'
+  name: 'Admin'
 }
 ]
 
@@ -285,11 +285,20 @@ router.post('/profile/update', auth, async (req, res) => {
   }
 })
 
-router.get('/users/profession', (req, res) => {
-  res.set({
-    'Content-Type': 'application/json'
-  })
-  res.json(professions)
+router.get('/users/profession', async (req, res) => {
+  try {
+    const professionData = professions
+    res.status(200).json({
+      status: 200,
+      data: professionData,
+      message: 'Proffession fetch success!!'
+    })
+  } catch (error) {
+    res.status(400).json({
+      status: 400,
+      error: error.message
+    })
+  }
 })
 
 // upload user profile
