@@ -1,5 +1,5 @@
 // webpack.config.js
-const path = require('path');
+const path = require('path')
 
 module.exports = {
   entry: './app.js',
@@ -7,4 +7,4 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist')
   }
-};
+}
