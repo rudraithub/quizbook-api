@@ -46,7 +46,7 @@ router.post('/addstd', auth, roleCheck('Admin'), async (req, res) => {
   }
 })
 
-router.post('/addsubjects',auth, roleCheck('Admin'), async (req, res) => {
+router.post('/addsubjects', auth, roleCheck('Admin'), async (req, res) => {
   try {
     const { stdid, subjectName, img } = req.body
 
