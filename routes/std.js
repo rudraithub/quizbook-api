@@ -7,11 +7,13 @@ const question = require('./question')
 const { Std, Subject } = require('../models/std')
 const Chapters = require('../models/chapter')
 const Question = require('../models/question')
+const { roleCheck } = require('../middleware/roleCheck')
+const auth = require('../middleware/auth')
 router.use(cors())
 
 // sql router for std and subjects
 
-router.post('/addstd', async (req, res) => {
+router.post('/addstd', auth, roleCheck('Admin'), async (req, res) => {
   try {
     const { std } = req.body
 
@@ -27,7 +29,9 @@ router.post('/addstd', async (req, res) => {
       std
     })
 
-    await newStd.save()
+    console.log(newStd.toJSON())
+
+    // await newStd.save()
 
     res.status(200).json({
       status: 200,
@@ -42,7 +46,7 @@ router.post('/addstd', async (req, res) => {
   }
 })
 
-router.post('/addsubjects', async (req, res) => {
+router.post('/addsubjects',auth, roleCheck('Admin'), async (req, res) => {
   try {
     const { stdid, subjectName, img } = req.body
 
@@ -100,7 +104,7 @@ router.get('/std', async (req, res) => {
   }
 })
 
-router.post('/std/subject/addchapters', async (req, res) => {
+router.post('/std/subject/addchapters', auth, roleCheck('Admin'), async (req, res) => {
   try {
     const { stdid, subid, chapterid, content, chapterno, teacher, que, minute } = req.body
     const std = await Std.findOne({ where: { stdid } })
@@ -200,7 +204,7 @@ router.get('/questions', async (req, res) => {
   })
 })
 
-router.post('/std/subject/chapter/addquestions', async (req, res) => {
+router.post('/std/subject/chapter/addquestions', auth, roleCheck('Admin'), async (req, res) => {
   try {
     /* eslint-disable camelcase */
     const { stdid, subid, chapterid, question_no, question, Option, rightAns } = req.body
