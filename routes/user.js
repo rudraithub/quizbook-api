@@ -84,12 +84,12 @@ router.get('/users/gender', async (req, res) => {
   }
 })
 
-router.post('/users/signup',upload.single('userProfile') ,async (req, res) => {
+router.post('/users/signup', upload.single('userProfile'), async (req, res) => {
   try {
-    if(!req.file){
+    if (!req.file) {
       return res.status(400).json({
         status: 400,
-        message: "please upload an image!"
+        message: 'please upload an image!'
       })
     }
     const { firstName, lastName, email, genderID, DOB, professionId, mobileNumber } = req.body
@@ -337,7 +337,6 @@ router.get('/users/profession', async (req, res) => {
     })
   }
 })
-
 
 router.post('/users/avatars', auth, upload.single('avatar'), async (req, res) => {
   try {
