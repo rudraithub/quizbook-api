@@ -72,7 +72,7 @@ router.post('/users/signup', async (req, res) => {
     const prof = await axios.get('http://localhost:3000/users/profession')
     // console.log(prof.data)
 
-    const availabledata = prof.data
+    const availabledata = prof.data.data
 
     const profession = availabledata.find(proff => proff.id === professionId)
 
