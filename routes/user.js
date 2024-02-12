@@ -19,6 +19,7 @@ const auth = require('../middleware/auth')
 // }
 
 router.use(cors())
+
 const professions = [{
   id: 1,
   name: 'Student'
@@ -42,6 +43,31 @@ const genders = [{
   gender: 'Others'
 }]
 
+// upload user profile
+
+const storage = multer.diskStorage({
+  destination: 'avatar',
+  filename (req, file, cb) {
+    // cb(null, file.fieldname + Date.now() + '_' + path.extname(file.originalname))
+    cb(null, file.originalname)
+  }
+})
+
+const upload = multer({
+  storage,
+  limits: {
+    fileSize: 1000000
+  },
+  fileFilter (req, file, cb) {
+    if (!file.originalname.match(/\.(jpg|png|jpeg)/)) {
+      return cb(new Error('please upload an image'))
+    }
+    cb(undefined, true)
+  }
+})
+
+router.use('/', express.static('avatar'))
+
 router.get('/users/gender', async (req, res) => {
   try {
     const genderData = genders
@@ -58,8 +84,14 @@ router.get('/users/gender', async (req, res) => {
   }
 })
 
-router.post('/users/signup', async (req, res) => {
+router.post('/users/signup',upload.single('userProfile') ,async (req, res) => {
   try {
+    if(!req.file){
+      return res.status(400).json({
+        status: 400,
+        message: "please upload an image!"
+      })
+    }
     const { firstName, lastName, email, genderID, DOB, professionId, mobileNumber } = req.body
 
     if (!moment(DOB, 'DD/MM/YYYY', true).isValid()) {
@@ -74,7 +106,7 @@ router.post('/users/signup', async (req, res) => {
 
     const availabledata = prof.data.data
 
-    const profession = availabledata.find(proff => proff.id === professionId)
+    const profession = availabledata.find(proff => proff.id === parseInt(professionId))
 
     if (!profession) {
       return res.status(400).json({
@@ -89,7 +121,7 @@ router.post('/users/signup', async (req, res) => {
     const genderData = genders.data.data
     console.log(genderData)
 
-    const isGender = genderData.find(id => id.id === genderID)
+    const isGender = genderData.find(id => id.id === parseInt(genderID))
     if (!isGender) {
       return res.status(400).json({
         status: 400,
@@ -113,8 +145,13 @@ router.post('/users/signup', async (req, res) => {
         message: 'mobile nubmer is already registered!!!'
       })
     }
+    // console.log(req.file)
+
+    const image = `http://localhost:3000/${req.file.originalname}`
+    // console.log(image)
 
     const newUser = await User.create({
+      userProfile: image,
       firstName,
       lastName,
       email,
@@ -301,30 +338,6 @@ router.get('/users/profession', async (req, res) => {
   }
 })
 
-// upload user profile
-
-const storage = multer.diskStorage({
-  destination: 'avatar',
-  filename (req, file, cb) {
-    // cb(null, file.fieldname + Date.now() + '_' + path.extname(file.originalname))
-    cb(null, file.originalname)
-  }
-})
-
-const upload = multer({
-  storage,
-  limits: {
-    fileSize: 1000000
-  },
-  fileFilter (req, file, cb) {
-    if (!file.originalname.match(/\.(jpg|png|jpeg)/)) {
-      return cb(new Error('please upload an image'))
-    }
-    cb(undefined, true)
-  }
-})
-
-router.use('/', express.static('avatar'))
 
 router.post('/users/avatars', auth, upload.single('avatar'), async (req, res) => {
   try {
