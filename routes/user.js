@@ -147,7 +147,7 @@ router.post('/users/signup', upload.single('userProfile'), async (req, res) => {
     }
     // console.log(req.file)
 
-    const image = `http://localhost:3000/${req.file.originalname}`
+    const image = `http://${process.env.MYSQL_DB_SERVER}:3000/${req.file.originalname}`
     // console.log(image)
 
     const newUser = await User.create({
