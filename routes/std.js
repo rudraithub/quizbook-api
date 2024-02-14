@@ -31,7 +31,7 @@ router.post('/addstd', auth, roleCheck('Admin'), async (req, res) => {
 
     console.log(newStd.toJSON())
 
-    // await newStd.save()
+    await newStd.save()
 
     res.status(200).json({
       status: 200,
