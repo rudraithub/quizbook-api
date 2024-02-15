@@ -292,12 +292,21 @@ router.post('/std/subject/chapter/questions', async (req, res) => {
       })
     }
 
-    const question = await Question.findAll({ where: { stdid: stdID, subid: subId, chapterid: chapterId } })
+    const question = await Question.findAll({ where: { stdid: std.stdid, subid: sub.subid, chapterid: chapter.chapterid } })
 
-    if (!question) {
+    if (question.length === 0) {
       return res.status(400).json({
         status: 400,
         message: 'no qestion found!'
+      })
+    }
+
+    const questionLength = question.length
+    // console.log(questionLength)
+    if(questionLength <= 5){
+      return res.status(400).json({
+        status: 400,
+        message: `you have total ${questionLength} question, atleast 5 question required!`
       })
     }
 
