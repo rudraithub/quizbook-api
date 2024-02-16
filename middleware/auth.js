@@ -13,7 +13,8 @@ const auth = async (req, res, next) => {
 
     if (!user || !user.tokens) {
       return res.status(400).json({
-        message: 'user not found'
+        status: 400,
+        message: 'please, first register or login!'
       })
     }
 

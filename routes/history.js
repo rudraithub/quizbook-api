@@ -22,14 +22,14 @@ router.get('/history', auth, async (req, res) => {
     if (!user) {
       return res.status(400).json({
         status: 400,
-        message: 'user not found!'
+        message: 'please, first register or login!'
       })
     }
 
     const results = await Results.findAll({ where: { userID } })
     // console.log(results)
 
-    if (!results) {
+    if (!results || results.length === 0) {
       return res.status(400).json({
         status: 400,
         message: 'Oops! It seems like there is no result data available for your account.'
