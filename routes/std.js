@@ -59,6 +59,16 @@ router.post('/addsubjects', auth, roleCheck('Admin'), async (req, res) => {
       })
     }
 
+    const existingSubject = await Subject.findOne({
+      where: { stdid, subjectName }
+    })
+    if (existingSubject) {
+      return res.status(400).json({
+        status: 400,
+        message: 'Subject already exists for this standard!'
+      })
+    }
+
     const newSubject = Subject.build({
       stdid,
       subjectName,
@@ -89,6 +99,14 @@ router.get('/std', async (req, res) => {
         attributes: { exclude: ['stdid'] }
       }
     })
+
+    // Check if std is an empty array
+    if (std.length === 0) {
+      return res.status(200).json({
+        status: 200,
+        message: 'No data found!'
+      })
+    }
 
     res.status(200).json({
       status: 200,
@@ -121,6 +139,18 @@ router.post('/std/subject/addchapters', auth, roleCheck('Admin'), async (req, re
       return res.status(400).json({
         status: 400,
         message: 'subject not found!'
+      })
+    }
+
+    // check their is same chapter for same Standard or subject or not
+    const chapterExist = await Chapters.findOne({
+      where: { stdid, subid, chapterno, content }
+    })
+
+    if (chapterExist) {
+      return res.status(400).json({
+        status: 400,
+        message: 'this chapter already exist for this subject and standard'
       })
     }
 
@@ -234,6 +264,15 @@ router.post('/std/subject/chapter/addquestions', auth, roleCheck('Admin'), async
       })
     }
 
+    const isQuestion = await Question.findOne({ where: { stdid, subid, chapterid, question_no } })
+
+    if (isQuestion) {
+      return res.status(400).json({
+        status: 400,
+        message: 'this question already exists for this chapter and standard!'
+      })
+    }
+
     const questionData = Question.build({
       stdid,
       subid,
@@ -303,7 +342,7 @@ router.post('/std/subject/chapter/questions', async (req, res) => {
 
     const questionLength = question.length
     // console.log(questionLength)
-    if (questionLength <= 5) {
+    if (questionLength < 5) {
       return res.status(400).json({
         status: 400,
         message: `you have total ${questionLength} question, atleast 5 question required!`
