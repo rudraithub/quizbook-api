@@ -184,7 +184,7 @@ router.post('/users/signup', upload.single('userProfile'), async (req, res) => {
     res.status(400).json(errorRes)
     // console.log(e.message)
   }
-},(err,req,res,next) => {
+}, (err, req, res, next) => {
   res.status(400).json({
     status: 400,
     message: err.message
