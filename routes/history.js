@@ -22,7 +22,7 @@ router.get('/history', auth, async (req, res) => {
     if (!user) {
       return res.status(400).json({
         status: 400,
-        message: 'please, first register or login!'
+        message: 'please, first signup or login!'
       })
     }
 
@@ -85,7 +85,7 @@ router.get('/history', auth, async (req, res) => {
         // } else {
         //   totalWrongQuestions++
         // }
-        const question = await Question.findOne({ where: { queid, stdid: std.stdid, subid: sub.subid, chapterid } })
+        const question = await Question.findOne({ where: { queid } })
 
         if (!question) {
           return res.status(400).json({
