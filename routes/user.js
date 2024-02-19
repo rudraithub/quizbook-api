@@ -56,7 +56,7 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage,
   limits: {
-    fileSize: 1000000
+    fileSize: 5000000
   },
   fileFilter (req, file, cb) {
     if (!file.originalname.match(/\.(jpg|png|jpeg)/)) {
@@ -184,6 +184,11 @@ router.post('/users/signup', upload.single('userProfile'), async (req, res) => {
     res.status(400).json(errorRes)
     // console.log(e.message)
   }
+}, (err, req, res, next) => {
+  res.status(400).json({
+    status: 400,
+    message: err.message
+  })
 })
 
 router.post('/user/varify', async (req, res) => {
