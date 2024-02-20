@@ -192,7 +192,7 @@ router.post('/std/subject/chapter', async (req, res) => {
       })
     }
 
-    const sub = await Subject.findOne({ where: { subid: subId } })
+    const sub = await Subject.findOne({ where: { stdid: stdId, subid: subId } })
 
     if (!sub) {
       return res.status(400).json({
@@ -314,7 +314,7 @@ router.post('/std/subject/chapter/questions', async (req, res) => {
       })
     }
 
-    const sub = await Subject.findOne({ where: { subid: subId } })
+    const sub = await Subject.findOne({ where: { stdid: stdID, subid: subId } })
 
     if (!sub) {
       return res.status(400).json({
@@ -323,7 +323,7 @@ router.post('/std/subject/chapter/questions', async (req, res) => {
       })
     }
 
-    const chapter = await Chapters.findOne({ where: { chapterid: chapterId } })
+    const chapter = await Chapters.findOne({ where: { stdid:stdID, subid: subId, chapterid: chapterId } })
     if (!chapter) {
       return res.status(400).json({
         status: 400,
