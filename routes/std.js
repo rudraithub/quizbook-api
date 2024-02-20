@@ -323,7 +323,7 @@ router.post('/std/subject/chapter/questions', async (req, res) => {
       })
     }
 
-    const chapter = await Chapters.findOne({ where: { stdid:stdID, subid: subId, chapterid: chapterId } })
+    const chapter = await Chapters.findOne({ where: { stdid: stdID, subid: subId, chapterid: chapterId } })
     if (!chapter) {
       return res.status(400).json({
         status: 400,

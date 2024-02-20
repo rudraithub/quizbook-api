@@ -58,7 +58,7 @@ router.post('/results', auth, async (req, res) => {
       })
     }
 
-    const question = await Question.findAll({ where: { stdid, subid, chapterid} })
+    const question = await Question.findAll({ where: { stdid, subid, chapterid } })
     if (!question) {
       return res.status(400).json({
         status: 400,
