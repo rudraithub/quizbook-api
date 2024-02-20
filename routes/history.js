@@ -26,6 +26,8 @@ router.get('/history', auth, async (req, res) => {
       })
     }
 
+    // console.log(user.toJSON())
+
     const results = await Results.findAll({ where: { userID } })
     // console.log(results)
 
@@ -79,6 +81,7 @@ router.get('/history', auth, async (req, res) => {
 
       const questionList = []
       for (const q of questions) {
+        // console.log(questions)
         const queid = q.queid
         // if (q.user_Result = true) {
         //   totalRightQuestions++
@@ -86,6 +89,7 @@ router.get('/history', auth, async (req, res) => {
         //   totalWrongQuestions++
         // }
         const question = await Question.findOne({ where: { queid } })
+        // console.log(question)
 
         if (!question) {
           return res.status(400).json({

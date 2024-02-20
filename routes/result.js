@@ -41,7 +41,7 @@ router.post('/results', auth, async (req, res) => {
       })
     }
 
-    const sub = await Subject.findOne({ where: { subid } })
+    const sub = await Subject.findOne({ where: { stdid, subid } })
 
     if (!sub) {
       return res.status(400).json({
@@ -50,7 +50,7 @@ router.post('/results', auth, async (req, res) => {
       })
     }
 
-    const chapter = await Chapters.findOne({ where: { chapterid } })
+    const chapter = await Chapters.findOne({ where: { stdid, subid, chapterid } })
     if (!chapter) {
       return res.status(400).json({
         status: 400,
@@ -71,9 +71,9 @@ router.post('/results', auth, async (req, res) => {
     for (const { queid, user_answer } of questions) {
       // Fetch question data based on queid
 
-      const questionData = await Question.findOne({ where: { queid } })
+      const questionData = await Question.findOne({ where: { stdid, subid, chapterid, queid } })
       if (!questionData) {
-        return res.status(400).json({ status: 400, message: `Question with queid ${queid} not found!` })
+        return res.status(400).json({ status: 400, message: `Question with queid ${queid} not found for ${chapter.content}!` })
       }
 
       // Determine if user's answer is correct
