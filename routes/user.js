@@ -94,10 +94,14 @@ router.post('/users/signup', upload.single('userProfile'), async (req, res) => {
     }
     const { firstName, lastName, email, genderID, DOB, professionId, mobileNumber } = req.body
 
+    if(firstName === '' || lastName === ''){
+      throw new Error('please provide firstName and lastName')
+    }
+
     if (!moment(DOB, 'DD/MM/YYYY', true).isValid()) {
       return res.status(400).json({
         status: 400,
-        message: 'Invalid date format for DOB. Please provide a date in DD/MM/YYYY format.'
+        message: 'Please provide a date in DD/MM/YYYY format.'
       })
     }
 
