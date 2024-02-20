@@ -94,7 +94,7 @@ router.post('/users/signup', upload.single('userProfile'), async (req, res) => {
     }
     const { firstName, lastName, email, genderID, DOB, professionId, mobileNumber } = req.body
 
-    if(firstName === '' || lastName === ''){
+    if (firstName === '' || lastName === '') {
       throw new Error('please provide firstName and lastName')
     }
 
