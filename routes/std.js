@@ -133,7 +133,7 @@ router.post('/std/subject/addchapters', auth, roleCheck('Admin'), async (req, re
       })
     }
 
-    const sub = await Subject.findOne({ where: { subid } })
+    const sub = await Subject.findOne({ where: { stdid, subid } })
 
     if (!sub) {
       return res.status(400).json({
@@ -142,15 +142,27 @@ router.post('/std/subject/addchapters', auth, roleCheck('Admin'), async (req, re
       })
     }
 
-    // check their is same chapter for same Standard or subject or not
+    // Check if there is a chapter with the same chapter number for the same standard and subject
+    const chapterExistWithChapterNo = await Chapters.findOne({
+      where: { stdid, subid, chapterno }
+    })
+
+    if (chapterExistWithChapterNo) {
+      return res.status(400).json({
+        status: 400,
+        message: 'A chapter with the same chapter number already exists for this subject and standard'
+      })
+    }
+
+    // Check if there is a chapter with the same content for the same standard and subject
     const chapterExist = await Chapters.findOne({
-      where: { stdid, subid, chapterno, content }
+      where: { stdid, subid, content }
     })
 
     if (chapterExist) {
       return res.status(400).json({
         status: 400,
-        message: 'this chapter already exist for this subject and standard'
+        message: 'A chapter with the same content already exists for this subject and standard'
       })
     }
 
@@ -247,7 +259,7 @@ router.post('/std/subject/chapter/addquestions', auth, roleCheck('Admin'), async
       })
     }
 
-    const sub = await Subject.findOne({ where: { subid } })
+    const sub = await Subject.findOne({ where: { stdid, subid } })
 
     if (!sub) {
       return res.status(400).json({
@@ -256,7 +268,7 @@ router.post('/std/subject/chapter/addquestions', auth, roleCheck('Admin'), async
       })
     }
 
-    const chapter = await Chapters.findOne({ where: { chapterid } })
+    const chapter = await Chapters.findOne({ where: { stdid, subid, chapterid } })
     if (!chapter) {
       return res.status(400).json({
         status: 400,
@@ -264,12 +276,22 @@ router.post('/std/subject/chapter/addquestions', auth, roleCheck('Admin'), async
       })
     }
 
-    const isQuestion = await Question.findOne({ where: { stdid, subid, chapterid, question_no } })
+    // check question with same question number exist
+    const isQuestionNo = await Question.findOne({ where: { stdid, subid, chapterid, question_no } })
+
+    if (isQuestionNo) {
+      return res.status(400).json({
+        status: 400,
+        message: 'A question with question number already exists for this chapter and standard!'
+      })
+    }
+
+    const isQuestion = await Question.findOne({ where: { stdid, subid, chapterid, question } })
 
     if (isQuestion) {
       return res.status(400).json({
         status: 400,
-        message: 'this question already exists for this chapter and standard!'
+        message: 'A question with same content already exist!'
       })
     }
 
