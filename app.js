@@ -4,7 +4,7 @@ const app = express()
 // const cors = require('cors')
 require('./db/dbConnect')
 
-const userRouter = require('./routes/user')
+const { router } = require('./routes/user')
 const stdRouter = require('./routes/std')
 const resultRouter = require('./routes/result')
 const historyRouter = require('./routes/history')
@@ -14,7 +14,7 @@ const port = process.env.PORT || 3000
 // app.use(cors())
 
 app.use(express.json())
-app.use(userRouter)
+app.use(router)
 app.use(stdRouter)
 app.use(resultRouter)
 app.use(historyRouter)

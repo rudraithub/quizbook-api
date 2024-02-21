@@ -48,8 +48,9 @@ const genders = [{
 const storage = multer.diskStorage({
   destination: 'avatar',
   filename (req, file, cb) {
+    const imagePath = file.originalname.split(' ').join('_')
     // cb(null, file.fieldname + Date.now() + '_' + path.extname(file.originalname))
-    cb(null, file.originalname)
+    cb(null, imagePath)
   }
 })
 
@@ -132,7 +133,8 @@ router.post('/users/signup', upload.single('userProfile'), async (req, res) => {
         message: 'Invalid Gender ID'
       })
     }
-    console.log(isGender)
+
+    // console.log(isGender)
 
     // const isEmail = await User.findOne({ email })
     // if (isEmail) {
@@ -149,12 +151,14 @@ router.post('/users/signup', upload.single('userProfile'), async (req, res) => {
         message: 'mobile nubmer is already registered!!!'
       })
     }
-    // console.log(req.file)
 
-    const image = `http://${process.env.MYSQL_SERVER_IP}:3000/${req.file.originalname}`
+    // console.log(req.file)
+    // console.log(req.file.filename)
+
+    const image = `http://${process.env.MYSQL_SERVER_IP}:3000/${req.file.filename}`
     // console.log(image)
 
-    const newUser = await User.create({
+    const newUser = User.build({
       userProfile: image,
       firstName,
       lastName,
@@ -170,6 +174,9 @@ router.post('/users/signup', upload.single('userProfile'), async (req, res) => {
         name: profession.name
       }]
     })
+
+    // console.log(newUser.toJSON())
+    await newUser.save()
 
     const response = {
       status: 200,
@@ -308,7 +315,25 @@ router.post('/profile/update', auth, async (req, res) => {
   try {
     const { firstName, lastName } = req.body
 
+    if (firstName === '' || lastName === '') {
+      return res.status(400).json({
+        status: 400,
+        message: 'First Name or Last Name should not be empty!'
+      })
+    }
+
     const userID = req.user.id
+
+    const lastRecordedUser = await User.findOne({ where: { id: userID } })
+
+    // Check if firstName and lastName are the same as the last recorded values
+    if (lastRecordedUser.firstName === firstName && lastRecordedUser.lastName === lastName) {
+      return res.status(400).json({
+        status: 400,
+        message: 'First name and last name cannot be the same as the last recorded values!'
+      })
+    }
+
     const user = await User.update({ firstName, lastName }, { where: { id: userID } })
     if (!user) {
       return res.status(404).json({
@@ -364,7 +389,7 @@ router.post('/users/avatars', auth, upload.single('avatar'), async (req, res) =>
         message: 'You are not register yet, please signup first!'
       })
     }
-    user.userProfile = `http://localhost:3000/${req.file.originalname}`
+    user.userProfile = `http://localhost:3000/${req.file.filename}`
 
     await user.save()
     res.status(200).json({
@@ -378,7 +403,10 @@ router.post('/users/avatars', auth, upload.single('avatar'), async (req, res) =>
     })
   }
 }, (error, req, res, next) => {
-  res.status(400).json({ error: error.message })
+  res.status(400).json({
+    status: 400,
+    message: error.message
+  })
 })
 
 // delete user profile
@@ -407,5 +435,5 @@ router.delete('/users/avatars', auth, async (req, res) => {
   }
 })
 
-module.exports = router
+module.exports = { router, upload }
 /* eslint-enable camelcase */
