@@ -133,7 +133,7 @@ router.post('/users/signup', upload.single('userProfile'), async (req, res) => {
         message: 'Invalid Gender ID'
       })
     }
-    
+
     // console.log(isGender)
 
     // const isEmail = await User.findOne({ email })
@@ -315,23 +315,23 @@ router.post('/profile/update', auth, async (req, res) => {
   try {
     const { firstName, lastName } = req.body
 
-    if(firstName === '' || lastName === ''){
+    if (firstName === '' || lastName === '') {
       return res.status(400).json({
         status: 400,
         message: 'First Name or Last Name should not be empty!'
       })
     }
-    
+
     const userID = req.user.id
 
-    const lastRecordedUser = await User.findOne({ where: { id: userID } });
+    const lastRecordedUser = await User.findOne({ where: { id: userID } })
 
     // Check if firstName and lastName are the same as the last recorded values
     if (lastRecordedUser.firstName === firstName && lastRecordedUser.lastName === lastName) {
       return res.status(400).json({
         status: 400,
         message: 'First name and last name cannot be the same as the last recorded values!'
-      });
+      })
     }
 
     const user = await User.update({ firstName, lastName }, { where: { id: userID } })
@@ -374,7 +374,6 @@ router.get('/users/profession', async (req, res) => {
 
 router.post('/users/avatars', auth, upload.single('avatar'), async (req, res) => {
   try {
-
     if (!req.file) {
       throw new Error('Please upload an image')
     }
@@ -404,10 +403,10 @@ router.post('/users/avatars', auth, upload.single('avatar'), async (req, res) =>
     })
   }
 }, (error, req, res, next) => {
-  res.status(400).json({ 
+  res.status(400).json({
     status: 400,
     message: error.message
-   })
+  })
 })
 
 // delete user profile

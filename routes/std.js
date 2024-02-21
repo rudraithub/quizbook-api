@@ -58,7 +58,6 @@ router.post('/addstd', auth, roleCheck('Admin'), async (req, res) => {
 
 router.post('/addsubjects', auth, roleCheck('Admin'), upload.single('img'), async (req, res) => {
   try {
-
     if (!req.file) {
       throw new Error('please upload an image!')
     }
@@ -153,7 +152,7 @@ router.post('/std/subject/addchapters', auth, roleCheck('Admin'), async (req, re
   try {
     const { stdid, subid, chapterid, content, chapterno, teacher, que, minute } = req.body
 
-    //check any field is empty or not
+    // check any field is empty or not
     if (content === '' || teacher === '' || minute === '') {
       return res.status(400).json({
         status: 400,
@@ -301,28 +300,28 @@ router.post('/std/subject/chapter/addquestions', auth, roleCheck('Admin'), async
     /* eslint-disable camelcase */
     const { stdid, subid, chapterid, question_no, question, Option, rightAns } = req.body
 
-    if(question === ''){
+    if (question === '') {
       return res.status(400).json({
         status: 400,
         message: 'question not be empty!'
       })
     }
 
-    if (!question_no || question_no <= 0 ) {
+    if (!question_no || question_no <= 0) {
       return res.status(400).json({
         status: 400,
         message: 'Question number cannot be empty or 0!'
       })
     }
 
-    if(rightAns < 0 || rightAns === null){
+    if (rightAns < 0 || rightAns === null) {
       return res.status(400).json({
         status: 400,
         message: 'Right Answer cannot be empty!'
       })
     }
 
-    if(Option.length !== 4){
+    if (Option.length !== 4) {
       return res.status(400).json({
         status: 400,
         message: 'You must provide 4 options!'

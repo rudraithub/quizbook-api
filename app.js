@@ -4,7 +4,7 @@ const app = express()
 // const cors = require('cors')
 require('./db/dbConnect')
 
-const {router} = require('./routes/user')
+const { router } = require('./routes/user')
 const stdRouter = require('./routes/std')
 const resultRouter = require('./routes/result')
 const historyRouter = require('./routes/history')
