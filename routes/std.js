@@ -88,7 +88,7 @@ router.post('/addsubjects', auth, roleCheck('Admin'), upload.single('img'), asyn
       })
     }
 
-    const subjectImage = `http://localhost:3000/${req.file.filename}`
+    const subjectImage = `http://${process.env.MYSQL_SERVER_IP}:3000/${req.file.filename}`
 
     const newSubject = Subject.build({
       stdid,
