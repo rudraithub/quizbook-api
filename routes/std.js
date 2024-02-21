@@ -9,6 +9,7 @@ const Chapters = require('../models/chapter')
 const Question = require('../models/question')
 const { roleCheck } = require('../middleware/roleCheck')
 const auth = require('../middleware/auth')
+const { upload } = require('./user')
 router.use(cors())
 
 // sql router for std and subjects
@@ -16,6 +17,15 @@ router.use(cors())
 router.post('/addstd', auth, roleCheck('Admin'), async (req, res) => {
   try {
     const { std } = req.body
+
+    const standard = parseInt(std)
+
+    if (isNaN(standard) || standard === 0 || standard < 1 || standard > 12) {
+      return res.status(400).json({
+        status: 400,
+        message: 'Invalid standard value. Please provide a number between 1 and 12.'
+      })
+    }
 
     const isStd = await Std.findOne({ where: { std } })
 
@@ -46,9 +56,14 @@ router.post('/addstd', auth, roleCheck('Admin'), async (req, res) => {
   }
 })
 
-router.post('/addsubjects', auth, roleCheck('Admin'), async (req, res) => {
+router.post('/addsubjects', auth, roleCheck('Admin'), upload.single('img'), async (req, res) => {
   try {
-    const { stdid, subjectName, img } = req.body
+
+    if (!req.file) {
+      throw new Error('please upload an image!')
+    }
+
+    const { stdid, subjectName } = req.body
 
     const isStd = await Std.findOne({ where: { stdid } })
 
@@ -59,9 +74,14 @@ router.post('/addsubjects', auth, roleCheck('Admin'), async (req, res) => {
       })
     }
 
+    if (subjectName === '' || null || undefined) {
+      throw new Error('subjct name should not be empty!')
+    }
+
     const existingSubject = await Subject.findOne({
       where: { stdid, subjectName }
     })
+
     if (existingSubject) {
       return res.status(400).json({
         status: 400,
@@ -69,10 +89,12 @@ router.post('/addsubjects', auth, roleCheck('Admin'), async (req, res) => {
       })
     }
 
+    const subjectImage = `http://localhost:3000/${req.file.filename}`
+
     const newSubject = Subject.build({
       stdid,
       subjectName,
-      img
+      img: subjectImage
     })
 
     await newSubject.save()
@@ -88,6 +110,11 @@ router.post('/addsubjects', auth, roleCheck('Admin'), async (req, res) => {
       message: error.message
     })
   }
+}, (err, req, res, next) => {
+  return res.status(400).json({
+    status: 400,
+    message: err.message
+  })
 })
 
 router.get('/std', async (req, res) => {
@@ -125,6 +152,29 @@ router.get('/std', async (req, res) => {
 router.post('/std/subject/addchapters', auth, roleCheck('Admin'), async (req, res) => {
   try {
     const { stdid, subid, chapterid, content, chapterno, teacher, que, minute } = req.body
+
+    //check any field is empty or not
+    if (content === '' || teacher === '' || minute === '') {
+      return res.status(400).json({
+        status: 400,
+        message: 'Empty Field does not allowed, Please Fill all filed!'
+      })
+    }
+
+    if (!Number.isInteger(chapterno) || chapterno <= 0) {
+      return res.status(400).json({
+        status: 400,
+        message: 'Invalid chapter number.'
+      })
+    }
+
+    if (!Number.isInteger(que) || que <= 0) {
+      return res.status(400).json({
+        status: 400,
+        message: 'Invalid Question number.'
+      })
+    }
+
     const std = await Std.findOne({ where: { stdid } })
     if (!std) {
       return res.status(400).json({
@@ -179,7 +229,7 @@ router.post('/std/subject/addchapters', auth, roleCheck('Admin'), async (req, re
 
     await newChapter.save()
 
-    console.log(newChapter)
+    // console.log(newChapter)
     res.status(200).json({
       status: 200,
       data: newChapter,
@@ -250,6 +300,34 @@ router.post('/std/subject/chapter/addquestions', auth, roleCheck('Admin'), async
   try {
     /* eslint-disable camelcase */
     const { stdid, subid, chapterid, question_no, question, Option, rightAns } = req.body
+
+    if(question === ''){
+      return res.status(400).json({
+        status: 400,
+        message: 'question not be empty!'
+      })
+    }
+
+    if (!question_no || question_no <= 0 ) {
+      return res.status(400).json({
+        status: 400,
+        message: 'Question number cannot be empty or 0!'
+      })
+    }
+
+    if(rightAns < 0 || rightAns === null){
+      return res.status(400).json({
+        status: 400,
+        message: 'Right Answer cannot be empty!'
+      })
+    }
+
+    if(Option.length !== 4){
+      return res.status(400).json({
+        status: 400,
+        message: 'You must provide 4 options!'
+      })
+    }
     const std = await Std.findOne({ where: { stdid } })
 
     if (!std) {
