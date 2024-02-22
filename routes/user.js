@@ -47,7 +47,7 @@ const genders = [{
 
 const storage = multer.diskStorage({
   destination: 'avatar',
-  filename (req, file, cb) {
+  filename(req, file, cb) {
     const imagePath = file.originalname.split(' ').join('_')
     // cb(null, file.fieldname + Date.now() + '_' + path.extname(file.originalname))
     cb(null, imagePath)
@@ -59,7 +59,7 @@ const upload = multer({
   limits: {
     fileSize: 1000000
   },
-  fileFilter (req, file, cb) {
+  fileFilter(req, file, cb) {
     if (!file.originalname.match(/\.(jpg|png|jpeg)/)) {
       return cb(new Error('please upload an image'))
     }
@@ -313,9 +313,6 @@ router.get('/profile', auth, async (req, res) => {
 
 router.post('/profile/update', auth, upload.single('userProfile'), async (req, res) => {
   try {
-    if (!req.file) {
-      throw new Error('please provide an image!')
-    }
     const { firstName, lastName, email, DOB, professionId, genderID } = req.body
 
     if (firstName === '' || lastName === '' || email === '' || DOB === '') {
@@ -375,7 +372,11 @@ router.post('/profile/update', auth, upload.single('userProfile'), async (req, r
       }]
     }
 
-    const userImage = `http://${process.env.MYSQL_SERVER_IP}:3000/${req.file.filename}`
+    let userImage = req.user.userProfile
+    if(req.file){
+      userImage = `http://${process.env.MYSQL_SERVER_IP}:3000/${req.file.filename}`
+    }
+
     // console.log(`new record: ${userImage}`)
     // console.log(`last record: ${lastRecordedUser.userProfile}`)
 
@@ -407,6 +408,11 @@ router.post('/profile/update', auth, upload.single('userProfile'), async (req, r
       message: error.message
     })
   }
+},(err, req, res, next) => {
+  res.status(400).json({
+    status: 400,
+    message: err.message
+  })
 })
 
 router.get('/users/profession', async (req, res) => {
@@ -461,6 +467,7 @@ router.post('/users/avatars', auth, upload.single('avatar'), async (req, res) =>
     message: error.message
   })
 })
+
 
 // delete user profile
 router.delete('/users/avatars', auth, async (req, res) => {
