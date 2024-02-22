@@ -311,30 +311,83 @@ router.get('/profile', auth, async (req, res) => {
 
 // user profile update
 
-router.post('/profile/update', auth, async (req, res) => {
+router.post('/profile/update', auth, upload.single('userProfile'), async (req, res) => {
   try {
-    const { firstName, lastName } = req.body
+    if (!req.file) {
+      throw new Error('please provide an image!')
+    }
+    const { firstName, lastName, email, DOB, professionId, genderID } = req.body
 
-    if (firstName === '' || lastName === '') {
+    if (firstName === '' || lastName === '' || email === '' || DOB === '') {
       return res.status(400).json({
         status: 400,
-        message: 'First Name or Last Name should not be empty!'
+        message: 'Field should not be empty!'
       })
     }
 
     const userID = req.user.id
 
-    const lastRecordedUser = await User.findOne({ where: { id: userID } })
+    // const lastRecordedUser = await User.findOne({ where: { id: userID } })
 
-    // Check if firstName and lastName are the same as the last recorded values
-    if (lastRecordedUser.firstName === firstName && lastRecordedUser.lastName === lastName) {
-      return res.status(400).json({
-        status: 400,
-        message: 'First name and last name cannot be the same as the last recorded values!'
-      })
+    let profession
+    if (professionId) {
+      const prof = await axios.get('http://localhost:3000/users/profession')
+      // // console.log(prof.data)
+
+      const availabledata = prof.data.data
+
+      const isProfession = availabledata.find(proff => proff.id === parseInt(professionId))
+
+      if (!isProfession) {
+        return res.status(400).json({
+          status: 400,
+          message: 'Invalid profession ID'
+        })
+      }
+
+      profession = [{
+        _id: isProfession.id,
+        name: isProfession.name
+      }]
     }
 
-    const user = await User.update({ firstName, lastName }, { where: { id: userID } })
+    let gender
+
+    if (genderID) {
+      const genders = await axios.get('http://localhost:3000/users/gender')
+      // console.log(gender)
+
+      const genderData = genders.data.data
+      // console.log(genderData)
+
+      const isGender = genderData.find(id => id.id === parseInt(genderID))
+
+      if (!isGender) {
+        return res.status(400).json({
+          status: 400,
+          message: 'Invalid Gender ID'
+        })
+      }
+
+      gender = [{
+        _id: isGender.id,
+        name: isGender.gender
+      }]
+    }
+
+    const userImage = `http://${process.env.MYSQL_SERVER_IP}:3000/${req.file.filename}`
+    // console.log(`new record: ${userImage}`)
+    // console.log(`last record: ${lastRecordedUser.userProfile}`)
+
+    // // Check if firstName and lastName are the same as the last recorded values
+    // if (lastRecordedUser.userProfile === userImage && lastRecordedUser.firstName === firstName && lastRecordedUser.lastName === lastName && lastRecordedUser.email === email && lastRecordedUser.DOB === DOB && lastRecordedUser.gender[0]._id === parseInt(genderID) && lastRecordedUser.profession[0]._id === parseInt(professionId)) {
+    //   return res.status(400).json({
+    //     status: 400,
+    //     message: 'updated value should not be same as per last records!'
+    //   })
+    // }
+
+    const user = await User.update({ firstName, lastName, email, DOB, gender, profession, userProfile: userImage }, { where: { id: userID } })
     if (!user) {
       return res.status(404).json({
         status: 404,
@@ -351,7 +404,7 @@ router.post('/profile/update', auth, async (req, res) => {
   } catch (error) {
     res.status(400).json({
       status: 400,
-      message: 'You are not register yet, please signup or login'
+      message: error.message
     })
   }
 })
