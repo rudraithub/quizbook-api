@@ -47,7 +47,7 @@ const genders = [{
 
 const storage = multer.diskStorage({
   destination: 'avatar',
-  filename(req, file, cb) {
+  filename (req, file, cb) {
     const imagePath = file.originalname.split(' ').join('_')
     // cb(null, file.fieldname + Date.now() + '_' + path.extname(file.originalname))
     cb(null, imagePath)
@@ -59,7 +59,7 @@ const upload = multer({
   limits: {
     fileSize: 1000000
   },
-  fileFilter(req, file, cb) {
+  fileFilter (req, file, cb) {
     if (!file.originalname.match(/\.(jpg|png|jpeg)/)) {
       return cb(new Error('please upload an image'))
     }
@@ -373,7 +373,7 @@ router.post('/profile/update', auth, upload.single('userProfile'), async (req, r
     }
 
     let userImage = req.user.userProfile
-    if(req.file){
+    if (req.file) {
       userImage = `http://${process.env.MYSQL_SERVER_IP}:3000/${req.file.filename}`
     }
 
@@ -408,7 +408,7 @@ router.post('/profile/update', auth, upload.single('userProfile'), async (req, r
       message: error.message
     })
   }
-},(err, req, res, next) => {
+}, (err, req, res, next) => {
   res.status(400).json({
     status: 400,
     message: err.message
@@ -467,7 +467,6 @@ router.post('/users/avatars', auth, upload.single('avatar'), async (req, res) =>
     message: error.message
   })
 })
-
 
 // delete user profile
 router.delete('/users/avatars', auth, async (req, res) => {
