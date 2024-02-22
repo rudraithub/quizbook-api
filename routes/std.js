@@ -442,8 +442,8 @@ router.post('/std/subject/chapter/questions', async (req, res) => {
     const questionLength = question.length
     // console.log(questionLength)
     if (questionLength < 5) {
-      return res.status(400).json({
-        status: 400,
+      return res.status(403).json({
+        status: 403,
         message: `you have total ${questionLength} question, atleast 5 question required!`
       })
     }
