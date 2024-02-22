@@ -313,9 +313,6 @@ router.get('/profile', auth, async (req, res) => {
 
 router.post('/profile/update', auth, upload.single('userProfile'), async (req, res) => {
   try {
-    if (!req.file) {
-      throw new Error('please provide an image!')
-    }
     const { firstName, lastName, email, DOB, professionId, genderID } = req.body
 
     if (firstName === '' || lastName === '' || email === '' || DOB === '') {
@@ -375,7 +372,11 @@ router.post('/profile/update', auth, upload.single('userProfile'), async (req, r
       }]
     }
 
-    const userImage = `http://${process.env.MYSQL_SERVER_IP}:3000/${req.file.filename}`
+    let userImage = req.user.userProfile
+    if (req.file) {
+      userImage = `http://${process.env.MYSQL_SERVER_IP}:3000/${req.file.filename}`
+    }
+
     // console.log(`new record: ${userImage}`)
     // console.log(`last record: ${lastRecordedUser.userProfile}`)
 
@@ -407,6 +408,11 @@ router.post('/profile/update', auth, upload.single('userProfile'), async (req, r
       message: error.message
     })
   }
+}, (err, req, res, next) => {
+  res.status(400).json({
+    status: 400,
+    message: err.message
+  })
 })
 
 router.get('/users/profession', async (req, res) => {
