@@ -12,8 +12,8 @@ const auth = async (req, res, next) => {
     const user = await User.findOne({ where: { id: decode.id, tokens: token } })
 
     if (!user || !user.tokens) {
-      return res.status(400).json({
-        status: 400,
+      return res.status(404).json({
+        status: 404,
         message: 'please, first register or login!'
       })
     }

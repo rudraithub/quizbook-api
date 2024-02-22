@@ -26,9 +26,9 @@ router.post('/results', auth, async (req, res) => {
     // console.log(user)
 
     if (!user) {
-      return res.status(400).json({
-        status: 400,
-        message: 'user not found!'
+      return res.status(404).json({
+        status: 404,
+        message: 'please, first register or login!'
       })
     }
 

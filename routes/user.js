@@ -256,11 +256,11 @@ router.post('/users/login', async (req, res) => {
     res.json(response)
   } catch (error) {
     const errorRes = {
-      status: 404,
+      status: 400,
       message: 'You are not register yet, please signup!'
     }
 
-    res.status(404).json(errorRes)
+    res.status(400).json(errorRes)
   }
 })
 
@@ -338,7 +338,7 @@ router.post('/profile/update', auth, async (req, res) => {
     if (!user) {
       return res.status(404).json({
         status: 404,
-        message: 'You are not register yet, please signup first!'
+        message: 'You are not register yet, please signup or login first!'
       })
     }
 
