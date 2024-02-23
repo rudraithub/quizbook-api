@@ -123,7 +123,11 @@ router.get('/std', async (req, res) => {
         model: Subject,
         as: 'Subjects',
         attributes: { exclude: ['stdid'] }
-      }
+      },
+      order: [
+        ['std', 'ASC'],
+        [{ model: Subject, as: 'Subjects' }, 'subjectName', 'ASC']
+      ]
     })
 
     // Check if std is an empty array

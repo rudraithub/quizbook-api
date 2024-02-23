@@ -28,7 +28,7 @@ router.get('/history', auth, async (req, res) => {
 
     // console.log(user.toJSON())
 
-    const results = await Results.findAll({ where: { userID } })
+    const results = await Results.findAll({ where: { userID }, order: [['submitTime', 'DESC']] })
     // console.log(results)
 
     if (!results || results.length === 0) {
