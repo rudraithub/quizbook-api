@@ -122,6 +122,7 @@ router.get('/history', auth, async (req, res) => {
         subID: sub.subid,
         subjectName: sub.subjectName,
         chapterID: chapter.chapterid,
+        chapterNO: chapter.chapterno,
         chapterName: chapter.content,
         teacher: chapter.teacher,
         questions: questionList,
