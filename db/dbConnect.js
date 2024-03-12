@@ -21,13 +21,13 @@ const sequelize = new Sequelize(process.env.MYSQL_QZ_DB_NAME, process.env.MYSQL_
   logging: false
 })
 
-try {
-  sequelize.authenticate()
-  console.log('Connection has been established successfully.')
-  sequelize.sync()
-  console.log('All models synchronized successfully.')
-} catch (error) {
-  console.error('Unable to connect to the database:', error.message)
-}
+// try {
+//   sequelize.authenticate();
+//   console.log('Connection has been established successfully.');
+//   sequelize.sync();
+//   console.log('All models synchronized successfully.');
+// } catch (error) {
+//   console.error('Unable to connect to the database:', error.message);
+// }
 
 module.exports = sequelize
