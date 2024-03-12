@@ -132,8 +132,8 @@ router.get('/std', async (req, res) => {
 
     // Check if std is an empty array
     if (std.length === 0) {
-      return res.status(200).json({
-        status: 200,
+      return res.status(400).json({
+        status: 400,
         message: 'No data found!'
       })
     }
