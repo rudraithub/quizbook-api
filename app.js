@@ -13,7 +13,7 @@ const port = process.env.PORT || 3000
 
 // app.use(cors())
 
-app.get('/health', async(req, res) => {
+app.get('/health', async (req, res) => {
   try {
     await sequelize.authenticate()
     await sequelize.sync()
