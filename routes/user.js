@@ -3,12 +3,12 @@
 const express = require('express')
 const User = require('../models/user')
 const axios = require('axios')
-const multer = require('multer')
 const moment = require('moment')
 const router = express.Router()
 const cors = require('cors')
 const authToken = require('../utils/generateAuth')
 const auth = require('../middleware/auth')
+const upload = require('../cloudinary_connection/multer_connection')
 
 // router.use(cors())
 
@@ -44,30 +44,6 @@ const genders = [{
 }]
 
 // upload user profile
-
-const storage = multer.diskStorage({
-  destination: 'avatar',
-  filename (req, file, cb) {
-    const imagePath = file.originalname.split(' ').join('_')
-    // cb(null, file.fieldname + Date.now() + '_' + path.extname(file.originalname))
-    cb(null, imagePath)
-  }
-})
-
-const upload = multer({
-  storage,
-  limits: {
-    fileSize: 1000000
-  },
-  fileFilter (req, file, cb) {
-    if (!file.originalname.match(/\.(jpg|png|jpeg)/)) {
-      return cb(new Error('please upload an image'))
-    }
-    cb(undefined, true)
-  }
-})
-
-router.use('/', express.static('avatar'))
 
 router.get('/users/gender', async (req, res) => {
   try {
@@ -124,7 +100,7 @@ router.post('/users/signup', upload.single('userProfile'), async (req, res) => {
     // console.log(gender)
 
     const genderData = genders.data.data
-    console.log(genderData)
+    // console.log(genderData)
 
     const isGender = genderData.find(id => id.id === parseInt(genderID))
     if (!isGender) {
@@ -155,7 +131,7 @@ router.post('/users/signup', upload.single('userProfile'), async (req, res) => {
     // console.log(req.file)
     // console.log(req.file.filename)
 
-    const image = `http://${process.env.MYSQL_SERVER_IP}:3000/${req.file.filename}`
+    const image = req.file.path
     // console.log(image)
 
     const newUser = User.build({

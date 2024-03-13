@@ -39,7 +39,7 @@ router.post('/addstd', auth, roleCheck('Admin'), async (req, res) => {
       std
     })
 
-    console.log(newStd.toJSON())
+    // console.log(newStd.toJSON())
 
     await newStd.save()
 
@@ -88,7 +88,7 @@ router.post('/addsubjects', auth, roleCheck('Admin'), upload.single('img'), asyn
       })
     }
 
-    const subjectImage = `http://${process.env.MYSQL_SERVER_IP}:3000/${req.file.filename}`
+    const subjectImage = req.file.path
 
     const newSubject = Subject.build({
       stdid,
