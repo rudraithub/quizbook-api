@@ -3,7 +3,6 @@
 const express = require('express')
 const User = require('../models/user')
 const axios = require('axios')
-const multer = require('multer')
 const moment = require('moment')
 const router = express.Router()
 const cors = require('cors')
