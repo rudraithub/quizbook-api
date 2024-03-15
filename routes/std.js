@@ -154,7 +154,7 @@ router.get('/std', async (req, res) => {
 
 router.post('/std/subject/addchapters', auth, roleCheck('Admin'), async (req, res) => {
   try {
-    const { stdid, subid, chapterid, content, chapterno, teacher, que, minute } = req.body
+    const { stdid, subid, chapterid, content, teacher, que, minute } = req.body
 
     // check any field is empty or not
     if (content === '' || teacher === '' || minute === '') {
@@ -164,12 +164,12 @@ router.post('/std/subject/addchapters', auth, roleCheck('Admin'), async (req, re
       })
     }
 
-    if (!Number.isInteger(chapterno) || chapterno <= 0) {
-      return res.status(400).json({
-        status: 400,
-        message: 'Invalid chapter number.'
-      })
-    }
+    // if (!Number.isInteger(chapterno) || chapterno <= 0) {
+    //   return res.status(400).json({
+    //     status: 400,
+    //     message: 'Invalid chapter number.'
+    //   })
+    // }
 
     if (!Number.isInteger(que) || que <= 0) {
       return res.status(400).json({
@@ -196,16 +196,16 @@ router.post('/std/subject/addchapters', auth, roleCheck('Admin'), async (req, re
     }
 
     // Check if there is a chapter with the same chapter number for the same standard and subject
-    const chapterExistWithChapterNo = await Chapters.findOne({
-      where: { stdid, subid, chapterno }
-    })
+    // const chapterExistWithChapterNo = await Chapters.findOne({
+    //   where: { stdid, subid, chapterno }
+    // })
 
-    if (chapterExistWithChapterNo) {
-      return res.status(400).json({
-        status: 400,
-        message: 'A chapter with the same chapter number already exists for this subject and standard'
-      })
-    }
+    // if (chapterExistWithChapterNo) {
+    //   return res.status(400).json({
+    //     status: 400,
+    //     message: 'A chapter with the same chapter number already exists for this subject and standard'
+    //   })
+    // }
 
     // Check if there is a chapter with the same content for the same standard and subject
     const chapterExist = await Chapters.findOne({
@@ -218,6 +218,9 @@ router.post('/std/subject/addchapters', auth, roleCheck('Admin'), async (req, re
         message: 'A chapter with the same content already exists for this subject and standard'
       })
     }
+
+    const findMaxChapNo = await Chapters.max('chapterno', { where: { subid } })
+    const chapterno = findMaxChapNo ? findMaxChapNo + 1 : 1
 
     const newChapter = Chapters.build({
       stdid,
@@ -302,19 +305,12 @@ router.get('/questions', async (req, res) => {
 router.post('/std/subject/chapter/addquestions', auth, roleCheck('Admin'), async (req, res) => {
   try {
     /* eslint-disable camelcase */
-    const { stdid, subid, chapterid, question_no, question, Option, rightAns } = req.body
+    const { stdid, subid, chapterid, question, Option, rightAns } = req.body
 
     if (question === '') {
       return res.status(400).json({
         status: 400,
         message: 'question not be empty!'
-      })
-    }
-
-    if (!question_no || question_no <= 0) {
-      return res.status(400).json({
-        status: 400,
-        message: 'Question number cannot be empty or 0!'
       })
     }
 
@@ -358,14 +354,14 @@ router.post('/std/subject/chapter/addquestions', auth, roleCheck('Admin'), async
     }
 
     // check question with same question number exist
-    const isQuestionNo = await Question.findOne({ where: { stdid, subid, chapterid, question_no } })
+    // const isQuestionNo = await Question.findOne({ where: { stdid, subid, chapterid, question_no } })
 
-    if (isQuestionNo) {
-      return res.status(400).json({
-        status: 400,
-        message: 'A question with question number already exists for this chapter and standard!'
-      })
-    }
+    // if (isQuestionNo) {
+    //   return res.status(400).json({
+    //     status: 400,
+    //     message: 'A question with question number already exists for this chapter and standard!'
+    //   })
+    // }
 
     const isQuestion = await Question.findOne({ where: { stdid, subid, chapterid, question } })
 
@@ -375,6 +371,9 @@ router.post('/std/subject/chapter/addquestions', auth, roleCheck('Admin'), async
         message: 'A question with same content already exist!'
       })
     }
+
+    const maxQuestionNo = await Question.max('question_no', { where: { chapterid } })
+    const question_no = maxQuestionNo ? maxQuestionNo + 1 : 1
 
     const questionData = Question.build({
       stdid,

@@ -350,7 +350,7 @@ router.post('/profile/update', auth, upload.single('userProfile'), async (req, r
 
     let userImage = req.user.userProfile
     if (req.file) {
-      userImage = `http://${process.env.MYSQL_SERVER_IP}:3000/${req.file.filename}`
+      userImage = req.file.path
     }
 
     // console.log(`new record: ${userImage}`)
