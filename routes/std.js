@@ -10,7 +10,6 @@ const Question = require('../models/question')
 const { roleCheck } = require('../middleware/roleCheck')
 const auth = require('../middleware/auth')
 const { upload } = require('./user')
-const { where } = require('sequelize')
 router.use(cors())
 
 // sql router for std and subjects
@@ -220,7 +219,7 @@ router.post('/std/subject/addchapters', auth, roleCheck('Admin'), async (req, re
       })
     }
 
-    const findMaxChapNo = await  Chapters.max('chapterno', {where : {subid}})
+    const findMaxChapNo = await Chapters.max('chapterno', { where: { subid } })
     const chapterno = findMaxChapNo ? findMaxChapNo + 1 : 1
 
     const newChapter = Chapters.build({
@@ -373,8 +372,8 @@ router.post('/std/subject/chapter/addquestions', auth, roleCheck('Admin'), async
       })
     }
 
-    const maxQuestionNo = await Question.max('question_no', { where: { chapterid } });
-    const question_no = maxQuestionNo ? maxQuestionNo + 1 : 1;
+    const maxQuestionNo = await Question.max('question_no', { where: { chapterid } })
+    const question_no = maxQuestionNo ? maxQuestionNo + 1 : 1
 
     const questionData = Question.build({
       stdid,
