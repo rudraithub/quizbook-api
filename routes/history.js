@@ -14,7 +14,7 @@ const Question = require('../models/question')
 const router = express.Router()
 router.use(cors())
 
-router.get('/history', auth, async (req, res) => {
+router.get('/history', auth, async (req, res, next) => {
   try {
     const userID = req.user.id
 
@@ -145,10 +145,7 @@ router.get('/history', auth, async (req, res) => {
       message: 'success!!'
     })
   } catch (error) {
-    res.status(400).json({
-      status: 400,
-      message: error.message
-    })
+    next(error)
   }
 })
 

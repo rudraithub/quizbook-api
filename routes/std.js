@@ -2,19 +2,19 @@ const express = require('express')
 const cors = require('cors')
 const router = express.Router()
 // const chapterData = require('./chapter')
-const question = require('./question')
+// const question = require('./question')
 // const standard = require('./standard')
 const { Std, Subject } = require('../models/std')
 const Chapters = require('../models/chapter')
 const Question = require('../models/question')
 const { roleCheck } = require('../middleware/roleCheck')
 const auth = require('../middleware/auth')
-const { upload } = require('./user')
+const upload = require('../cloudinary_connection/multer_connection')
 router.use(cors())
 
 // sql router for std and subjects
 
-router.post('/addstd', auth, roleCheck('Admin'), async (req, res) => {
+router.post('/addstd', auth, roleCheck('Admin'), async (req, res, next) => {
   try {
     const { std } = req.body
 
@@ -49,14 +49,11 @@ router.post('/addstd', auth, roleCheck('Admin'), async (req, res) => {
       message: 'Standard added successfully!'
     })
   } catch (error) {
-    res.status(400).json({
-      status: 400,
-      message: error.message
-    })
+    next(error)
   }
 })
 
-router.post('/addsubjects', auth, roleCheck('Admin'), upload.single('img'), async (req, res) => {
+router.post('/addsubjects', auth, roleCheck('Admin'), upload.single('img'), async (req, res, next) => {
   try {
     if (!req.file) {
       throw new Error('please upload an image!')
@@ -104,19 +101,11 @@ router.post('/addsubjects', auth, roleCheck('Admin'), upload.single('img'), asyn
       message: 'subject added successfully!'
     })
   } catch (error) {
-    res.status(400).json({
-      status: 400,
-      message: error.message
-    })
+    next(error)
   }
-}, (err, req, res, next) => {
-  return res.status(400).json({
-    status: 400,
-    message: err.message
-  })
 })
 
-router.get('/std', async (req, res) => {
+router.get('/std', async (req, res, next) => {
   try {
     const std = await Std.findAll({
       include: {
@@ -145,14 +134,11 @@ router.get('/std', async (req, res) => {
     })
   } catch (error) {
     console.error(error)
-    res.status(500).json({
-      status: 500,
-      message: 'Internal Server Error!'
-    })
+    next(error)
   }
 })
 
-router.post('/std/subject/addchapters', auth, roleCheck('Admin'), async (req, res) => {
+router.post('/std/subject/addchapters', auth, roleCheck('Admin'), async (req, res, next) => {
   try {
     const { stdid, subid, chapterid, content, teacher, que, minute } = req.body
 
@@ -242,11 +228,11 @@ router.post('/std/subject/addchapters', auth, roleCheck('Admin'), async (req, re
       message: 'Chapter Added successfully!'
     })
   } catch (error) {
-    console.log(error.message)
+    next(error)
   }
 })
 
-router.post('/std/subject/chapter', async (req, res) => {
+router.post('/std/subject/chapter', async (req, res, next) => {
   try {
     const stdId = req.body.stdid
     const subId = req.body.subid
@@ -283,26 +269,23 @@ router.post('/std/subject/chapter', async (req, res) => {
       message: 'success!!'
     })
   } catch (error) {
-    res.status(400).json({
-      status: 400,
-      message: error.message
-    })
+    next(error)
   }
 })
 
-router.get('/questions', async (req, res) => {
-  const arayQuestion = Object.values(question)
-  console.log(arayQuestion)
-  res.set({
-    'Content-Type': 'application/json'
-  })
-  res.json({
-    status: 200,
-    data: arayQuestion
-  })
-})
+// router.get('/questions', async (req, res, next) => {
+//   const arayQuestion = Object.values(question)
+//   console.log(arayQuestion)
+//   res.set({
+//     'Content-Type': 'application/json'
+//   })
+//   res.json({
+//     status: 200,
+//     data: arayQuestion
+//   })
+// })
 
-router.post('/std/subject/chapter/addquestions', auth, roleCheck('Admin'), async (req, res) => {
+router.post('/std/subject/chapter/addquestions', auth, roleCheck('Admin'), async (req, res, next) => {
   try {
     /* eslint-disable camelcase */
     const { stdid, subid, chapterid, question, Option, rightAns } = req.body
@@ -394,14 +377,11 @@ router.post('/std/subject/chapter/addquestions', auth, roleCheck('Admin'), async
     })
     /* eslint-enable camelcase */
   } catch (error) {
-    res.status(400).json({
-      status: 400,
-      message: error.message
-    })
+    next(error)
   }
 })
 
-router.post('/std/subject/chapter/questions', async (req, res) => {
+router.post('/std/subject/chapter/questions', async (req, res, next) => {
   try {
     const stdID = req.body.stdid
     const subId = req.body.subid
@@ -457,10 +437,7 @@ router.post('/std/subject/chapter/questions', async (req, res) => {
       message: 'Success!'
     })
   } catch (error) {
-    res.status(400).json({
-      status: 400,
-      message: error.message
-    })
+    next(error)
   }
 })
 

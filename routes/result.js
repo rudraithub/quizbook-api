@@ -16,7 +16,7 @@ const router = express.Router()
 
 router.use(cors())
 
-router.post('/results', auth, async (req, res) => {
+router.post('/results', auth, async (req, res, next) => {
   try {
     const { stdid, subid, chapterid, questions } = req.body
 
@@ -135,10 +135,7 @@ router.post('/results', auth, async (req, res) => {
       message: 'results'
     })
   } catch (error) {
-    res.status(400).json({
-      status: 400,
-      message: error.message
-    })
+    next(error)
   }
 })
 

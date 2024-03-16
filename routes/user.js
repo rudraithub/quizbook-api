@@ -45,7 +45,7 @@ const genders = [{
 
 // upload user profile
 
-router.get('/users/gender', async (req, res) => {
+router.get('/users/gender', async (req, res, next) => {
   try {
     const genderData = genders
     res.status(200).json({
@@ -54,14 +54,11 @@ router.get('/users/gender', async (req, res) => {
       message: 'Gender fetch success!!'
     })
   } catch (error) {
-    res.status(400).json({
-      status: 400,
-      error: error.message
-    })
+    next(error)
   }
 })
 
-router.post('/users/signup', upload.single('userProfile'), async (req, res) => {
+router.post('/users/signup', upload.single('userProfile'), async (req, res, next) => {
   try {
     if (!req.file) {
       return res.status(400).json({
@@ -82,7 +79,7 @@ router.post('/users/signup', upload.single('userProfile'), async (req, res) => {
       })
     }
 
-    const prof = await axios.get('http://localhost:3000/users/profession')
+    const prof = await axios.get(`http://${process.env.SERVER_DOMAIN_NAME}:${process.env.PORT}/users/profession`)
     // console.log(prof.data)
 
     const availabledata = prof.data.data
@@ -96,7 +93,7 @@ router.post('/users/signup', upload.single('userProfile'), async (req, res) => {
       })
     }
 
-    const genders = await axios.get('http://localhost:3000/users/gender')
+    const genders = await axios.get(`http://${process.env.SERVER_DOMAIN_NAME}:${process.env.PORT}/users/gender`)
     // console.log(gender)
 
     const genderData = genders.data.data
@@ -168,17 +165,12 @@ router.post('/users/signup', upload.single('userProfile'), async (req, res) => {
       status: 400,
       message: e.message
     }
-    res.status(400).json(errorRes)
+    next(errorRes)
     // console.log(e.message)
   }
-}, (err, req, res, next) => {
-  res.status(400).json({
-    status: 400,
-    message: err.message
-  })
 })
 
-router.post('/user/varify', async (req, res) => {
+router.post('/user/varify', async (req, res, next) => {
   try {
     const { mobileNumber } = req.body
 
@@ -196,14 +188,11 @@ router.post('/user/varify', async (req, res) => {
       message: 'success!'
     })
   } catch (error) {
-    res.status(400).json({
-      status: 400,
-      message: error.message
-    })
+    next(error)
   }
 })
 
-router.post('/users/login', async (req, res) => {
+router.post('/users/login', async (req, res, next) => {
   try {
     const { mobileNumber } = req.body
     const user = await User.findOne({
@@ -236,11 +225,11 @@ router.post('/users/login', async (req, res) => {
       message: 'You are not register yet, please signup!'
     }
 
-    res.status(400).json(errorRes)
+    next(errorRes)
   }
 })
 
-router.post('/user/logout', auth, async (req, res) => {
+router.post('/user/logout', auth, async (req, res, next) => {
   try {
     if (req.user) {
       req.user.tokens = null
@@ -251,15 +240,12 @@ router.post('/user/logout', auth, async (req, res) => {
       message: 'logout success'
     })
   } catch (error) {
-    res.status(400).json({
-      status: 400,
-      message: 'you are already logout!'
-    })
+    next(error)
   }
 })
 
 // get user profile
-router.get('/profile', auth, async (req, res) => {
+router.get('/profile', auth, async (req, res, next) => {
   try {
     const userID = req.user.id
 
@@ -278,16 +264,13 @@ router.get('/profile', auth, async (req, res) => {
       message: 'success!!'
     })
   } catch (error) {
-    res.status(400).json({
-      status: 400,
-      message: 'You are not register yet, please signup or login'
-    })
+    next(error)
   }
 })
 
 // user profile update
 
-router.post('/profile/update', auth, upload.single('userProfile'), async (req, res) => {
+router.post('/profile/update', auth, upload.single('userProfile'), async (req, res, next) => {
   try {
     const { firstName, lastName, email, DOB, professionId, genderID } = req.body
 
@@ -304,7 +287,7 @@ router.post('/profile/update', auth, upload.single('userProfile'), async (req, r
 
     let profession
     if (professionId) {
-      const prof = await axios.get('http://localhost:3000/users/profession')
+      const prof = await axios.get(`http://${process.env.SERVER_DOMAIN_NAME}:${process.env.PORT}/users/profession`)
       // // console.log(prof.data)
 
       const availabledata = prof.data.data
@@ -327,7 +310,7 @@ router.post('/profile/update', auth, upload.single('userProfile'), async (req, r
     let gender
 
     if (genderID) {
-      const genders = await axios.get('http://localhost:3000/users/gender')
+      const genders = await axios.get(`http://${process.env.SERVER_DOMAIN_NAME}:${process.env.PORT}/users/gender`)
       // console.log(gender)
 
       const genderData = genders.data.data
@@ -379,19 +362,11 @@ router.post('/profile/update', auth, upload.single('userProfile'), async (req, r
       message: 'profile update successfully!'
     })
   } catch (error) {
-    res.status(400).json({
-      status: 400,
-      message: error.message
-    })
+    next(error)
   }
-}, (err, req, res, next) => {
-  res.status(400).json({
-    status: 400,
-    message: err.message
-  })
 })
 
-router.get('/users/profession', async (req, res) => {
+router.get('/users/profession', async (req, res, next) => {
   try {
     const professionData = professions
     res.status(200).json({
@@ -400,10 +375,7 @@ router.get('/users/profession', async (req, res) => {
       message: 'Proffession fetch success!!'
     })
   } catch (error) {
-    res.status(400).json({
-      status: 400,
-      error: error.message
-    })
+    next(error)
   }
 })
 
@@ -424,7 +396,7 @@ router.post('/users/avatars', auth, upload.single('avatar'), async (req, res) =>
         message: 'You are not register yet, please signup first!'
       })
     }
-    user.userProfile = `http://localhost:3000/${req.file.filename}`
+    user.userProfile = req.file.path
 
     await user.save()
     res.status(200).json({
@@ -470,5 +442,5 @@ router.delete('/users/avatars', auth, async (req, res) => {
   }
 })
 
-module.exports = { router, upload }
+module.exports = { router }
 /* eslint-enable camelcase */
