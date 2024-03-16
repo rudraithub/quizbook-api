@@ -10,7 +10,6 @@ const stdRouter = require('./routes/std')
 const resultRouter = require('./routes/result')
 const historyRouter = require('./routes/history')
 
-
 newrelic.config = {
   appName: process.env.NEW_RELIC_APP_NAME,
   licenceKey: process.env.NEW_RELIC_LICENSE_KEY
@@ -74,13 +73,13 @@ app.use('*', (req, res) => {
 
 app.use((error, req, res, next) => {
   newrelic.noticeError(error)
-  error.statusCode = error.statusCode || 400;
-  error.status = error.status || "Error";
+  error.statusCode = error.statusCode || 400
+  error.status = error.status || 'Error'
   res.status(error.statusCode).json({
-      status: error.statusCode,
-      message: error.message,
-  });
-});
+    status: error.statusCode,
+    message: error.message
+  })
+})
 
 app.listen(port, () => {
   console.log('sever connected on ', port)

@@ -54,7 +54,7 @@ router.get('/users/gender', async (req, res, next) => {
       message: 'Gender fetch success!!'
     })
   } catch (error) {
-   next(error)
+    next(error)
   }
 })
 
@@ -165,7 +165,7 @@ router.post('/users/signup', upload.single('userProfile'), async (req, res, next
       status: 400,
       message: e.message
     }
-   next(errorRes)
+    next(errorRes)
     // console.log(e.message)
   }
 })
@@ -188,7 +188,7 @@ router.post('/user/varify', async (req, res, next) => {
       message: 'success!'
     })
   } catch (error) {
-   next(error)
+    next(error)
   }
 })
 
