@@ -317,7 +317,7 @@ router.post('/profile/update', auth, upload.single('userProfile'), async (req, r
     if (genderID) {
       const genders = await axios.get(`http://${process.env.SERVER_DOMAIN_NAME}/users/gender`)
       if (!genders) throw new Error('unble to fetch gender data!')
-      // console.log(gender)
+      // console.log("gender", genders)
 
       const genderData = genders.data.data
       // console.log(genderData)
