@@ -79,7 +79,10 @@ router.post('/users/signup', upload.single('userProfile'), async (req, res, next
       })
     }
 
-    const prof = await axios.get(`http://${process.env.SERVER_DOMAIN_NAME}:${process.env.PORT}/users/profession`)
+    const prof = await axios.get(`http://${process.env.SERVER_DOMAIN_NAME}/users/profession`)
+
+    if (!prof) throw new Error('unble to fetch profession data!')
+
     // console.log(prof.data)
 
     const availabledata = prof.data.data
@@ -93,7 +96,8 @@ router.post('/users/signup', upload.single('userProfile'), async (req, res, next
       })
     }
 
-    const genders = await axios.get(`http://${process.env.SERVER_DOMAIN_NAME}:${process.env.PORT}/users/gender`)
+    const genders = await axios.get(`http://${process.env.SERVER_DOMAIN_NAME}/users/gender`)
+    if (!genders) throw new Error('unble to fetch gender data!')
     // console.log(gender)
 
     const genderData = genders.data.data
@@ -287,7 +291,8 @@ router.post('/profile/update', auth, upload.single('userProfile'), async (req, r
 
     let profession
     if (professionId) {
-      const prof = await axios.get(`http://${process.env.SERVER_DOMAIN_NAME}:${process.env.PORT}/users/profession`)
+      const prof = await axios.get(`http://${process.env.SERVER_DOMAIN_NAME}/users/profession`)
+      if (!prof) throw new Error('unble to fetch profession data!')
       // // console.log(prof.data)
 
       const availabledata = prof.data.data
@@ -310,8 +315,9 @@ router.post('/profile/update', auth, upload.single('userProfile'), async (req, r
     let gender
 
     if (genderID) {
-      const genders = await axios.get(`http://${process.env.SERVER_DOMAIN_NAME}:${process.env.PORT}/users/gender`)
-      // console.log(gender)
+      const genders = await axios.get(`http://${process.env.SERVER_DOMAIN_NAME}/users/gender`)
+      if (!genders) throw new Error('unble to fetch gender data!')
+      // console.log("gender", genders)
 
       const genderData = genders.data.data
       // console.log(genderData)
