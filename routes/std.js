@@ -297,10 +297,10 @@ router.post('/std/subject/chapter/addquestions', auth, roleCheck('Admin'), async
       })
     }
 
-    if (rightAns < 0 || rightAns === null) {
+    if (rightAns < 0 || rightAns > 3 || rightAns === null) {
       return res.status(400).json({
         status: 400,
-        message: 'Right Answer cannot be empty!'
+        message: 'Right Answer cannot be empty or should be 0, 1, 2, 3 only!'
       })
     }
 
